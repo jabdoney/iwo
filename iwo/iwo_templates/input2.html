@@ -1,0 +1,2527 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
+
+
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script> 
+
+
+    <title>Tenth Circuit CAPS-Compatible IWO/Florida Addendum</title>
+
+
+<style>
+.banner{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-template-rows:1fr;
+    height:10vh;
+    position:absolute;
+    left:0px;
+    right:0px;
+    top:0px;
+    bottom:0px;
+}
+.banner > div{
+    background-color:rgb(0, 51, 153);
+    width:auto;
+
+}
+.main-container{
+    display:grid;
+    grid-template-columns:1fr;
+    background-color: #cccccc;
+    height:90vh;
+    position:absolute;
+    left:0px;
+    right:0px;
+    top:10vh;
+    bottom:0px;
+    column-gap:5px;
+}
+.sub-banner{
+    display:grid;
+    grid-template-columns:65% 35%;
+    grid-template-rows:1;
+    background-color:#bfbfbf;
+    justify-content:space-between;
+    align-items: center;
+    height:8vh;
+    padding-left:10px;
+}
+.form-container{
+    display:grid;
+    grid-template-columns:24% repeat(20,1fr) 16%;
+    grid-template-rows:repeat(25,30px);
+    background-color:#f2f2f2;
+    justify-content:left;
+    align-items: center;
+    height:79vh;
+    padding:10px;
+    font-size:12px;
+}
+.form-container > div select{
+    width:201px;
+    font-size:12px;
+}
+.form-container > div input[type="text"]{
+    width:195px;
+    border:1px solid;
+    margin-right:5px;
+    font-size:12px;
+}
+
+.form-container > div input[type="checkbox"]{
+    width:20px;
+    margin-right:-20px;
+    border:none;
+}
+.form-container > div button{
+    background-color:#bfbfbf;
+}
+.form-container-2{
+    display:grid;
+    grid-template-columns:20% 1fr 20%;
+    grid-template-rows:repeat(25,30px);
+    background-color:#f2f2f2;
+    justify-content:center;
+    align-items: center;
+    height:80vh;
+    padding:10px;
+    font-size:12px;
+
+}
+.form-container-2 > div input[type="text"]{
+    width:150px;
+    border:1px solid;
+    margin-right:5px;
+    font-size:12px;
+}
+.form-container-2 > div button{
+    background-color:#bfbfbf;
+    border:1px solid black;
+}
+.next_back:focus{
+    background-color:green;
+    border-radius:0
+}
+.form-container-2 table{
+    display:flex;
+    width:100%;
+    margin-top:0px;
+    margin-bottom:0px;
+    border-collapse:collapse;
+    justify-content:center;
+}
+.form-container-2 td{
+    border:1px solid black;
+    padding:3px;
+}
+.form-container-2 td:nth-child(even){
+    font-style:italic;
+}
+.form-container-2 th{
+    border:1px solid black;
+    padding:3px;
+}
+.form-container-2 th:nth-child(odd){
+    background-color:#bfbfbf;
+}
+.form-container-2 th:nth-child(even){
+    background-color:#999999;
+}
+.child-text > input[type="text"]{
+    width:175px;
+}
+.child-dob > input[type="text"]{
+    width:80px;
+}
+.form-container > div input[type="date"]{
+    width:201px;
+    font-size:12px;
+    border:1px solid;   
+}.warning{
+    color:red;
+    margin-left:-200px;
+}
+.footer{
+  display:grid;
+  grid-template-columns:30;
+  grid-template-rows:auto;
+  background-color:#00b3b3;
+  justify-content:center;
+  border:1px solid;
+  height:5vh;
+  margin-top:91.8vh;
+  position:fixed;
+  left:0px;
+  right:0px;
+  margin-top:0px;
+  bottom:0px;
+}
+
+</style>
+
+
+</head>
+
+
+<body>
+
+<div class="banner" id="banner" name="banner" style="background-color:rgb(0, 51, 153)">
+    <div>
+        <h3 style="margin-top:20px; padding-left:5px; margin-bottom:0px; color:white">Florida's Tenth Judicial Circuit</h3>
+        <h5 style="margin-top:0px; padding-left:5px; color:white"><i>Where Professionalism is a Priority</i></h5>
+    </div>
+    <div>
+        <h1 style="grid-column:1/span 4;grid-row:1;margin-top:20px; margin-bottom:0px; padding-right:20px; color:white; text-align:right">Bar Services</h1>
+
+    </div>
+</div>
+
+
+<div id=globals hidden>
+    <input type="text" id="global_obligoraddress" value="">
+    <input type="text" id="global_obligeeaddress" value="">
+    <input type="text" id="global_per" value="">
+    <input type="text" id="global_lump" value="">
+    <input type="text" id="global_alimony" value="">
+    <input type="text" id="global_import" value="">
+    <input type="text" id="global_term" value="">
+</div>
+
+<div class="main-container">
+    <div class="sub-banner">
+        <div style="grid-column:1;grid-row:1">
+            <h2>ICMS-Compatible Income Withholding Order for Support/Florida Addendum</h2> 
+        </div>
+        <form method="POST" action="/readword/" enctype="multipart/form-data">
+        {% csrf_token %}
+
+            <div style="grid-column:2;grid-row:1;margin-right:10px">
+            <div style="display:inline-flex;float:right">
+                <label for="word-file" style="margin-right:10px"><strong>Import Data:</strong></label>
+                <input py-click="show_import()" type="file" name="word_file" id="word_file" style="margin-right:10px">
+                <button py-click="unshow_import()" type="submit" name="read_word" id="read_word" hidden>Import</button>
+
+            </div>
+            </div>
+         </form>
+    </div>
+
+    <form method="POST" action="/download/">
+    {% csrf_token %}
+    <div class="form-container" id="casepartyinfo">
+        <div style="grid-column:6/span 10;grid-row:1">
+            <h3 style="background-color:#d9d9d9;padding-left:5px">Case Number</h3>
+        </div>
+
+        <div style="grid-column:7/span 3;grid-row:2"> 
+            <p>County code: </p>
+        </div>
+        <div style="grid-column:11/span 2;grid-row:2">
+
+            <select py-blur="casenumber(1)" py-change="casenumber(1)" name="countycode" id="countycode" name="countycode">
+                {% if request.session.countycode == "25,Hardee,Tenth,12049" %}
+                    <option value="25,Hardee,Tenth,12049">Hardee</option>
+                {% elif request.session.countycode == "53,Polk,Tenth,12105" %}
+                    <option value="53,Polk,Tenth,12105">Polk</option>
+                {% elif request.session.countycode == "28,Highlands,Tenth,12055" %}
+                    <option value="28,Highlands,Tenth,12055">Highlands</option>
+                {% else %}
+                <option value=""></option>
+                <option value="25,Hardee,Tenth,12049">Hardee</option>
+                <option value="28,Highlands,Tenth,12055">Highlands</option>
+                <option value="53,Polk,Tenth,12105">Polk</option>
+                {% endif %}
+            </select> 
+        </div>
+
+         <div class="warning" style="grid-column:22;grid-row:2" id="fixcountycode" hidden>
+            <h3>Please select a county.</h3>
+        </div>
+        <div style="grid-column:7/span 3;grid-row:3">
+            <p>Case year: </p>
+        </div>
+
+        <div style="grid-column:11/span 2;grid-row:3">
+            <input py-blur="casenumber(2)" py-change="casenumber(2)" type="text" id="caseyear" name="caseyear" value="{{request.session.caseyear}}">
+        </div>
+            
+        <div class="warning" style="grid-column:22;grid-row:3" id="fixyear" hidden>
+            <h3>Please enter the 4-digit case year in 'YYYY' format.</h3>
+        </div>
+        <div style="grid-column:7/span 3;grid-row:4">
+            <p>File number: </p>
+        </div>
+  
+        <div style="grid-column:11/span 2;grid-row:4">
+            <input py-blur="casenumber(3)" py-change="casenumber(3)" type="text" id="fileno" name="fileno" value="{{request.session.fileno}}">
+        </div>
+
+
+        <div class="warning" style="grid-column:22;grid-row:4" id="fixfilenumber" hidden>
+            <h3>Please enter the file number.</h3>
+        </div>
+        <div style="grid-column:7/span 3;grid-row:5">
+            <p>Suffix: </p>
+        </div>
+        <div style="grid-column:11/span 2;grid-row:5">
+            <input py-blur="casenumber(4)" py-change="casenumber(4)" type="text" id="suffix" name="suffix" value="{{request.session.suffix}}">
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:5" id="fixsuffix" hidden>
+            <h3>Please enter the 2-character suffix. (e.g., "WH", "LK", "00", "XX")</h3>
+        </div>
+        <div style="grid-column:7/span 3;grid-row:6">
+            <P>UCN number: </p>
+        </div>
+        <div style="grid-column:11/span 2;grid-row:6">
+            <input type="text" id="casenumber" name="casenumber">
+        </div>
+
+        <div style="grid-column:6/span 10;grid-row:7">
+            <h3 style="background-color:#d9d9d9;padding-left:5px">Division/Section</h3>
+        </div>
+
+        <div style="grid-column:7/span 3;grid-row:8">
+            <p>Division/Section: </p>
+        </div>
+        <div style="grid-column:11/span 2;grid-row:8">
+            <input py-blur="casenumber(5)" py-change="casenumber(5)" type="text" id="division" name="division" value="{{request.session.division}}">
+        </div>
+        <div class="warning" style='grid-column:22;grid-row:8' id="fixdivision" hidden>
+            <h3>Please enter a division/section.</h3>
+        </div>
+ 
+        <div style="grid-column:6/span 10;grid-row:9">
+            <h3 style= "background-color:#d9d9d9;padding-left:5px">Obligor's Information:</h3>
+        </div>
+        <div style="grid-column:7/span 3;grid-row:10">
+            <p>Obligor's Name: </p>
+        </div>
+        <div style="grid-column:11/span 2;grid-row:10">
+            <input py-blur="sub_entername('obligorname','entername','formatname')" type="text" id="obligorname" name="obligorname" value="{{request.session.obligorname}}">
+        </div>
+            <div class="warning" style="grid-column:22;grid-row:10" id="entername" hidden>
+                <h3>Please enter a name in the highlighted field.</h3>
+            </div>
+            <div class="warning" style="grid-column:22;grid-row:10" id="formatname" hidden>
+                <h3>Please provide the name in 'Last, First [Middle] format'.</h3>
+            </div>
+        <div style="grid-column:7/span 3;grid-row:11">
+            <p>Address (line 1):</p> 
+        </div>
+        <div style="grid-column:11/span 2;grid-row:11">
+            <input py-change="unpinkaddress()" type="text" id="obligoraddress1" name="obligoraddress1" value="{{request.session.obligoraddress1}}">
+        </div>
+        <div style="grid-column:7/span 3;grid-row:12">
+            <p>Address (line 2): </p>
+        </div>
+        <div style="grid-column:11/span 2;grid-row:12">
+            <input py-change="unpinkaddress()" type="text" id="obligoraddress2" name="obligoraddress2" value="{{request.session.obligoraddress2}}">
+        </div>
+        <div style="grid-column:7/span 3;grid-row:13">
+            <p>Address (line 3): </p>
+        </div>
+        <div style="grid-column:11/span 2;grid-row:13">
+            <input py-change="unpinkaddress()" type="text" id="obligoraddress3" name="obligoraddress3" value="{{request.session.obligoraddress3}}">
+        </div>
+            <div class="warning" style="grid-column:22;grid-row:11" id="enter_obligoraddress" hidden>
+                <h3>Do you know the obligor's address?</h3>
+                <span>
+                    <button py-click="enterobligoraddress('yes')" type="button" id="yesobligoraddressknown" name="yesobligoraddressknown">Yes</button>
+                    <button py-click="enterobligoraddress('no')" type="button" id="noobligoraddressknown" name="noobligoraddressknown">No</button>
+                </span>
+            </div>
+            <div class="warning" style="grid-column:22;grid-row:11" id="obligorenteraddress" hidden>
+                <h3>Please enter an address in the highlighted fields.</h3>
+            </div>
+
+        <div style="grid-column:6/span 10;grid-row:14">
+            <h3 style= "background-color:#d9d9d9;padding-left:5px">Obligee's Information:</h3>
+        </div>
+        <div style="grid-column:7/span 3;grid-row:15">
+            <p>Obligee's Name: </p>
+        </div>
+        <div style="grid-column:11/span 2;grid-row:15">    
+            <input py-blur="sub_entername('obligeename2','entername2','formatname2')" type="text" id="obligeename2" name="obligeename2" value="{{request.session.obligeename2}}">
+        </div>
+            <div class="warning" style="grid-column:22;grid-row:15" id="entername2" hidden>
+                <h3>Please enter a name in the highlighted field.</h3>
+            </div>
+            <div class="warning" style="grid-column:22;grid-row:15" id="formatname2" hidden>
+                <h3>Please provide the name in 'Last, First [Middle] format'.</h3>
+            </div>
+
+        <div style="grid-column:7/span 3;grid-row:16">
+            <p>Address (line 1): </p>
+        </div>
+        <div style="grid-column:11/span 2;grid-row:16">
+            <input py-change="unpinkaddress()" type="text" id="obligeeaddress1" name="obligeeaddress1" value="{{request.session.obligoraddress1}}">
+        </div>
+        <div style="grid-column:7/span 3;grid-row:17">
+            <p>Address (line 2): </p>
+        </div>
+        <div style="grid-column:11/span 2;grid-row:17">
+            <input py-change="unpinkaddress()" type="text" id="obligeeaddress2" name="obligeeaddress2" value="{{request.session.obligoraddress2}}">
+        </div>
+        <div style="grid-column:7/span 3;grid-row:18">
+            <p>Address (line 3): </p>
+        </div>
+        <div style="grid-column:11/span 2;grid-row:18">
+            <input py-change="unpinkaddress()" type="text" id="obligeeaddress3" name="obligeeaddress3" value="{{request.session.obligoraddress3}}">
+        </div>
+
+            <div class="warning" style="grid-column:22;grid-row:16" id="enter_obligeeaddress" hidden>
+                <h3>Do you know the obligee's address?</h3>
+                <span>
+                    <button py-click="enterobligeeaddress('yes')" type="button" id="yesobligeeaddressknown" name="yesobligeeaddressknown" style="margin-right:10px">Yes</button>
+                    <button py-click="enterobligeeaddress('no')" type="button" id="noobligeeaddressknown" name="noobligeeaddressknown">No</button>
+                </span>
+            </div>
+            <div class="warning" style="grid-column:22;grid-row:16" id="obligeeenteraddress" hidden>
+                <h3>Please enter an address in the highlighted fields.</h3>
+            </div>
+
+        <div style="grid-column:6/span 10;grid-row:19">
+            <h3 style="background-color:#d9d9d9;padding-left:5px">Party Information</h3>
+        </div>
+        <div style="grid-column:7/span 7;grid-row:20">
+            <p>Who is paying support?</p>
+        </div>
+        <div style="grid-column:11;grid-row:20">
+            <input py-change="checkgroup_2choice('petitioner','respondent')" type="checkbox" id="petitioner" name="petitioner" {% if request.session.petitioner == 'on' %} checked=True {% endif %}>
+        </div>
+        <div style="grid-column:12;grid-row:20">
+            <label for="petitioner" id="petitionerlabel" style="margin-left:-20px"> Petitioner  </label>
+        </div>
+
+        <div style="grid-column:13;grid-row:20">
+            <input py-change="checkgroup_2choice('respondent','petitioner')" type="checkbox" id="respondent" name="respondent" {% if request.session.respondent == 'on' %} checked=True {% endif %}>
+        </div>
+        <div style="grid-column:14;grid-row:20">
+            <label for="respondent" id ="respondentlabel"  style="margin-left:-20px"> Respondent</label>
+        </div>
+            <div class="warning" style="grid-column:22;grid-row:20" id="fixpetitionerrespondent" hidden>
+                <h3>Please indicate which party is paying support.</h3>
+            </div>
+        <div style="grid-column:10/span 2;grid-row:22;margin-left:50px">
+                <button py-click="next0to1()" class="next_back" type="button" name="next0" id="next0">Next</button>                
+        </div>
+    
+    
+    
+    
+
+    </div>
+    <div class="form-container" id="sender-info" style="display:none">
+        <div style="grid-column:6/span 10;grid-row:1">
+            <h3 style="background-color:#d9d9d9;padding-left:5px">Date</h3>
+        </div>
+                
+        <div style="grid-column:7/span 3;grid-row:2">
+            <label for="date1" id="date1label" autofocus>Date: </label>
+        </div>
+        <div style="grid-column:11/span2;grid-row:2">
+            <input type="date" id="date1" name="date1" {% if request.session.date1 != None %} value="{{request.session.date1}}" {% else %} value="{{date1}}" {% endif %}>
+        </div>
+        <div style="grid-column:6/span 10;grid-row:3">
+            <h3 style="background-color:#d9d9d9;padding-left:5px">Order Type</h3>
+        </div>
+        <div style="grid-column:7;grid-row:4">
+            <input py-change="sub1_1()" type="checkbox" id="iwo" name="iwo" {% if request.session.iwo == 'on' %} checked=True {% endif %}>
+        </div>
+        <div style="grid-column:8/span 9;grid-row:4">
+            <label for="iwo" id="iwolabel" style="margin-left:-20px">INCOME WITHHOLDING ORDER/NOTICE FOR SUPPORT (IWO)  </label>
+        </div>
+            <div class="warning" style="grid-column:22;grid-row:4" id="pleasecheck" hidden>
+                <h3>Please check one of the highlighted checkboxes.</h3>
+            </div>
+        <div style="grid-column:7;grid-row:5">
+            <input py-change="sub1_2()" type="checkbox" id="amendiwo" name="amendiwo" {% if request.session.amendiwo == 'on' %} checked=True {% endif %}>
+        </div>
+        <div style="grid-column:8/span 9;grid-row:5">
+            <label for="amendiwo" id ="amendiwolabel" style="margin-left:-20px">AMENDED IWO</label>
+        </div>
+
+        <div style="grid-column:7;grid-row:6">
+            <input py-change="sub1_3()" type="checkbox" id="lump" name="lump" {% if request.session.lump == 'on' %} checked=True {% endif %}>
+        </div>
+        <div style="grid-column:8/span 9;grid-row:6">
+            <label for="lump" id="lumplabel" style="margin-left:-20px">ONE-TIME ORDER/NOTICE FOR LUMP SUM PAYMENT  </label>
+        </div>
+        <div style="grid-column:7;grid-row:7">
+            <input py-change="sub1_4()" type="checkbox" id="termiwo" name="termiwo" {% if request.session.termiwo == 'on' %} checked=True {% endif %}>
+        </div>
+        <div style="grid-column:8/span 9;grid-row:7">
+            <label for="termiwo" id="termiwolabel" style="margin-left:-20px">TERMINATION OF IWO</label>
+        </div>
+        
+
+        <div style="grid-column:6/span 10;grid-row:8">
+            <h3 style="background-color:#d9d9d9;padding-left:5px">Order Source</h3>
+        </div>
+        <div style="grid-column:7;grid-row:9">
+                <input py-change="sub1_5()" type="checkbox" id="cse" name="cse" {% if request.session.cse == 'on' %} checked=True {% endif %}>
+        </div>
+        <div style="grid-column:8/span 9;grid-row:9">
+                <label for="cse" id="cselabel" style="margin-left:-20px">Child Support Enforcement (CSE) Agency</label>
+        </div>
+            <div class="warning" style="grid-column:22;grid-row:9" id="pleasecheck2" hidden>
+                <h3>Please check one of the highlighted checkboxes.</h3>
+            </div>
+        <div style="grid-column:7;grid-row:10">
+                <input py-change="sub1_6()"type="checkbox" id="court" name="court" {% if request.session.court == 'on' %} checked=True {% endif %}>
+        </div>
+        <div style="grid-column:8/span 9;grid-row:10">
+                <label for="court" id="courtlabel" style="margin-left:-20px">Court</label>
+        </div>
+        <div style="grid-column:7;grid-row:11">
+                <input py-change="sub1_7()" type="checkbox" id="attorney" name="attorney" {% if request.session.attorney == 'on' %} checked=True {% endif %}>
+        </div>
+        <div style="grid-column:8/span 9;grid-row:11">
+                <label for="attorney" id="attorneylabel" style="margin-left:-20px">Attorney</label>
+        </div>
+        <div style="grid-column:7;grid-row:12">
+                <input py-change="sub1_8()" type="checkbox" id="private" name="private" {% if request.session.private == 'on' %} checked=True {% endif %}>
+        </div>
+        <div style="grid-column:8/span 9;grid-row:12">
+                <label for="private" id="privatelabel" style="margin-left:-20px">Private Individual/Entity</label>
+        </div>
+
+        <div style="grid-column:6/span 10;grid-row:13">
+            <h3 style="background-color:#d9d9d9;padding-left:5px">Order Identifiers</h3>
+        </div>
+
+        <div style="grid-column:7/span 6;grid-row:14">
+            <p>State/Tribe/Territory:<p>
+        </div>
+        <div style="grid-column:11/span 3;grid-row:14">
+            <input type="text" id="statetribeterritory" value="" name="statetribeterritory" value="{{request.session.statetribeterritory}}">
+        </div>
+        <div style="grid-column:7/span 6;grid-row:15">
+            <p>City/County/Dist./Tribe:<p>
+        </div>
+        <div style="grid-column:11/span 3;grid-row:15">
+            <input type="text" id="citycountydisttribe" value="" name="citycountydisttribe" value="{{request.session.countydisttribe}}">
+        </div>
+        <div style="grid-column:7/span 6;grid-row:16">
+            <p>Private Individual/Entity:<p>
+        </div>
+        <div style="grid-column:11/span 3;grid-row:16">
+            <input type="text" id="privateindividualentity" value="" name="privateindividualentity" value="{{request.session.privateindividualentity}}">
+        </div>
+        <div style="grid-column:7/span 6;grid-row:17">
+            <p>Remittance ID (include w/payment):<p>
+        </div>
+        <div style="grid-column:11/span 3;grid-row:17">
+            <input type="text" id="remittanceid" value="" name="remittanceid" value="{{request.session.remittanceid}}">
+        </div>
+        <div style="grid-column:7/span 6;grid-row:18">
+            <p>Order ID:</p>
+        </div>
+        <div style="grid-column:11/span 3;grid-row:18">
+            <input type="text" id="orderid" value="" name="orderid" value="{{request.session.orderid}}">
+        </div>
+        <div style="grid-column:7/span 6;grid-row:19">
+            <p>Case ID:<p>
+        </div>
+        <div style="grid-column:11/span 3;grid-row:19">
+            <input type="text" id="caseid" value="" name="caseid" value="{{request.session.caseid}}">
+        </div>
+        <div style="grid-column:10;grid-row:22">
+            <button py-click="back1to0()" class="next_back" type="button" style="margin-right:10px">Back</button>
+        </div>
+        <div style="grid-column:11;grid-row:22">
+            <button py-click="next1to2()" class="next_back" type="button">Next</button>
+        </div>
+    </div>
+
+
+
+    <div class="form-container" id="employercaseinfo" style="display:none">
+        <div style="grid-column:6/span 10;grid-row:1">
+            <h3 style="background-color:#d9d9d9;padding-left:5px">Employer/Withholder Information</h3>
+        </div>
+        <div style="grid-column:7/span 4;grid-row:2">
+            <p>Employer/Withholder's Name:<p>
+        </div>
+        <div style="grid-column:11/span 3;grid-row:2">
+            <input py-blur="sub_anyall()" type="text" id="employername" name="employername" value="{{request.session.employername}}">
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:2" id="employeranyall" hidden>
+            <h3>Do you want this IWO addressed to any and all employers/withholders?  If not, please enter the employer name here.</h3>
+            <span>
+                <button py-click="sub_anyallclick('yes')" type="button" id="anyallbuttonyes" name="anyallbutton" value="yes">Yes</button>
+                <button py-click="sub_anyallclick('no')" type="button" id="anyallbuttonno" name="anyallbutton" value ="no">No</button>
+            </span>
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:2" id="enteremployer" hidden>
+            <h3>Please enter an employer/withholder name in the highlighted field.</h3>
+        </div>
+        <div style="grid-column:7/span 4;grid-row:3">
+            <p>Address (line 1):<p>
+        </div>
+        <div style="grid-column:11/span 3;grid-row:3">
+            <input type="text" id="employeraddress1" value="" name="employeraddress1" value="{{request.session.employeraddress1}}">
+        </div>
+        <div style="grid-column:7/span 4;grid-row:4">
+            <p>Address (line 2):<p>
+        </div>
+        <div style="grid-column:11/span 3;grid-row:4">
+            <input type="text" id="employeraddress2" value="" name="employeraddress2" value="{{request.session.employeraddress2}}"> 
+        </div>
+        <div style="grid-column:7/span 4;grid-row:5">                   
+            <p>Address (line 3):<p>
+        </div>
+        <div style="grid-column:11/span 3;grid-row:5">
+            <input type="text" id="employeraddress3" value="" name="employeraddress3" value="{{request.session.employeraddress3}}">
+        </div>
+        <div style="grid-column:7/span 4;grid-row:6">                   
+            <p>Employer/Withholder's FEIN:<p>
+        </div>
+        <div style="grid-column:11/span 3;grid-row:6">
+            <input type="text" id="fein" value="" name="fein" value="{{request.session.fein}}">
+        </div>
+
+        <div style="grid-column:6/span 10;grid-row:7">
+            <h3 style="background-color:#d9d9d9;padding-left:5px">Obligor/Obligee Information</h3>
+        </div>
+        <div style="grid-column:7/span 4;grid-row:8">
+            <p>Employee/Obligor's Name:<p>
+        </div>
+        <div style="grid-column:11/span 3;grid-row:8">
+            <input py-blur="sub_entername('employeename','entername','formatname')" type="text" id="employeename" name="employeename" value="{{request.session.employeename}}">
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:8" id="entername" hidden>
+            <h3>Please enter a name in the highlighted field.</h3>
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:8" id="formatname" hidden>
+            <h3>Please provide the name in 'Last, First [Middle] format'.</h3>
+        </div>
+        <div style="grid-column:7/span 4;grid-row:9">
+            <p>Employee/Obligor's SSN:<p>
+        </div>
+        <div style="grid-column:11/span 3;grid-row:9">
+            <input type="text" id="employeessn" value="" name="employeessn" value="{{request.session.employeessn}}">
+        </div>
+        <div style="grid-column:7/span 4;grid-row:10">
+            <p>Employee/Obligor's DOB:<p>
+        </div>
+        <div style="grid-column:11/span 3;grid-row:10">
+            <input py-change="sub_isdate('employeedob')" type="text" id="employeedob" name="employeedob" value="{{request.session.employeedob}}"> 
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:10" id="fixdate0" hidden>
+            <h3>Please enter a valid date in the highlighted field in mm/dd/yyyy format.</h3>
+        </div>
+        <div style="grid-column:7/span 4;grid-row:11">                   
+            <p>Custodial Party/Obligee's Name:<p>
+        </div>
+        <div style="grid-column:11/span 3;grid-row:11">
+            <input py-blur="sub_entername('obligeename','entername2','formatname2')" type="text" id="obligeename" value="" name="obligeename" value="{{request.session.obligeename}}">
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:11" id="entername2" hidden>
+            <h3>Please enter a name in the highlighted field.</h3>
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:11" id="formatname2" hidden>
+            <h3>Please provide the name in 'Last, First [Middle] format'.</h3>
+        </div>
+
+        <div style="grid-column:6/span 10;grid-row:12">
+            <h3 style="background-color:#d9d9d9;padding-left:5px">Children</h3>
+        </div>
+                
+
+        <div style="grid-column:7;grid-row:13">                   
+            <p style="width:60px !important">Child 1:</p>
+        </div>
+        <div style="grid-column:8/span 3;grid-row:13">
+            <input py-blur="sub_entername('child1','entername3','formatname3')" type="text" id="child1" name="child1" style="margin-left:-13px;width:13em !important" value="{{request.session.child1}}">
+        </div>
+        <div style="grid-column:12;grid-row:13">
+            <p style="width:40px !important">DOB:</p>
+        </div>
+        <div style="grid-column:13/span 2;grid-row:13">
+            <input py-blur = "enterchilddob(1)" py-change="sub_isdate('child1dob')" type="text" id="child1dob" name="child1dob" style="width:8em !important" value="{{request.session.child1dob}}"> 
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:13"  id="fixdate1" hidden>
+            <h3>Please enter a date for Child 1 in the highlighted field in mm/dd/yyyy format.</h3>
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:13" id="enterchilddob1" hidden>
+            <h3>Please enter a date for Child 1 in the highlighted field in mm/dd/yyyy format.</h3>
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:13" id="formatname3" hidden>
+            <h3>Please provide the name in 'Last, First [Middle] format'.</h3>
+        </div>
+
+        <div style="grid-column:7;grid-row:14">                   
+            <p style="width:60px !important">Child 2:</p>
+        </div>
+        <div style="grid-column:8/span 3;grid-row:14">
+            <input py-blur="sub_entername('child2','entername3','formatname4')" type="text" id="child2" name="child2" style="margin-left:-13px;width:13em !important" value="{{request.session.child2}}">
+        </div>
+        <div style="grid-column:12;grid-row:14">
+            <p style="width:40px !important">DOB:</p>
+        </div>
+        <div style="grid-column:13/span 2;grid-row:14">
+            <input py-blur = "enterchilddob(2)" py-change="sub_isdate('child2dob')" type="text" id="child2dob" name="child2dob" style="width:8em !important" value="{{request.session.child2dob}}"> 
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:14"  id="fixdate2" hidden>
+            <h3>Please enter a date for Child 2 in the highlighted field in mm/dd/yyyy format.</h3>
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:14" id="enterchilddob2" hidden>
+            <h3>Please enter a date for Child 2 in the highlighted field in mm/dd/yyyy format.</h3>
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:14" id="formatname4" hidden>
+            <h3>Please provide the name in 'Last, First [Middle] format'.</h3>
+        </div>
+
+        <div style="grid-column:7;grid-row:15">                   
+            <p style="width:60px !important">Child 3:</p>
+        </div>
+        <div style="grid-column:8/span 3;grid-row:15">
+            <input py-blur="sub_entername('child3','entername3','formatname5')" type="text" id="child3" name="child3" style="margin-left:-13px;width:13em !important" value="{{request.session.child3}}">
+        </div>
+        <div style="grid-column:12;grid-row:15">
+            <p style="width:40px !important">DOB:</p>
+        </div>
+        <div style="grid-column:13/span 2;grid-row:15">
+            <input py-blur = "enterchilddob(3)" py-change="sub_isdate('child3dob')" type="text" id="child3dob" name="child3dob" style="width:8em !important" value="{{request.session.child3dob}}"> 
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:15"  id="fixdate3" hidden>
+            <h3>Please enter a date for Child 3 in the highlighted field in mm/dd/yyyy format.</h3>
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:15" id="enterchilddob3" hidden>
+            <h3>Please enter a date for Child 3 in the highlighted field in mm/dd/yyyy format.</h3>
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:15" id="formatname5" hidden>
+            <h3>Please provide the name in 'Last, First [Middle] format'.</h3>
+        </div>
+
+
+        <div style="grid-column:7;grid-row:16">                   
+            <p style="width:60px !important">Child 4:</p>
+        </div>
+        <div style="grid-column:8/span 3;grid-row:16">
+            <input py-blur="sub_entername('child4','entername3','formatname6')" type="text" id="child4" name="child4" style="margin-left:-13px;width:13em !important" value="{{request.session.child4}}">
+        </div>
+        <div style="grid-column:12;grid-row:16">
+            <p style="width:40px !important">DOB:</p>
+        </div>
+        <div style="grid-column:13/span 2;grid-row:16">
+            <input py-blur = "enterchilddob(4)" py-change="sub_isdate('child4dob')" type="text" id="child4dob" name="child4dob" style="width:8em !important" value="{{request.session.child4.dob}}"> 
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:16"  id="fixdate4" hidden>
+            <h3>Please enter a date for Child 4 in the highlighted field in mm/dd/yyyy format.</h3>
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:16" id="enterchilddob4" hidden>
+            <h3>Please enter a date for Child 4 in the highlighted field in mm/dd/yyyy format.</h3>
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:16" id="formatname6" hidden>
+            <h3>Please provide the name in 'Last, First [Middle] format'.</h3>
+        </div>
+
+        <div style="grid-column:7;grid-row:17">                   
+            <p style="width:60px !important">Child 5:</p>
+        </div>
+        <div style="grid-column:8/span 3;grid-row:17">
+            <input py-blur="sub_entername('child5','entername3','formatname7')" type="text" id="child5" name="child5" style="margin-left:-13px;width:13em !important" value="{{request.session.child5}}">
+        </div>
+        <div style="grid-column:12;grid-row:17">
+            <p style="width:40px !important">DOB:</p>
+        </div>
+        <div style="grid-column:13/span 2;grid-row:17">
+            <input py-blur = "enterchilddob(5)" py-change="sub_isdate('child5dob')" type="text" id="child5dob" name="child5dob" style="width:8em !important" value="{{request.session.child5dob}}"> 
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:17"  id="fixdate5" hidden>
+            <h3>Please enter a date for Child 5 in the highlighted field in mm/dd/yyyy format.</h3>
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:17" id="enterchilddob5" hidden>
+            <h3>Please enter a date for Child 5 in the highlighted field in mm/dd/yyyy format.</h3>
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:17" id="formatname7" hidden>
+            <h3>Please provide the name in 'Last, First [Middle] format'.</h3>
+        </div>
+
+        <div style="grid-column:7;grid-row:18">                   
+            <p style="width:60px !important">Child 6:</p>
+        </div>
+        <div style="grid-column:8/span 3;grid-row:18">
+            <input py-blur="sub_entername('child6','entername3','formatname8')" type="text" id="child6" name="child6" style="margin-left:-13px;width:13em !important" value="{{request.session.child6}}">
+        </div>
+        <div style="grid-column:12;grid-row:18">
+            <p style="width:40px !important">DOB:</p>
+        </div>
+        <div style="grid-column:13/span 2;grid-row:18">
+            <input py-blur = "enterchilddob(6)" py-change="sub_isdate('child6dob')" type="text" id="child6dob" name="child6dob" style="width:8em !important" value="{{request.session.child6dob}}"> 
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:18"  id="fixdate6" hidden>
+            <h3>Please enter a date for Child 6 in the highlighted field in mm/dd/yyyy format.</h3>
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:18" id="enterchilddob6" hidden>
+            <h3>Please enter a date for Child 6 in the highlighted field in mm/dd/yyyy format.</h3>
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:18" id="formatname8" hidden>
+            <h3>Please provide the name in 'Last, First [Middle] format'.</h3>
+        </div>
+
+        <div class="warning" style="grid-column:22;grid-row:22" id="alimonyonly" hidden>
+            <span>
+                <h3>Is this IWO for alimony/spousal support only?</h3>                        
+                <button py-click="alim_yes_no('yes')" type="button" id="alimonyyes" name="alimonyyes">Yes
+                <button py-click="alim_yes_no('no')" type="button" id="alimonyno" name="alimonyno">No</button> 
+            </span>
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:13" id="alim_enterchild" hidden>
+            <h3>Please enter a child's name in the highlighted field.</h3>
+        </div>
+        <div style="grid-column:10;grid-row:22">
+                <button py-click="back2to1()" class="next_back" type="button" style="margin-right:10px">Back</button>
+        </div>
+        <div style="grid-column:11;grid-row:22">
+                <button py-click="next2to3()" class="next_back" type="button">Next</button>                
+        </div> 
+    </div>
+
+
+
+    <div class="form-container" id="orderinfo" style="display:none">
+        <div style="grid-column:6/span 10;grid-row:1">
+            <h3 style="background-color:#d9d9d9;padding-left:5px">Origination</h3>
+        </div>
+
+        <div style="grid-column:7/span 6;grid-row:2">
+            <p>This IWO is based on the support order from:</p>
+        </div>
+        <div style="grid-column:13/span 3;grid-row:2">
+            <input type="text" id="orderfromstate" value="Florida" name="orderfromstate" style="width:7em !important" value="{{request.session.orderfromstate}}">
+        </div> 
+
+
+        <div style="grid-column:6/span 10;grid-row:3">
+            <h3 style="background-color:#d9d9d9;padding-left:5px">Amounts to be deducted:</h3>
+        </div>
+
+                
+        <div style="grid-column:7/span 5;grid-row:4">                   
+            <p>$ <input py-blur="" py-change="calc_dollars('per1')" type="text" id="dollar1" name="dollar1" style="width:5em;text-align:right !important" value="{{request.session.dollar1}}">Per <input py-blur = "" py-change="pop_pers('per1')" type="text" id="per1" name="per1" style="width:7em !important" value="{{request.session.per1}}"></p>
+        </div>
+
+        <div style="grid-column:10/span 2;grid-row:4">
+            
+        </div>
+        <div style="grid-column:12/span3;grid-row:4"> 
+            <p>current child support<p>
+        </div>
+        <div  class="warning" style="grid-column:22;grid-row:4" id="fixdollar1" hidden>
+            <h3>Please enter an amount in valid U.S. Dollars (omit "$" symbol).</h3>
+        </div>
+
+
+        <div style="grid-column:7/span 5;grid-row:5">                   
+            <p>$ <input py-blur="" py-change="calc_dollars('per2')" type="text" id="dollar2" name="dollar2" style="width:5em;text-align:right !important" value="{{request.session.dollar2}}">Per <input py-blur = "" py-change="pop_pers('per2')" type="text" id="per2" name="per2" style="width:7em !important" value="{{request.session.per2}}"></p>
+        </div>
+
+        <div style="grid-column:10/span 2;grid-row:5">
+            
+        </div>
+        <div style="grid-column:12/span3;grid-row:5"> 
+            <p>past-due child support<p>
+        </div>
+        <div style="grid-column:8/span 4;grid-row:6">
+            <p id="checkarrears">Arrears greater than 12 weeks?</p>
+        </div>
+        <div style="grid-column:12;grid-row:6">
+            <input py-change="checkgroup_2choice('yes12','no12')" type="checkbox" id="yes12" name="yes12" style="padding-right:8px !important" {% if request.session.yes12 == 'on' %} checked=True {% endif %}> 
+
+            <label for="yes12" style="margin-left:20px !important"> Yes </label>
+        </div>
+        <div style="grid-column:13;grid-row:6">
+            <input py-change="checkgroup_2choice('no12','yes12')" type="checkbox" id="no12" name="no12" style="padding-right:8px !important" {% if request.session.no12 == 'on' %} checked=True {% endif %}>
+            <label for="no12" style="margin-left:20px !important"> No </label>
+        </div>
+        <div  class="warning" style="grid-column:22;grid-row:5" id="fixdollar2" hidden>
+            <h3>Please enter an amount in valid U.S. Dollars (omit "$" symbol).</h3>
+        </div>
+
+        <div style="grid-column:7/span 5;grid-row:7">                    
+            <p>$ <input py-blur="" py-change="calc_dollars('per3')" type="text" id="dollar3" name="dollar3" style="width:5em;text-align:right !important" value="{{request.session.dollar3}}">Per <input py-blur = "" py-change="pop_pers('per3')" type="text" id="per3" name="per3" style="width:7em !important" value="{{request.session.per3}}"></p>
+        </div>
+
+        <div style="grid-column:10/span 2;grid-row:7">
+            
+        </div>
+        <div style="grid-column:12/span3;grid-row:7"> 
+            <p>current cash medical support<p>
+        </div>
+        <div  class="warning" style="grid-column:22;grid-row:7" id="fixdollar3" hidden>
+            <h3>Please enter an amount in valid U.S. Dollars (omit "$" symbol).</h3>
+        </div>
+
+
+        <div style="grid-column:7/span 5;grid-row:8">                  
+            <p>$ <input py-blur="" py-change="calc_dollars('per4')" type="text" id="dollar4" name="dollar4" style="width:5em;text-align:right !important" value="{{request.session.dollar4}}">Per <input py-blur = "" py-change="pop_pers('per4')" type="text" id="per4" name="per4" style="width:7em !important" value="{{request.session.per4}}"></p>
+        </div>
+
+        <div style="grid-column:10/span 2;grid-row:8">
+            
+        </div>
+        <div style="grid-column:12/span3;grid-row:8"> 
+            <p>past-due cash medical support<p>
+        </div>
+        <div  class="warning" style="grid-column:22;grid-row:8" id="fixdollar4" hidden>
+            <h3>Please enter an amount in valid U.S. Dollars (omit "$" symbol).</h3>
+        </div>
+
+
+        <div style="grid-column:7/span 5;grid-row:9">                  
+            <p>$ <input py-blur="" py-change="calc_dollars('per5')" type="text" id="dollar5" name="dollar5" style="width:5em;text-align:right !important" value="{{request.session.dollar5}}">Per <input py-blur = "" py-change="pop_pers('per5')" type="text" id="per5" name="per5" style="width:7em !important" value="{{request.session.per5}}"></p>
+        </div>
+
+        <div style="grid-column:10/span 2;grid-row:9">
+            
+        </div>
+        <div style="grid-column:12/span3;grid-row:9"> 
+            <p>current spousal support<p>
+        </div>
+        <div  class="warning" style="grid-column:22;grid-row:9" id="fixdollar5" hidden>
+            <h3>Please enter an amount in valid U.S. Dollars (omit "$" symbol).</h3>
+        </div>
+
+
+        <div style="grid-column:7/span 5;grid-row:10">                  
+            <p>$ <input py-blur="" py-change="calc_dollars('per6')" type="text" id="dollar6" name="dollar6" style="width:5em;text-align:right !important" value="{{request.session.dollar6}}">Per <input py-blur = "" py-change="pop_pers('per6')" type="text" id="per6" name="per6" style="width:7em !important" value="{{request.session.per6}}"></p>
+        </div>
+
+        <div style="grid-column:10/span 2;grid-row:10">
+            
+        </div>
+        <div style="grid-column:12/span3;grid-row:10"> 
+            <p>past-due spousal support<p>
+        </div>
+        <div  class="warning" style="grid-column:22;grid-row:10" id="fixdollar6" hidden>
+            <h3>Please enter an amount in valid U.S. Dollars (omit "$" symbol).</h3>
+        </div>
+
+
+        <div style="grid-column:7/span 5;grid-row:11">                  
+            <p>$ <input py-blur="" py-change="calc_dollars()" type="text" id="dollar7" {% if request.session.dollar7 %} value="{{request.session.dollar7}}" {% else %} value="5.25" {% endif %} name="dollar7" style="width:5em;text-align:right !important">Per <input py-blur = "" py-change="pop_pers('per7')" type="text" id="per7" name="per7" {% if request.session.per7 != 'payment' %} value="{{request.session.per7}}" {% else %} value="payment" {% endif %} style="width:7em !important"></p>
+        </div>
+
+        <div style="grid-column:10/span 2;grid-row:11">
+            
+        </div>
+        <div style="grid-column:12/span3;grid-row:11"> 
+            <p>other (must specify):<p>
+        </div>
+        <div style="grid-column:12/span2;grid-row:12">
+            <input py-change="" type="text" id="other" name="other" {% if request.session.other %} value="{{request.session.other}}" {% else %} value="clerk's fee" {% endif %} style="width:11em !important">
+        </div>
+        <div  class="warning" style="grid-column:22;grid-row:11" id="fixdollar7" hidden>
+            <h3>Please enter an amount in valid U.S. Dollars (omit "$" symbol).</h3>
+        </div>
+        <div style="grid-column:6/span 10;grid-row:13">
+            <h3 style="background-color:#d9d9d9;padding-left:5px">Total</h3>
+        </div>
+
+
+        <div style="grid-column:7/span 3;grid-row:14">
+            <p><strong>Total Withhold: </strong></p>
+        </div>
+        <div style="grid-column:10/span 2;grid-row:14;margin-left:-12px">
+            <label for="totalwithhold">$ </label>
+            <input type="text" id="totalwithhold" name="totalwithhold" style="width:5em;text-align:right !important" value="{{request.session.totalwithhold}}"> 
+        </div>
+        <div style="grid-column:12/span 3;grid-row:14;margin-left:-3px">
+            <p> per  <input per-change="per8change()" type="text" id="per8" name="per8" style="width:7em !important" {% if request.session.per8 != None %} value="{{request.session.per8}}" {% endif %}></p>
+        </div>
+        <div style="grid-column:6/span 10;grid-row:15">
+            <h3 style="background-color:#d9d9d9;padding-left:5px">Amounts to Withhold</h3>
+        </div>
+
+        <div style="grid-column:7/span 4;grid-row:16">
+            <p>$ <input type="text" id="perweek" name="perweek" style="width:5em;text-align:right !important" value="{{request.session.perweek}}"> weekly</p>
+        </div>
+        <div style="grid-column:11/span 5;grid-row:16">
+            <p>$ <input type="text" id="persemimonth" name="persemimonth" style="width:5em;text-align:right !important" value="{{request.session.persemimonth}}"> semimonthly<p>
+        </div>
+        <div style="grid-column:7/span 4;grid-row:17">
+            <p>$ <input type="text" id="pertwoweeks" name="pertwoweeks" style="width:5em;text-align:right !important" value="{{request.session.pertwoweeks}}"> biweekly</p>
+        </div>
+        <div style="grid-column:11/span 5;grid-row:17">
+                <p>$ <input type="text" id="permonth" name="permonth" style="width:5em;text-align:right !important" value="{{request.session.permonth}}"> monthly</p>
+        </div>
+        <div style="grid-column:7/span 9;grid-row:18">
+            <p>$ <input type="text" id="lumpsum" name="lumpsum" style="text-align:right;width:5em;text-align:right !important" value="{{request.session.lumpsum}}"><strong> Lump Sum Payment:</strong></p>
+        </div>
+        
+        <div style="grid-column:6/span 10;grid-row:19">
+            <h3 style="background-color:#d9d9d9;padding-left:5px">Document Tracking</h3>
+        </div>
+
+        <div style="grid-column:7/span 8;grid-row:20">
+            <p>Document Tracking ID <input type="text" id="documentid" name="documentid" value="{{request.session.documentid}}"></p>
+        </div>
+
+        <div class="warning" style="grid-column:22;grid-row:4" id="childnopayment" hidden>
+            <h3>You have listed at least one child on this IWO.  Please enter a child support related payment in one of the highlighted fields.</h3>
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:4" id="amountnoper" hidden>
+            <h3>Please indicate a periodic length in the highlighted field for the corresponding deduction.</h3>
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:6" id="checkarrears12" hidden>
+            <h3>Please indicate whether the arrears is greater than 12 weeks.</h3>
+        </div>
+        <div class="warning" style="grid-column:22;grid-row:18" id="reallylump" hidden>
+            <h3>Did you really mean to create a Lump Sum IWO?</h3>
+            <button py-click="lump('yes')" type="button" id="lumpyes" name="lumpyes">Yes</button>
+            <button py-click="lump('no')" type="button" id="lumpno" name="lumpno">No</button>
+        </div>
+        <div style="grid-column:10;grid-row:22">
+                <button py-click="back3to2()" class="next_back" type="button" style="margin-right:10px">Back</button>
+        </div>
+        <div style="grid-column:11;grid-row:22">
+                <button py-click="next3to4()" class="next_back" type="button">Next</button>                
+        </div> 
+    </div>
+
+
+    <div class="form-container" id="remittance" style="display:none">
+        <div style="grid-column:6/span 10;grid-row:1">
+            <h3 style="background-color:#d9d9d9;padding-left:5px">Remittance Information</h3>
+        </div>
+
+        <div style="grid-column:7/span 8;grid-row:2/span 7">
+            <p style="font-size:10.5px !important">If the employee/oblior's principal place of employment is <input type="text" id="principal" name="principal" value="Florida" style="width:5em !important"> you must begin withholding no
+             later than the first pay period that occurs <input type="text" id="days1" name="days1" value="14" style="width:2em !important"> days after the date of <input type="text" id="daysof" name="daysof" value="service" style="width:6em !important"> 
+             of the order/notice.  Send payment within <input type="text" id="days2" name="days2" value="2" style="width:2em !important"> days of the pay date.  If you cannot withhold the full amount of support for any or all orders for this
+              employee/obligor, withhold <input type="text" id="withholdpercent" name="withholdpercent" value="60" style="width:2em !important">% of disposable income for all orders. If the employee/obligor's principal place of
+               employment is not <input type="text" id="statetribeterritory2" name="statetribeterritory2" value="Florida" style="width:5em !important">, obtain withholding limitations . . .
+            <br>
+
+            <strong>Remit payment to </strong><input type="text" id="remitto" name="remitto" value="State of Florida Disbursement Unit"> (SDU/Tribal Order Payee)
+             at <input type="text" id="remitaddress" name="remitaddress" value="P.O. Box 8500, Tallahassee, FL  32314-8500"> (SDU/Tribal Payee Address)
+             <br>
+            Include the Remittance ID with the payment and if necessary this locator code of the SDU/Tribal order payee <input type="text" id="remitid" name="remitid" style="width:5em !important" value="{{request.session.remitid}}"></p>
+        </div>
+        <div style="grid-column:6/span 10;grid-row:9">
+            <h3 style="background-color:#d9d9d9;padding-left:5px">Liability</h3>
+        </div>
+        <div style ="grid-column:7/span 8;grid-row:10/span 3">
+            <p style="font-size:10.5px !important">If you have any doubts about the validity of this IWO, contact the sender. If you fail to withhold income from the employee/obligor's
+            income as the IWO directs, you are liable for both the accumulated amount you should have withheld and any penalties set by state or tribal law/procedure.</p>
+        </div>
+        <div style="grid-column:7/span 8;grid-row:13">
+            <textarea id="liability" name="liability" rows="2" style="width:100%" wrap="soft" value="{{request.session.liability}}"></textarea>
+        </div>
+        <div style="grid-column:6/span 10;grid-row:14">
+            <h3 style="background-color:#d9d9d9;padding-left:5px">Anti-discrimination</h3>
+        </div>
+        <div style ="grid-column:7/span 8;grid-row:15/span 3">
+            <p style="font-size:10.5px !important">You are subject to a fine determined under state or tribal law for discharging an employee/obligor
+             from employment, refusing to employ, or taking disciplinary action against an employee/obligor because of this IWO.</p>
+        </div>
+        <div style="grid-column:7/span 8;grid-row:18">
+            <textarea id="antidiscrimination" name="antidiscrimination" rows="2" style="width:100%" wrap="soft" value="{{request.session.antidiscrimination}}"></textarea>
+        </div>
+
+        <div style="grid-column:6/span 10;grid-row:19">
+            <h3 style="background-color:#d9d9d9;padding-left:5px">Supplemental Information</h3>
+        </div>
+        <div style="grid-column:7/span 8;grid-row:20">
+            <textarea id="supplemental" name="supplemental"rows="2" style="width:100%;margin-top:10px" wrap="soft" value="{{request.session.supplemental}}"></textarea>
+        </div>
+
+        <div style="grid-column:10;grid-row:22">
+                <button py-click="back4to3()" class="next_back" type="button" style="margin-right:10px">Back</button>
+        </div>
+        <div style="grid-column:11;grid-row:22">
+                <button py-click="next4to5()" class="next_back" type="button">Next</button>                
+        </div> 
+    </div>
+
+    <div class="form-container" id="contactinfo" style="display:none">
+        <div style="grid-column:6/span 10;grid-row:1">
+            <h3 style="background-color:#d9d9d9;padding-left:5px">Contact Information</h3>
+        </div>
+        <div style="grid-column:7/span 9;grid-row:2">
+            <p><strong>To Employer/Income Withholder:</strong> If you have questions, contact:</p>
+        </div>
+        <div style="grid-column:7/span 3;grid-row:3">
+            <p>Sender Name:</p>
+        </div>
+        <div style="grid-column:10/span 2;grid-row:3">
+            <input type="text" id="sender" name="sender" value="S.O.F Disbursement Unit">
+        </div>
+
+        <div style="grid-column:7/span 3;grid-row:4">
+            <p> by telephone:</p>
+        </div>
+        <div style="grid-column:10/span 2;grid-row:4">
+            <input type="text" id="sendertel" name="sendertel" value="1-877-769-0251">
+        </div>
+        <div style="grid-column:7/span 3;grid-row:5">
+            <p>by fax: </p>
+        </div>
+        <div style="grid-column:10/span 2;grid-row:5">
+            <input type="text" id="senderfax" name="senderfax" value="{{request.session.senderfax}}">
+        </div>
+        <div style="grid-column:7/span 3;grid-row:6">
+            <p>by email or website:</p>
+        </div>
+        <div style="grid-column:10/span 2;grid-row:6">
+            <input type="text" id="senderwebsite" name="senderwebsite" value="www.FloridaSDU.com">
+        </div>
+        <div style="grid-column:7/span 9;grid-row:7">
+            <p>Send termination/income status notice and other correspondence to:</p>
+        </div>
+        <div style="grid-column:7/span 8;grid-row:8">
+            <textarea id="noticeto" name="noticeto"rows="3" style="width:100%;margin-top:30px" wrap="soft" value="{{request.session.noticeto}}"></textarea>
+        </div>
+        <div style="grid-column:7/span 9;grid-row:11">
+            <p><strong>To employee/obligor:</strong> If the employee/obligor has questions, contact:</p>
+        </div>
+        <div style="grid-column:7/span 3;grid-row:12">
+            <p>Sender Name:</p>
+        </div>
+        <div style="grid-column:10/span 2;grid-row:12">
+            <input type="text" id="sender2" name="sender2"  value="S.O.F Disbursement Unit">
+        </div>
+        <div style="grid-column:7/span 3;grid-row:13">
+            <p>telephone: </p>
+        </div>
+        <div style="grid-column:10/span 2;grid-row:13">
+            <input type="text" id="sender2tel" name="sender2tel" value="1-877-769-0251">
+        </div>
+        <div style="grid-column:7/span 3;grid-row:14">
+            <p>by fax: </p>
+        </div>
+        <div style="grid-column:10/span 2;grid-row:14">
+            <input type="text" id="senderfax2" name="senderfax2" value="{{request.session.senderfax2}}">
+        </div>
+        <div style="grid-column:7/span 3;grid-row:15">
+            <p>by email or website: </p>
+        </div>
+        <div style="grid-column:10/span 2;grid-row:15">
+             <input type="text" id="senderwebsite2" name="senderwebsite2" value="www.FloridaSDU.com">
+        </div>
+        <div style="grid-column:22;grid-row:13;">
+            <button id="make_document2" name="make_document2" type="submit" style="background-color:#339933" hidden>Make Document</button>
+        </div>
+        <div style="grid-column:10;grid-row:22">
+            <button py-click="back5to4()" class="next_back" type="button" style="margin-right:10px">Back</button>
+        </div>
+        <div style="grid-column:11;grid-row:22">
+            <button py-click="next5to6()" class="next_back" type="button" name="next5to6" id="next5to6">Next</button>                
+        </div> 
+    </div>
+
+
+
+    <div class="form-container" id="arrearsbonus" style="display:none">
+        <div style="grid-column:6/span 10;grid-row:1">
+            <h3 style="background-color:#d9d9d9;padding-left:5px">Arrears/Delinquency</h3>
+        </div>
+        <div style="grid-column:7/span 8;grid-row:2/span 9">
+            <p>The amount of arrears owed, if any, is $ <input py-change="calc_arrears_dollars('arrears','fixdollar9')" type="text" id="arrears" name="arrears" style="width:5em !important" value="{{request.session.arrears}}">. You must withhold an additional twenty percent (20%) or more
+             of the ongoing periodic obligation towards same at the rate of $ <input py-blur="arrears_per('arrearsrate','arrearsper')" py-change="calc_arrears_dollars('arrearsrate','fixdollar9')" type="text" id="arrearsrate" name="arrearsrate" style="width:5em !important" {% if request.session.arrearsrate != "" %} value="{{request.session.arrearsrate}}" {% endif %}> 
+             per <input type="text" id="arrearsper" name="arrearsper" style="width:7em !important" {% if request.session.arrearsper != "" %} value="{{request.session.arrearsper}}" {% endif %}> until full payment is made of any arrearage, attorney's fees and costs - provided that no deduction 
+             shall be applied to attorneys' fees and costs until the full amount of any arrearage is paid.  If a delinquency accrues after the order establishing, modifying, or enforcing support has been 
+             entered and there is no existing order for repayment of the delinquency or a preexisting arrearage, a payor shall deduct $ 
+             <input py-change="calc_arrears_dollars('arrearspayment','fixdollar9')" type="text" id="arrearspayment" name="arrearspayment" style="width:5em !important" {% if request.session.arrearspayment %} value="{{request.session.arrearspayment}}" {% endif %}> per <input type="text" id="arrearspaymentper" name="arrearspaymentper" style="width:7em !important"> 
+             (which represents an additional twenty percent (20%) of the current support obligation, or other amount agreed to by the parties.) . . . .</p>   
+        </div>
+        <div  class="warning" style="grid-column:22;grid-row:5" id="fixdollar9" name="fixdollar9" hidden>
+            <h3>Please enter an amount in valid U.S. Dollars (omit "$" symbol).</h3>
+        </div>
+        <div style="grid-column:6/span 10;grid-row:11">
+            <h3 style="background-color:#d9d9d9;padding-left:5px">Bonus Income/One-Time Payment</h3>
+        </div>
+
+        <div style="grid-column:7/span 8;grid-row: 12/span 4">
+            <p>Pursuant to sections 61.13 and 61.1301, Florida Statutes, the amounts listed for payment on the Income Withholding Order must be varied by the employer/payor for bonus income,
+             or similar one-time payment:<br><br>
+            You shall deduct [Choose only one]:
+        </div>
+        <div style="grid-column:8/span 4;grid-row:16">    
+            <input py-change="checkgroup_3choice('deductfull','deductpercent','deductnone')" type="checkbox" id="deductfull" name="deductfull" {% if request.session.deductfull == 'on' %} checked=True {% endif %}>
+            <label for="deductfull" style="margin-left:25px">the full amount . . .</label>
+        </div>
+        <div style="grid-column:8/span 4;grid-row:17">
+            <input py-change="checkgroup_3choice('deductpercent','deductfull','deductnone')" type="checkbox" id="deductpercent" name="deductpercent" {% if request.session.deductpercent == 'on' %} checked=True {% endif %}>  
+            <input type="text" id="deductpercentamount" name="deductpercentamount" style="margin-left:25px;width:5em !important" value="{{request.session.deductpercentamount}}">
+            <label for="deductpercent"> % . . .</label>
+        </div>
+        <div style="grid-column:8/span 4;grid-row:18;margin-right:25px !important">
+            <input py-change="checkgroup_3choice('deductnone','deductfull','deductpercent')" type="checkbox" id="deductnone" name="deductnone" {% if request.session.deductnone == 'on' %} checked=True {% endif %}>
+            <label for="deductnone" style="margin-left:25px">none . . .</label>
+        </div>
+        <div style="grid-column:7/span 8;grid-row:19/span 3">
+            <p>. . . of the income which is payable to the obligor in the form of a bonus or other similar one-time payment . . .</p>
+        </div>
+        <div style="grid-column:10;grid-row:22">
+            <button py-click="back6to5()" class="next_back" type="button" style="margin-right:10px">Back</button>
+        </div>
+        <div style="grid-column:11;grid-row:22">
+            <button py-click="next6to7()" class="next_back" type="button">Next</button>                
+        </div> 
+    </div>
+
+
+    <div class="form-container-2" id="termschedule" style="display:none">
+        <div style="grid-column:2;grid-row:1">
+            <h3 style="background-color:#d9d9d9;padding-left:5px">Child Support Reduction/Termination Schedule</h3>
+        </div>
+
+        <div style="grid-column:2;grid-row:2/span 20">
+            <table>
+                <tr style="text-align:left">
+                    <th style="border:1px solid;border-collapse:collapse">
+                        <p style="padding:0px; margin:0px"><strong>Please list children</strong></p>
+                        <p style="padding:0px; margin:0px"><strong>by initials from eldest</strong></p>
+                        <p style="padding:0px; margin:0px"><strong>to youngest</strong></p>
+                    </th>
+                    <th style="border:1px solid;border-collapse:collapse">
+                        <p>              </p>
+                    </th>
+                    <th style="border:1px solid;border-collapse:collapse">
+                        <p style="padding:0px; margin:0px"><strong>Insert in this column the day</strong></p>
+                        <p style="padding:0px; margin:0px"><strong>month, and year the child</strong></p>
+                        <p style="padding:0px; margin:0px"><strong>support obligation terminates</strong></p>
+                        <p style="padding:0px; margin:0px"><strong>for each designated child.</strong></p>
+                    </th>
+                    <th style="border:1px solid;border-collapse:collapse">
+                        <p>              </p>
+                    </th>
+                    <th style="border:1px solid;border-collapse:collapse">
+                        <p style="padding:0px; margin:0px"><strong>Insert in this column the</strong></p>
+                        <p style="padding:0px; margin:0px"><strong>amount of child support for</strong></p>
+                        <p style="padding:0px; margin:0px"><strong>all minor children remaining</strong></p>
+                        <p style="padding:0px; margin:0px"><strong>(including designated child).</strong></p>
+                    </th>
+                </tr>
+                <tr>
+                    <td>
+                        <p style="padding:0px; margin:0px"><strong>Child 1</strong></p>
+                        <p style="padding:0px; margin:0px">Initials & year of birth</strong></p>
+                        <p style="padding:0px; margin:0px"><input type="text" id="childinit1" name="childinit1" style="padding:0px; margin:0px" value="{{request.session.childinit1}}"> ,</p>
+                        <input type="text" id="childdobtwo1" name="childdobtwo1" style="padding:0px; margin:0px" value="{{request.session.childdobtwo1}}">
+                    </td>
+                    <td>
+                        <p style="padding:0px; margin:0px">From the effective date of</p>
+                        <p style="padding:0px; margin:0px">this Income Deduction Order</p>
+                        <p style="padding:0px; margin:0px">until the following date:</p>
+                    </td>
+                    <td>
+                        <input type="text" id="dob181" name="dob181" value="{{request.session.dob181}}">
+                    </td>
+                    <td>
+                        <p style="padding:0px; margin:0px">Child support for Child 1 and</p>
+                        <p style="padding:0px; margin:0px">all other younger child(ren)</p>
+                        <p style="padding:0px; margin:0px">should be paid in the</p>
+                        <p style="padding:0px; margin:0px">following monthly amount:</p>
+                    </td>
+                    <td>
+                        <p>$ <input type="text" id="allremaining1" name="allremaining1" value="{{request.session.allremaining1}}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p style="padding:0px; margin:0px"><strong>Child 2</strong></p>
+                        <p style="padding:0px; margin:0px">Initials & year of birth</strong></p>
+                        <p style="padding:0px; margin:0px"><input type="text" id="childinit2" name="childinit2" style="padding:0px; margin:0px"value="{{request.session.childinit2}}"> ,</p>
+                        <input type="text" id="childdobtwo2" name="childdobtwo2" style="padding:0px; margin:0px" value="{{request.session.childdobtwo2}}">
+                    </td>
+                    <td>
+                        <p style="padding:0px; margin:0px">After the date set forth in</p>
+                        <p style="padding:0px; margin:0px">the row above until the</p>
+                        <p style="padding:0px; margin:0px">following date:</p>
+                    </td>
+                    <td>
+                        <input type="text" id="dob182" name="dob182" value="{{request.session.dob182}}">
+                    </td>
+                    <td>
+                        <p style="padding:0px; margin:0px">All other younger child(ren)</p>
+                        <p style="padding:0px; margin:0px">should be paid in the</p>
+                        <p style="padding:0px; margin:0px">following monthly amount:</p>
+                    </td>
+                    <td>
+                        <p>$ <input type="text" id="allremaining2" name="allremaining2" value="{{request.session.allremaining2}}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p style="padding:0px; margin:0px"><strong>Child 3</strong></p>
+                        <p style="padding:0px; margin:0px">Initials & year of birth</strong></p>
+                        <p style="padding:0px; margin:0px"><input type="text" id="childinit3" name="childinit3" style="padding:0px; margin:0px" value="{{request.session.childinit3}}"> ,</p>
+                        <input type="text" id="childdobtwo3" name="childdobtwo3" style="padding:0px; margin:0px" value="{{request.session.childdobtwo3}}">
+                    </td>
+                    <td>
+                        <p style="padding:0px; margin:0px">After the date set forth in</p>
+                        <p style="padding:0px; margin:0px">the row above until the</p>
+                        <p style="padding:0px; margin:0px">following date:</p>
+                    </td>
+                    <td>
+                        <input type="text" id="dob183" name="dob183" value="{{request.session.dob183}}">
+                    </td>
+                    <td>
+                        <p style="padding:0px; margin:0px">All other younger child(ren)</p>
+                        <p style="padding:0px; margin:0px">should be paid in the</p>
+                        <p style="padding:0px; margin:0px">following monthly amount:</p>
+                    </td>
+                    <td>
+                        <p>$ <input type="text" id="allremaining3" name="allremaining3" value="{{request.session.allremaining3}}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p style="padding:0px; margin:0px"><strong>Child 4</strong></p>
+                        <p style="padding:0px; margin:0px">Initials & year of birth</strong></p>
+                        <p style="padding:0px; margin:0px"><input type="text" id="childinit4" name="childinit4" style="padding:0px; margin:0px" value="{{request.session.childinit4}}"> ,</p>
+                        <input type="text" id="childdobtwo4" name="childdobtwo4" style="padding:0px; margin:0px" value="{{request.session.childdobtwo4}}">
+                    </td>
+                    <td>
+                        <p style="padding:0px; margin:0px">After the date set forth in</p>
+                        <p style="padding:0px; margin:0px">the row above until the</p>
+                        <p style="padding:0px; margin:0px">following date:</p>
+                    </td>
+                    <td>
+                        <input type="text" id="dob184" name="dob184" value="{{request.session.dob184}}">
+                    </td>
+                    <td>
+                        <p style="padding:0px; margin:0px">All other younger child(ren)</p>
+                        <p style="padding:0px; margin:0px">should be paid in the</p>
+                        <p style="padding:0px; margin:0px">following monthly amount:</p>
+                    </td>
+                    <td>
+                        <p>$ <input type="text" id="allremaining4" name="allremaining4" value="{{request.session.allremaining4}}"></p>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <p style="padding:0px; margin:0px"><strong>Child 5</strong></p>
+                        <p style="padding:0px; margin:0px">Initials & year of birth</strong></p>
+                        <p style="padding:0px; margin:0px"><input type="text" id="childinit5" name="childinit5" style="padding:0px; margin:0px" value="{{request.session.childinit5}}"> ,</p>
+                        <input type="text" id="childdobtwo5" name="childdobtwo5" style="padding:0px; margin:0px" value="{{request.session.childdobtwo5}}">
+                    </td>
+                    <td>
+                        <p style="padding:0px; margin:0px">After the date set forth in</p>
+                        <p style="padding:0px; margin:0px">the row above until the</p>
+                        <p style="padding:0px; margin:0px">following date:</p>
+                    </td>
+                    <td>
+                        <input type="text" id="dob185" name="dob185" value="{{request.session.dob185}}">
+                    </td>
+                    <td>
+                        <p style="padding:0px; margin:0px">All other younger child(ren)</p>
+                        <p style="padding:0px; margin:0px">should be paid in the</p>
+                        <p style="padding:0px; margin:0px">following monthly amount:</p>
+                    </td>
+                    <td>
+                        <p>$ <input type="text" id="allremaining5" name="allremaining5" value="{{request.session.allremaining5}}"></p>
+                    </td>
+                </tr>
+                <tr id="hiddenchild" hidden>
+                    <td>
+                        <p style="padding:0px; margin:0px"><strong>Child 6</strong></p>
+                        <p style="padding:0px; margin:0px">Initials & year of birth</strong></p>
+                        <p style="padding:0px; margin:0px"><input type="text" id="childinit6" name="childinit6" style="padding:0px; margin:0px" value="{{request.session.childinit6}}"> ,</p>
+                        <input type="text" id="childdobtwo6" name="childdobtwo6" style="padding:0px; margin:0px" value="{{request.session.childdobtwo6}}">
+                    </td>
+                    <td>
+                        <p style="padding:0px; margin:0px">After the date set forth in</p>
+                        <p style="padding:0px; margin:0px">the row above until the</p>
+                        <p style="padding:0px; margin:0px">following date:</p>
+                    </td>
+                    <td>
+                        <input type="text" id="dob186" name="dob186" value="{{request.session.dob186}}">
+                    </td>
+                    <td>
+                        <p style="padding:0px; margin:0px">All other younger child(ren)</p>
+                        <p style="padding:0px; margin:0px">should be paid in the</p>
+                        <p style="padding:0px; margin:0px">following monthly amount:</p>
+                    </td>
+                    <td>
+                        <p>$ <input type="text" id="allremaining6" name="allremaining6" value="{{request.session.allremaining6}}"></p>
+                    </td>
+                </tr>
+            </table> 
+        </div>
+        <div style="grid-column:2;grid-row:22">
+            <button py-click="back7to6()" class="next_back" type="button" style="margin-left:50%;margin-right:50%">Back</button>
+        </div>
+        <div style="grid-column:3;grid-row:13;">
+                <button id="make_document" name="make_document" type="submit" style="background-color:#339933" disabled>Make Document</button>
+        </div>
+    </div>
+</form>
+
+
+    <py-script>
+        from decimal import Decimal
+        from js import document
+        from datetime import datetime
+        import csv
+
+
+
+        c = document.getElementById("output")
+
+        def focus_border(button):
+            element = button
+            Element(element).element.setAttribute("style","border:2px solid green")
+
+        def show_import():
+            Element('global_import').element.value = "import"
+            Element('read_word').element.hidden = False
+
+        def unshow_import():
+            Element('global_import').element.value = ""
+            Element('read_word').element.hidden = True      
+
+        def subwait():
+            c = document.getElementById('wait')
+            document.setAttribute('wait',hidden=False)
+        def unwait():
+            pass
+
+        def casenumber(choice):
+
+            if Element("global_import").element.value == "":
+
+                county_parts_list = Element('countycode').element.value.split(',')
+                county = county_parts_list[0]
+                
+                missing_zeros_count = 6 - len(Element('fileno').element.value)
+                missing_zeros_list = []
+                for i in range(missing_zeros_count):
+                    missing_zeros_list.append("0")
+                missing_zeros = "".join(missing_zeros_list)
+
+                year = Element('caseyear').element.value
+
+
+                if len(county) == 0 and choice == 1:
+                    Element('fixcountycode').element.hidden = False
+                    Element('countycode').element.setAttribute("style","background-color:pink")
+                    Element('countycode').element.focus()
+                    return
+                else:
+                    Element('fixcountycode').element.hidden = True
+                    Element('countycode').element.setAttribute("style","background-color:white;")
+
+                if len(year) != 4 and choice == 2:
+                    Element('fixyear').element.hidden = False
+                    Element('caseyear').element.setAttribute("style","background-color:pink;")
+                    Element('caseyear').element.value = ""
+                    Element('caseyear').element.focus()
+                    return
+                else:
+                    Element('fixyear').element.hidden = True
+                    Element('caseyear').element.setAttribute("style","background-color:white;")
+
+
+                filenumber = missing_zeros + Element('fileno').element.value
+
+
+                if filenumber == '000000' and choice == 3:
+                    Element('fixfilenumber').element.hidden = False
+                    Element('fileno').element.setAttribute("style","background-color:pink;")
+                    Element('fileno').element.focus()
+                    return
+                else:
+                    Element('fixfilenumber').element.hidden = True
+                    Element('fileno').element.setAttribute("style","background-color:white;")
+
+                if county != "" and county == '53':
+                    presuffix = '0000'
+                    Element('citycountydisttribe').element.value = "Polk"
+                if county != "" and county == '25':
+                    presuffix = 'FCAX'
+                    Element('suffix').element.value = 'MX'
+                    Element('citycountydisttribe').element.value = "Hardee"
+
+                if county != "" and county == '28':
+                    presuffix = 'DRAX'
+                    Element('suffix').element.value = 'MX'
+                    Element('citycountydisttribe').element.value = "Highlands"
+                    
+
+
+                
+                Element('suffix').element.value = Element('suffix').element.value.upper()
+                suffix = Element('suffix').element.value
+
+                if len(suffix) != 2 and choice == 4:
+                    Element('fixsuffix').element.hidden = False
+                    Element('suffix').element.setAttribute("style","background-color:pink;")
+                    Element('suffix').element.value = ""
+                    Element('suffix').element.focus()
+                    return
+                else:
+                    Element('fixsuffix').element.hidden = True
+                    Element('suffix').element.setAttribute("style","background-color:white;")
+
+                if Element('division').element.value == "" and choice == 5:
+                    Element('fixdivision').element.hidden = False
+                    Element('division').element.setAttribute("style","background-color:pink;")
+                    Element('division').element.value = ""
+                    Element('division').element.focus()
+                    return
+                else:
+                    Element('fixdivision').element.hidden = True
+                    Element('division').element.setAttribute("style","background-color:white;")
+
+
+
+                casenumber = county + "-" + year + "-DR-" + filenumber + "-" + presuffix + "-" + suffix
+                Element('casenumber').element.value = casenumber
+                Element('statetribeterritory').element.value = "Florida"
+                Element('orderid').element.value = Element('casenumber').element.value
+                if len(year) == 4:
+                    Element('remittanceid').element.value = county + "(" + county_parts_list[3] + ")" + "-" + year[2] + year[3] + "DR" + filenumber.strip("0")
+
+                if Element('petitioner').element.checked == 0 and Element('respondent').element.checked == 0 and choice == 6:
+                    Element('fixpetitionerrespondent').element.hidden = False
+                    Element('petitionerlabel').element.setAttribute("style","color:red;margin-left:-20px;")
+                    Element('respondentlabel').element.setAttribute("style","color:red;margin-left:-20px")
+                    Element('respondentlabel').element.focus()
+
+                else:
+                    Element('fixpetitionerrespondent').element.hidden = True
+                    Element('petitionerlabel').element.setAttribute("style","color:black;margin-left:-20px")
+                    Element('respondentlabel').element.setAttribute("style","color:black;margin-left:-20px")
+
+
+        
+        def sub1_1():
+            if Element('iwo').element.checked == 1:
+                Element('amendiwo').element.checked = 0
+                Element('lump').element.checked = 0
+                Element('termiwo').element.checked = 0
+                Element('pleasecheck').element.hidden = True
+                Element('iwolabel').element.style.color = 'black'
+                Element('amendiwolabel').element.style.color = 'black'
+                Element('lumplabel').element.style.color = 'black'
+                Element('termiwolabel').element.style.color = 'black'
+
+
+        def sub1_2():
+            if Element('amendiwo').element.checked == 1:
+                Element('iwo').element.checked = 0
+                Element('lump').element.checked = 0
+                Element('termiwo').element.checked = 0
+                Element('pleasecheck').element.hidden = True
+                Element('iwolabel').element.style.color = 'black'
+                Element('amendiwolabel').element.style.color = 'black'
+                Element('lumplabel').element.style.color = 'black'
+                Element('termiwolabel').element.style.color = 'black'
+
+
+        def sub1_3():
+            if Element('lump').element.checked == 1:
+                Element('amendiwo').element.checked = 0
+                Element('iwo').element.checked = 0
+                Element('termiwo').element.checked = 0
+                Element('pleasecheck').element.hidden = True
+                Element('iwolabel').element.style.color = 'black'
+                Element('amendiwolabel').element.style.color = 'black'
+                Element('lumplabel').element.style.color = 'black'
+                Element('termiwolabel').element.style.color = 'black'
+
+
+        def sub1_4():
+            if Element('termiwo').element.checked == 1:
+                Element('amendiwo').element.checked = 0
+                Element('lump').element.checked = 0
+                Element('iwo').element.checked = 0
+                Element('pleasecheck').element.hidden = True
+                Element('iwolabel').element.style.color = 'black'
+                Element('amendiwolabel').element.style.color = 'black'
+                Element('lumplabel').element.style.color = 'black'
+                Element('termiwolabel').element.style.color = 'black'
+                Element('global_term').element.value = "term"
+
+
+        def sub1_5():
+            if Element('cse').element.checked == 1:
+                Element('court').element.checked = 0
+                Element('attorney').element.checked = 0
+                Element('private').element.checked = 0
+                Element('pleasecheck2').element.hidden = True
+                Element('cselabel').element.style.color = 'black'
+                Element('courtlabel').element.style.color = 'black'
+                Element('attorneylabel').element.style.color = 'black'
+                Element('privatelabel').element.style.color = 'black'
+
+        def sub1_6():
+            if Element('court').element.checked == 1:
+                Element('cse').element.checked = 0
+                Element('attorney').element.checked = 0
+                Element('private').element.checked = 0
+                Element('pleasecheck2').element.hidden = True
+                Element('cselabel').element.style.color = 'black'
+                Element('courtlabel').element.style.color = 'black'
+                Element('attorneylabel').element.style.color = 'black'
+                Element('privatelabel').element.style.color = 'black'
+
+        def sub1_7():
+            if Element('attorney').element.checked == 1:
+                Element('court').element.checked = 0
+                Element('cse').element.checked = 0
+                Element('private').element.checked = 0
+                Element('pleasecheck2').element.hidden = True
+                Element('cselabel').element.style.color = 'black'
+                Element('courtlabel').element.style.color = 'black'
+                Element('attorneylabel').element.style.color = 'black'
+                Element('privatelabel').element.style.color = 'black'
+
+        def sub1_8():
+            if Element('private').element.checked == 1:
+                Element('court').element.checked = 0
+                Element('attorney').element.checked = 0
+                Element('cse').element.checked = 0
+                Element('pleasecheck2').element.hidden = True
+                Element('cselabel').element.style.color = 'black'
+                Element('courtlabel').element.style.color = 'black'
+                Element('attorneylabel').element.style.color = 'black'
+                Element('privatelabel').element.style.color = 'black'
+
+        def checkgroup_2choice(checked,unchecked):
+
+            if Element(checked).element.checked == 1:
+                Element(unchecked).element.checked = 0
+                Element(checked).element.style.color = 'black'
+                Element(unchecked).element.style.color = 'black'
+
+            if Element('global_term').element.value != "term":
+                if checked == "yes12" or checked == "no12":
+                    Element('checkarrears').element.setAttribute("style","color:black")
+                    Element('checkarrears12').element.hidden = True
+                
+                if checked == "petitioner" or checked == "respondent":
+                    Element('petitionerlabel').element.setAttribute("style","color:black")
+                    Element('respondentlabel').element.setAttribute("style","color:black")
+                    Element('fixpetitionerrespondent').element.hidden = True
+
+        
+        def checkgroup_3choice(checked,unchecked1,unchecked2):
+
+            if Element('global_term').element.value != "term":
+                if Element(checked).element.checked == 1:
+                    Element(unchecked1).element.checked = 0
+                    Element(unchecked2).element.checked = 0
+                    Element(checked).element.style.color = 'black'
+                    Element(unchecked1).element.style.color = 'black'
+                    Element(unchecked2).element.style.color = 'black'
+
+                if checked == "deductpercent":
+                    if Element('deductpercentamount').element.value == "":
+                        Element('deductpercentamount').element.value = "60"
+                else:
+                    Element('deductpercentamount').element.value = "" 
+            
+
+
+        def sub2_1(id):
+            date_string = Element(id).element.value
+            if not sub_isdate(date_string,False):
+                Element(id).element.style.color = 'pink'
+
+        def sub2():
+            for i in range(5):
+                Element('output').write(f"Hello, {Element('name').value} from {Element('countries').value}")
+        
+
+
+        def sub4():
+        
+
+ 
+            my_file = open("docs/doc2.docx", "rb")
+ 
+
+            text = my_file.read()
+ 
+            my_file.close()
+            return text
+        
+        def sub_anyall():
+            if Element('privateindividualentity').element.value == "":
+                if Element('employername').element.value == "":
+                    Element('employeranyall').element.hidden = False
+                    Element('employername').element.setAttribute("style","background-color:pink")
+                    Element('anyallbuttonyes').element.focus()
+                else:
+                    if Element('employername').element.value != "":
+                        Element('employername').element.value = Element('employername').element.value.title()
+                        Element('enteremployer').element.hidden = True
+                        Element('employername').element.setAttribute("style","background-color:white")
+        
+        def sub_anyallclick(choice):
+            if choice == 'yes':
+                Element('employername').element.value = "Any and all employers/withholders"
+                Element('employername').element.setAttribute("style","background-color:white")
+                Element('employeranyall').element.hidden = True
+                Element('employeraddress1').element.focus()
+            if choice == 'no':
+                Element('enteremployer').element.hidden = False
+                Element('employeranyall').element.hidden = True
+                Element('employername').element.focus()
+
+        def sub_entername(name,entername,formatname):
+
+            if Element(name).element.value != "" and Element(name).element.value.split(',')[-1] == "" or Element(name).element.value.split(',')[-1] == " ":
+                Element(formatname).element.hidden = False
+                if name == "obligorname" or name == "obligeename2":
+                    Element(name).element.setAttribute("style","background-color:pink")
+                else:
+                    Element(name).element.setAttribute("style","background-color:pink;margin-left:-13px;width:13em !important")
+                Element(name).element.value = ""
+                Element(name).element.focus()
+                return
+
+            if not "child" in name:
+                if Element(name).element.value == "":
+                    if Element(entername).element is not None:
+                        Element(entername).element.hidden = False
+                        Element(name).element.setAttribute("style","background-color:pink")
+                        Element(name).element.focus()
+                        if name == 'obligorname':
+                            Element('obligorname').element.setAttribute("style","background-color:pink")
+                        if name == 'obligeename2':
+                            Element('obligeename2').element.setAttribute("style","background-color:pink")
+
+                else:
+                    if "," in Element(name).element.value:
+                   
+                        name2 = Element(name).element.value.replace(', ',',').split(",")
+                        name2[0] = name2[0].title() + ","
+                        Element(name).element.setAttribute("style","background-color:white")
+                        Element(formatname).element.hidden = True
+                        Element(entername).element.hidden = True
+                        if Element(entername).element is not None:
+                            Element(entername).element.hidden = True
+                        Element(name).element.value = " ".join(name2).title()
+                        if name == 'obligorname':
+                            Element('obligorname').element.setAttribute("style","background-color:white")
+                        if name == 'obligeename2':
+                            Element('obligeename2').element.setAttribute("style","background-color:white")
+
+
+                
+                    else:
+                        Element(formatname).element.hidden = False
+                        Element(entername).element.hidden = True
+                        Element(name).element.value = ""
+                        Element(name).element.setAttribute("style","background-color:pink")
+                        Element(name).element.focus()
+                        if name == 'obligorname':
+                            Element('obligorname').element.setAttribute("style","background-color:pink")
+                        if name == 'obligeename2':
+                            Element('obligeename2').element.setAttribute("style","background-color:pink")
+
+            elif "," in Element(name).element.value:
+                name2 = Element(name).element.value.replace(', ',',').split(",")
+                name2[0] = name2[0].title() + ","
+                Element(name).element.setAttribute("style","background-color:white")
+                if name == 'obligorname':
+                    Element('obligorname').element.setAttribute("style","background-color:white")
+                if name == 'obligeename2':
+                    Element('obligeename2').element.setAttribute("style","background-color:white")
+                if name in ['child1','child2','child3','child4','child5','child6']:
+                    Element(name).element.setAttribute("style","background-color:white;margin-left:-13px;width:13em !important")
+
+                Element(formatname).element.hidden = True
+                if Element(entername).element is not None:
+                    Element(entername).element.hidden = True
+                Element(name).element.value = " ".join(name2).title()
+                                        
+                Element('alim_enterchild').element.hidden = True
+                Element('alimonyonly').element.hidden = True
+      
+            else:
+                if Element(name).element.value != "":
+                    Element(formatname).element.hidden = False
+                    Element(name).element.value = ""
+                    Element(name).element.setAttribute("style","background-color:pink")
+                    Element(name).element.focus()
+                    if name == 'obligorname':
+                        Element('obligorname').element.setAttribute("style","background-color:pink")
+                    if name == 'obligeename2':
+                        Element('obligeename2').element.setAttribute("style","background-color:pink")
+                    if name in ['child1','child2','child3','child4','child5','child6']:
+                        Element(name).element.setAttribute("style","background-color:pink;margin-left:-13px;width:13em !important")
+
+
+        def sub_isdate(dateid):
+            if dateid == "employeedob":
+                fixdate = "fixdate0"
+            elif Element("child" + list(dateid)[5]).element.value != "":
+                fixdate = "fixdate" + list(dateid)[5]
+            else:
+                fixdate = None
+            if fixdate is not None:
+                datestr = Element(dateid).element.value
+                format_list = ["%m/%d/%Y","%m-%d-%Y","%m.%d.%Y","%m/%d/%Y","%m/%d/%y","%m-%-d-%Y","%m-%d-%y","%m.%d.%Y","%m.%d.%y","%B %d, %Y","%b %d, %Y","%b %d, %y","%m %d, %y","%B %d, %y"]
+                for f in format_list:
+                    try:
+                        Element(dateid).element.value = datetime.strftime(datetime.strptime(datestr,f).date(),"%m/%d/%Y")
+                        if dateid in ['child1dob','child2dob','child3dob','child4dob','child5dob','child6dob']:
+                            Element(dateid).element.setAttribute("style","background-color:white;width:8em !important")
+                        else:
+                            Element(dateid).element.setAttribute("style","background-color:white")
+                        Element(fixdate).element.hidden = True
+                        Element("enterchilddob" + list(dateid)[5]).element.hidden = True
+                        num = list(dateid)[5]
+                        num2 = int(num) + 1
+                        if num2 in range(1,5):
+                            Element("child" + str(num2)).element.focus()
+                        break
+                    except ValueError:
+                        Element(fixdate).element.hidden = False
+                        Element(dateid).element.value = ""
+                        Element(dateid).element.setAttribute("style","background-color:pink")
+                        Element(dateid).element.focus()
+
+        def order_child():
+
+            child_list_id = [f"child{i}" for i in range(1,6) if Element(f"child{i}").element.value != ""]
+            childdob_list_id = [f"child{i}dob" for i in range(1,6) if Element(f"child{i}dob").element.value != ""]   
+            child_dob_tuple_list = []
+
+            for i in range(1,7):
+                if Element("child" + str(i)).element.value != "":
+                    child_dob_tuple_list.append((Element("child" + str(i)).element.value,Element("child" + str(i) + "dob").element.value))
+            
+            for i in range(1,7):
+                Element("child" + str(i)).element.value = ""
+                Element("child" + str(i) + "dob").element.value = ""
+
+            if len(child_dob_tuple_list) !=0:
+                for i in range(len(child_dob_tuple_list)):
+                    for j in range(0,len(child_dob_tuple_list)-i-1):
+                        a = datetime(int(child_dob_tuple_list[j][1].split("/")[2]),int(child_dob_tuple_list[j][1].split("/")[1]),int(child_dob_tuple_list[j][1].split("/")[0]))
+                        b = datetime(int(child_dob_tuple_list[j + 1][1].split("/")[2]),int(child_dob_tuple_list[j + 1][1].split("/")[1]),int(child_dob_tuple_list[j + 1][1].split("/")[0]))
+
+                        if a > b or (a == b and child_dob_tuple_list[j][0] > child_dob_tuple_list[j + 1][0]):
+                            child_dob_tuple_list[j], child_dob_tuple_list[j + 1] = child_dob_tuple_list[j + 1], child_dob_tuple_list[j]
+                
+                i = 1
+                for tup in child_dob_tuple_list:
+                    Element("child" + str(i)).element.value = tup[0]
+                    Element("child" + str(i) + "dob").element.value = tup[1]
+                    i = i + 1
+
+                j = 1
+                for tup in child_dob_tuple_list:
+                    split_child = tup[0].split()
+                    first_init = split_child[1][0] + "."
+                    last_init = split_child[0][0] + "."
+
+                    date_split = tup[1].split("/")
+                    add_years = str(int(date_split[2]) + 18)
+                    date_split[2] = add_years
+                    new_dob = "/".join(date_split)
+
+                    if len(split_child) < 3:
+                        Element("childinit" + str(j)).element.value = first_init + last_init
+                        Element("childdobtwo" + str(j)).element.value = tup[1]
+                        Element("dob18" + str(j)).element.value = new_dob
+                        j = j + 1
+                    else:
+                        rest_init_list = []
+                        for i in range(2,len(split_child)):
+
+                            rest_init_list.append(split_child[i][0] + ".")
+                            rest_init = ''.join(rest_init_list)
+                        Element("childinit" + str(j)).element.value = first_init + rest_init + last_init
+                        Element("childdobtwo" + str(j)).element.value = tup[1]
+                        Element("dob18" + str(j)).element.value = new_dob
+                        j = j + 1
+                if len(child_dob_tuple_list) == 6:
+                    Element("hiddenchild").element.hidden = False
+
+
+
+            
+
+
+        def enterchilddob(num):
+            dobelementtext = Element("child" + str(num) + "dob").element.value
+            dobelement = Element("child" + str(num) + "dob").element
+            childelement = Element("child" + str(num)).element.value
+            warnelement = Element("enterchilddob" + str(num)).element
+            formatelement = Element(f"fixdate{num}").element
+            if dobelementtext == "" and childelement != "":
+                formatelement.hidden = True
+                warnelement.hidden = False
+                dobelement.setAttribute("style","background-color:pink;width:8em !important")
+                dobelement.focus()
+            elif dobelementtext != "" and childelement!= "":
+                sub_isdate("child" + str(num) + "dob")
+            else:
+                warnelement.hidden = True
+                formatelement.hidden = True
+                if num in range(1,5):
+                    Element("child" + str(num + 1)).element.focus()
+                else:
+                    Element("dollar1").element.focus()
+
+
+
+        def calc_dollars(per):
+            sum = 0
+            allowables = [".","0","1","2","3","4","5","6","7","8","9"]
+            for i in range(1,8):
+                amount = Element("dollar" + str(i)).element.value
+                for ltr in amount:
+                    if ltr not in allowables:
+                        Element("fixdollar" + str(i)).element.hidden = False
+                        Element("dollar" + str(i)).element.setAttribute("style","background-color:pink;width:5em;text-align:right !important")
+                        Element("dollar" +str(i)).element.value = ""
+                        Element("dollar" + str(i)).element.focus()
+
+                        return
+                    else:
+                        Element("fixdollar" + str(i)).element.hidden = True
+                        Element("dollar" + str(i)).element.setAttribute("style","background-color:white; text-align:right;width:5em;text-align:right !important")
+
+                if "." in amount:
+                    amount = amount.split(".")
+                    if len(amount[1]) > 1:
+                        amount = str(amount[0]) +"."+ str(list(amount)[1][0]) + str(list(amount)[1][1])
+                    else:
+                        amount = str(amount[0]) +"."+ str(list(amount)[1][0]) + "0"
+
+                    Element("dollar" + str(i)).element.value = amount
+                    Element("dollar" + str(i)).element.setAttribute("style","background-color:white; text-align:right;width:5em;text-align:right !important")
+                else:
+                    if len(amount) > 0:
+                        Element("dollar" + str(i)).element.value = amount + ".00"
+                        Element("dollar" + str(i)).element.setAttribute("style","background-color:white; text-align:right;width:5em;text-align:right !important")
+
+                period = Element("per" + str(i)).element.value
+                other = Element("dollar7").element.value
+
+                if len(amount) > 0:
+                    sum = Decimal(sum) + Decimal(amount)
+            Element("totalwithhold").element.value = '{:.2f}'.format(float(sum),2)
+            Element("totalwithhold").element.setAttribute("style","text-align:right;width:5em;text-align:right !important")
+
+
+
+
+
+            sub3()
+            pop_pers("dummy")
+
+            num_children_dollars = 0
+            for i in range(1,5):
+                if Element('dollar' + str(i)).element.value != "":
+                    num_children_dollars = num_children_dollars + 1
+            if num_children_dollars > 0:
+                for i in range(1,5):
+                    Element('dollar' + str(i)).element.setAttribute("style","background-color:white; text-align:right;width:5em;text-align:right !important")
+                    Element('childnopayment').element.hidden = True
+            Element('global_lump').element.value = ""
+            Element('lumpsum').element.value = ""
+            Element('per7').element.value = "payment"
+            Element('reallylump').element.hidden = True
+
+            if Element(per).element.value == "":
+                Element(per).element.focus()
+            
+            percent_payment = "{0:.2f}".format((float(Element('totalwithhold').element.value) - 5.25) * float(.2))
+            Element("arrearspayment").element.value = percent_payment
+        
+        def per8change():
+            Element('arrearspaymentper').element.value = Element('per8').element.value
+
+        def calc_arrears_dollars(element,fixdollar):
+            sum = 0
+            allowables = [".","0","1","2","3","4","5","6","7","8","9"]
+            amount = Element(element).element.value
+            for ltr in amount:
+                if ltr not in allowables:
+                    Element(fixdollar).element.hidden = False
+                    Element(element).element.setAttribute("style","background-color:pink;width:5em !important")
+                    Element(element).element.value = ""
+                    Element(element).element.focus()
+                    return
+                
+                elif "." in amount:
+                    amount = amount.split(".")
+                    if len(amount[1]) > 1:
+                        amount = str(amount[0]) +"."+ str(list(amount)[1][0]) + str(list(amount)[1][1])
+                    else:
+                        amount = str(amount[0]) +"."+ str(list(amount)[1][0]) + "0"
+
+                    Element(element).element.value = amount
+                    Element(element).element.setAttribute("style","background-color:white; text-align:right;width:5em !important")
+                
+
+
+                else:
+                    if len(amount) > 0:
+
+                        Element(fixdollar).element.hidden = True
+                        Element(element).element.value = amount + ".00"
+                        Element(element).element.setAttribute("style","background-color:white;text-align:right;width:5em !important")
+            
+            if element == "arrears":
+                percent_payment = "{0:.2f}".format((float(Element('totalwithhold').element.value) - 5.25) * float(.2))
+                Element("arrearsper").element.value = Element("per8").element.value
+                Element("arrearsrate").element.value = percent_payment
+                Element("arrearspayment").element.value = percent_payment
+            
+            if element == "arrearspayment":
+                Element("arrearspaymentper").element.value = Element("per8").element.value
+
+
+        def sub3():
+            Element('totalwithhold').element.value= "{0:.2f}".format(float(Element("totalwithhold").value))
+            payment_plus = Decimal(Element('totalwithhold').element.value)
+            minus = Decimal('5.25')
+            payment_minus = payment_plus - minus
+
+            if Element('per8').value == 'month':
+                Element('permonth').element.value = "{0:.2f}".format((payment_minus + minus))
+                Element('pertwoweeks').element.value="{0:.2f}".format((payment_minus * 12 / 26) + minus)
+                Element('persemimonth').element.value="{0:.2f}".format((payment_minus * 12 / 24) + minus)
+                Element('perweek').element.value="{0:.2f}".format((payment_minus * 12 / 52) + minus)
+
+            if Element('per8').value == 'week':
+                Element('permonth').element.value = "{0:.2f}".format((payment_minus * 52 / 12) + minus)
+                Element('pertwoweeks').element.value="{0:.2f}".format((payment_minus * 52 / 26) + minus)
+                Element('persemimonth').element.value="{0:.2f}".format((payment_minus * 52 / 24) + minus)
+                Element('perweek').element.value="{0:.2f}".format((payment_minus + minus))
+
+            if Element('per8').value == 'semi-month':
+                Element('permonth').element.value = "{0:.2f}".format((payment_minus * 24 / 12) + minus)
+                Element('pertwoweeks').element.value="{0:.2f}".format((payment_minus * 24 / 26) + minus)
+                Element('persemimonth').element.value="{0:.2f}".format((payment_minus + minus))
+                Element('perweek').element.value="{0:.2f}".format((payment_minus * 24 / 52) + minus)
+
+            if Element('per8').value == 'two weeks':
+                Element('permonth').element.value = "{0:.2f}".format((payment_minus * 26 / 12) + minus)
+                Element('pertwoweeks').element.value="{0:.2f}".format((payment_minus + minus))
+                Element('persemimonth').element.value="{0:.2f}".format((payment_minus * 26 / 24) + minus)
+                Element('perweek').element.value="{0:.2f}".format((payment_minus * 26 / 52) + minus)
+
+
+
+
+
+        def pop_pers(this_per):
+
+            for i in range (1,7):
+                raw_period = Element("per" + str(i)).element.value
+                raw_period = raw_period.lower()
+                if "mo" in raw_period and "half" not in raw_period and "semi" not in raw_period and "bi" not in raw_period and "two" not in raw_period and "2" not in raw_period:
+                    if Element("dollar" + str(i)).element.value != "":
+                        Element("per" + str(i)).element.value = "month"
+                        Element("per" + str(i)).element.setAttribute("style","background-color:white;width:7em !important")
+                        Element('amountnoper').element.hidden = True
+
+
+                elif ("mo" in raw_period) and ("half" in raw_period or "semi" in raw_period or "two" in raw_period or "bi" in raw_period or "2" in raw_period):
+                    if  Element("dollar" + str(i)).element.value != "":
+                        Element("per" + str(i)).element.value = "semi-month"
+                        Element("per" + str(i)).element.setAttribute("style","background-color:white;width:7em !important")
+                        Element('amountnoper').element.hidden = True
+
+                elif "we" in raw_period and "bi" not in raw_period and "two" not in raw_period and "2" not in raw_period and "semi" not in raw_period:
+                    if Element("dollar" + str(i)).element.value != "":
+                        Element("per" + str(i)).element.value = "week"
+                        Element("per" + str(i)).element.setAttribute("style","background-color:white;width:7em !important")
+                        Element('amountnoper').element.hidden = True
+
+                else:
+                    if ("we" in raw_period) and ("bi" in raw_period or "two" in raw_period or "2" in raw_period or "semi" in raw_period):
+                        if Element("dollar" + str(i)).element.value != "":
+                            Element("per" + str(i)).element.value = "two weeks"
+                            Element("per" + str(i)).element.setAttribute("style","background-color:white;width:7em !important")
+                            Element('amountnoper').element.hidden = True
+
+            if this_per != "dummy":
+                Element('per8').element.value = Element(this_per).element.value
+                Element('global_per').element.value = Element(this_per).element.value
+                for i in range(1,7):
+                    if Element('per' + str(i)).element.value != "" and Element('dollar' + str(i)).element.value != "":
+                        Element('per' + str(i)).element.value = Element('global_per').element.value
+                        Element("per" + str(i)).element.setAttribute("style","background-color:white;width:7em !important")
+                        Element('amountnoper').element.hidden = True
+
+
+            else:
+                per_list = []
+                for i in range(1,7):
+                    if Element('per' + str(i)).element.value != "":
+                        per_list.append(Element('per' + str(i)).element.value)
+                for i in range(1,7):
+                    if Element('dollar' + str(i)).element.value != "":
+                        if len(per_list) != 0:
+                            Element('per' + str(i)).element.value = per_list[0]
+                            Element("per" + str(i)).element.setAttribute("style","background-color:white;width:7em !important")
+                            Element('amountnoper').element.hidden = True
+            
+            sub3()
+            
+                
+                    
+
+        def next0to1():
+
+            if Element('countycode').element.value == "":
+                Element('fixcountycode').element.hidden = False
+                Element('countycode').element.setAttribute("style","background-color:pink")
+                Element('countycode').element.focus()
+                return
+
+            if Element('caseyear').element.value == "":
+                Element('fixyear').element.hidden = False
+                Element('caseyear').element.setAttribute("style","background-color:pink")
+                Element('caseyear').element.focus()
+                return
+
+            if Element('fileno').element.value == "":
+                Element('fixfilenumber').element.hidden = False
+                Element('fileno').element.setAttribute("style","background-color:pink")
+                Element('fileno').element.focus()
+                return
+
+            if Element('suffix').element.value == "":
+                Element('fixsuffix').element.hidden = False
+                Element('suffix').element.setAttribute("style","background-color:pink")
+                Element('suffix').element.focus()
+                return
+
+            if Element('division').element.value == "":
+                Element('fixdivision').element.hidden = False
+                Element('division').element.setAttribute("style","background-color:pink")
+                Element('division').element.focus()
+                return
+
+            if Element('petitioner').element.checked == 0 and Element('respondent').element.checked == 0:
+                casenumber(6)
+                return
+
+            if Element('obligorname').element.value == "":
+                Element('entername').element.hidden = False
+                Element('obligorname').element.focus()
+                Element('obligorname').element.setAttribute("style","background-color:pink")
+                return
+            if Element('obligoraddress1').element.value == "" and Element('obligoraddress2').element.value == "" and Element('obligoraddress3').element.value == "":
+                if Element('global_obligoraddress').element.value == "":
+                    Element('enter_obligoraddress').element.hidden = False
+                    return
+
+            
+            if Element('obligeename2').element.value == "":
+                Element('entername2').element.hidden = False
+                Element('obligeename2').element.focus()
+                Element('obligeename2').element.setAttribute("style","background-color:pink")
+                return
+
+            if Element('obligeeaddress1').element.value == "" and Element('obligeeaddress2').element.value == "" and Element('obligeeaddress3').element.value == "":
+                if Element('global_obligeeaddress').element.value == "":
+                    Element('enter_obligeeaddress').element.hidden = False
+                    return
+
+            Element('entername').element.hidden = True
+            Element('obligorname').element.setAttribute("style","background-color:white;")
+            Element('entername2').element.hidden = True
+            Element('obligeename2').element.setAttribute("style","background-color:white;")
+            Element('employeename').element.value = Element('obligorname').element.value
+            Element('obligeename').element.value = Element('obligeename2').element.value
+
+            if Element('obligoraddress1').element.value != "" and Element('obligoraddress1').element.value != "address unknown":
+                Element('obligoraddress1').element.value = Element('obligoraddress1').element.value.title()
+            if Element('obligoraddress2').element.value != "" and Element('obligoraddress2').element.value != "address unknown":
+                Element('obligoraddress2').element.value = Element('obligoraddress2').element.value.title()            
+            if Element('obligoraddress3').element.value != "" and Element('obligoraddress3').element.value != "address unknown":
+                Element('obligoraddress3').element.value = Element('obligoraddress3').element.value.title()           
+            if Element('obligeeaddress1').element.value != "" and Element('obligeeaddress1').element.value != "address unknown":
+                Element('obligeeaddress1').element.value = Element('obligeeaddress1').element.value.title()            
+            if Element('obligeeaddress2').element.value != "" and Element('obligeeaddress2').element.value != "address unknown":
+                Element('obligeeaddress2').element.value = Element('obligeeaddress2').element.value.title()            
+            if Element('obligeeaddress3').element.value != "" and Element('obligeeaddress3').element.value != "address unknown":
+                Element('obligeeaddress3').element.value = Element('obligeeaddress3').element.value.title()
+
+            Element('casepartyinfo').element.setAttribute("style","display:none")
+            Element('sender-info').element.setAttribute("style","display:grid")
+        
+        def enterobligoraddress(choice):
+            if choice == "yes":
+                Element('obligoraddress1').element.setAttribute("style","background-color:pink")
+
+                Element('obligoraddress2').element.setAttribute("style","background-color:pink")
+                Element('obligoraddress3').element.setAttribute("style","background-color:pink")
+                Element('obligorenteraddress').element.hidden = False
+                Element('enter_obligoraddress').element.hidden = True
+                Element('obligoraddress1').element.focus()
+            if choice == "no":
+                Element('obligoraddress1').element.value = "address unknown"
+                Element('global_obligoraddress').element.value = "unknown"
+                Element('enter_obligoraddress').element.hidden = True
+
+        def enterobligeeaddress(choice):
+            if choice == "yes":
+                Element('obligeeaddress1').element.setAttribute("style","background-color:pink")
+
+                Element('obligeeaddress2').element.setAttribute("style","background-color:pink")
+                Element('obligeeaddress3').element.setAttribute("style","background-color:pink")
+                Element('obligeeenteraddress').element.hidden = False
+                Element('enter_obligeeaddress').element.hidden = True
+                Element('obligeeaddress1').element.focus()
+            if choice == "no":
+                Element('obligeeaddress1').element.value = "address unknown"
+                Element('global_obligeeaddress').element.value = "unknown"
+                Element('enter_obligeeaddress').element.hidden = True
+
+        def unpinkaddress():
+            Element('obligoraddress1').element.setAttribute("style","background-color:white")
+            Element('obligoraddress2').element.setAttribute("style","background-color:white")
+            Element('obligoraddress3').element.setAttribute("style","background-color:white")
+            Element('obligeeaddress1').element.setAttribute("style","background-color:white")
+            Element('obligeeaddress2').element.setAttribute("style","background-color:white")
+            Element('obligeeaddress3').element.setAttribute("style","background-color:white")
+            Element('obligorenteraddress').element.hidden = True
+            Element('obligeeenteraddress').element.hidden = True
+        
+        def back1to0():
+            Element('sender-info').element.setAttribute("style","display:none")
+            Element('casepartyinfo').element.setAttribute("style","display:grid")
+
+                
+        def next1to2():
+
+            if Element('termiwo').element.checked == 1:            
+            
+                if Element('cse').element.checked == 0 and Element('court').element.checked == 0 and Element('attorney').element.checked == 0 and Element('private').element.checked == 0:
+                    Element('pleasecheck2').element.hidden = False
+                    Element('cselabel').element.style.color = 'red'
+                    Element('courtlabel').element.style.color = 'red'
+                    Element('attorneylabel').element.style.color = 'red'
+                    Element('privatelabel').element.style.color = 'red'
+                else:
+                    Element('employercaseinfo').element.setAttribute("style","display:grid")
+                    Element('sender-info').element.setAttribute("style","display:none")
+                    Element('pleasecheck').element.hidden = True
+                    Element('iwolabel').element.style.color = 'black'
+                    Element('amendiwolabel').element.style.color = 'black'
+                    Element('lumplabel').element.style.color = 'black'
+                    Element('termiwolabel').element.style.color = 'black'
+                    Element('cse').element.style.color = 'black'
+                    Element('court').element.style.color = 'black'
+                    Element('attorney').element.style.color = 'black'
+                    Element('private').element.style.color = 'black'
+                    Element('employername').element.focus()
+                    Element('casepartyinfo').element.setAttribute("style","display:none")
+
+            elif Element('iwo').element.checked == 0 and Element('amendiwo').element.checked == 0 and Element('lump').element.checked == 0 and Element('termiwo').element.checked == 0:
+                Element('pleasecheck').element.hidden = False
+                Element('iwolabel').element.style.color = 'red'
+                Element('amendiwolabel').element.style.color = 'red'
+                Element('lumplabel').element.style.color = 'red'
+                Element('termiwolabel').element.style.color = 'red'
+            
+            elif Element('cse').element.checked == 0 and Element('court').element.checked == 0 and Element('attorney').element.checked == 0 and Element('private').element.checked == 0:
+                Element('pleasecheck2').element.hidden = False
+                Element('cselabel').element.style.color = 'red'
+                Element('courtlabel').element.style.color = 'red'
+                Element('attorneylabel').element.style.color = 'red'
+                Element('privatelabel').element.style.color = 'red'
+
+            else:
+                Element('employercaseinfo').element.setAttribute("style","display:grid")
+                Element('sender-info').element.setAttribute("style","display:none")
+                Element('pleasecheck').element.hidden = True
+                Element('iwolabel').element.style.color = 'black'
+                Element('amendiwolabel').element.style.color = 'black'
+                Element('lumplabel').element.style.color = 'black'
+                Element('termiwolabel').element.style.color = 'black'
+                Element('cse').element.style.color = 'black'
+                Element('court').element.style.color = 'black'
+                Element('attorney').element.style.color = 'black'
+                Element('private').element.style.color = 'black'
+                Element('employername').element.focus()
+                Element('casepartyinfo').element.setAttribute("style","display:none")
+
+
+        def back2to1():
+            Element('employercaseinfo').element.setAttribute("style","display:none")
+            Element('sender-info').element.setAttribute("style","display:grid")
+
+        def next2to3():
+
+            if Element('employeename').element.value == "":
+                Element('entername').element.hidden = False
+                Element('employeename').element.focus()
+                Element('employeename').element.setAttribute("style","background-color:pink")
+                return
+            
+            if Element('obligeename').element.value == "":
+                Element('entername2').element.hidden = False
+                Element('obligeename').element.focus()
+                Element('obligeename').element.setAttribute("style","background-color:pink")
+                return
+
+            Element('entername').element.hidden = True
+            Element('employeename').element.focus()
+            Element('employeename').element.setAttribute("style","background-color:white")
+            Element('entername2').element.hidden = True
+            Element('obligeename').element.focus()
+            Element('obligeename').element.setAttribute("style","background-color:white")
+            num_children = 0
+            for i in range(1,6):
+                if Element("child" + str(i)).element.value != "":
+                    num_children = num_children + 1
+            
+            for i in range(1,6):
+                if Element("child" + str(i)).element.value != "" and Element("child" + str(i) + "dob").element.value == "":
+                    enterchilddob(i)   
+                    return
+
+            obligeename = Element('obligeename').element.value
+            obligeename_split = obligeename.split()
+            obligeename_first = obligeename_split[1]
+            obligeename_last = obligeename_split[0].strip(",")
+            obligeeaddresslist = []
+            for i in range(1,4):
+                if Element("obligeeaddress" + str(i)).element.value != "":
+                    obligeeaddresslist.append(Element("obligeeaddress" + str(i)).element.value)
+            obligeeaddress = ",".join(obligeeaddresslist)
+
+
+
+            if len(obligeename_split) > 2:
+                obligeename_rest_list = []
+                for i in range(2,len(obligeename_split)):
+                    obligeename_rest_list.append(obligeename_split[i])
+                    obligeename_rest = " ".join(obligeename_rest_list)
+                    Element('noticeto').element.value = obligeename_first + " " + obligeename_rest + " " + obligeename_last + ", " + obligeeaddress
+            else:
+                Element('noticeto').element.value = obligeename_first + " " + obligeename_last + ", " + obligeeaddress
+
+            if num_children > 0 or Element('termiwo').element.checked == 1:
+                
+                Element('orderinfo').element.setAttribute("style","display:grid")
+                Element('employercaseinfo').element.setAttribute("style","display:none")
+                Element('dollar1').element.focus()
+
+                order_child()
+            
+            else:
+                Element('alimonyonly').element.hidden = False
+                Element('employercaseinfo').element.setAttribute("style","display:grid")
+                Element('alimonyyes').element.focus()
+
+
+
+        def alim_yes_no(choice):
+
+            if choice == 'yes':
+                Element('orderinfo').element.setAttribute("style","display:grid")
+                Element('employercaseinfo').element.setAttribute("style","display:none")
+                Element('alimonyonly').element.hidden=True
+                Element('child1').element.setAttribute("style","background-color:white;margin-left:-13px;width:13em !important")
+                for i in range(1,5):
+                    Element('per' + str(i)).element.setAttribute("style","background-color:white;7em !important")
+            else:
+                Element('child1').element.setAttribute("style","background-color:pink;margin-left:-13px;width:13em !important")
+                Element('child1').element.focus()
+                Element('alim_enterchild').element.hidden = False
+                Element('alimonyonly').element.hidden = True
+
+
+
+
+
+
+
+        def back3to2():
+
+            Element('orderinfo').element.setAttribute("style","display:none")
+            Element('employercaseinfo').element.setAttribute("style","display:grid")
+
+        def back4to3():
+
+            Element('remittance').element.setAttribute("style","display:none")
+            Element('orderinfo').element.setAttribute("style","display:grid")
+
+        def back5to4():
+
+            Element('contactinfo').element.setAttribute("style","display:none")
+            Element('remittance').element.setAttribute("style","display:grid")
+
+        def back6to5():
+
+            Element('arrearsbonus').element.setAttribute("style","display:none")
+            Element('contactinfo').element.setAttribute("style","display:grid")
+
+        def back7to6():
+
+            Element('termschedule').element.setAttribute("style","display:none")
+            Element('arrearsbonus').element.setAttribute("style","display:grid")
+
+        def back8to7():
+
+
+            Element('arrearsbonus').element.hidden=False
+
+        def next3to4():
+
+            if Element('lumpsum').element.value == "" and Element('termiwo').element.checked == 0:
+                num_children = 0
+                for i in range(1,7):
+                    if Element("child" + str(i)).element.value != "":
+                        num_children = num_children + 1
+                num_children_dollars = 0
+                for i in range(1,5):
+                    if Element('dollar' + str(i)).element.value != "":
+                        num_children_dollars = num_children_dollars + 1
+                if num_children != 0 and num_children_dollars == 0:
+                    for i in range(1,5):
+                        Element('dollar' + str(i)).element.setAttribute("style","background-color:pink;width:5em;text-align:right !important")
+                    Element('childnopayment').element.hidden = False
+                    Element('dollar1').element.focus()
+                    return
+
+                for i in range(1,8):
+                    num_blank = 0
+                    if Element('dollar' + str(i)).element.value != "" and Element('per' + str(i)).element.value == "":
+                        Element('per' + str(i)).element.setAttribute("style","background-color:pink;width:7em !important")
+                        Element('per' + str(i)).element.focus()
+                        num_blank = num_blank + 1
+                    if num_blank > 0:
+                        Element('amountnoper').element.hidden = False
+                        return
+                
+                if Element('dollar2').element.value != "" and Element('yes12').element.checked == 0 and Element('no12').element.checked == 0:
+                    Element('checkarrears12').element.hidden = False
+                    Element('checkarrears').element.setAttribute("style","color:red")
+                    return
+        
+                if Element('dollar5').element.value != "":
+                    dollar5 = Decimal(Element('dollar5').element.value)
+                else:
+                    dollar5 = 0
+                
+                if Element('dollar6').element.value != "":
+                    dollar6 = Decimal(Element('dollar6').element.value)
+                else:
+                    dollar6 = 0
+
+                term_payment = Decimal(Element('permonth').element.value) - dollar5 - dollar6
+                term_payment = "{0:.2f}".format(term_payment)
+                if term_payment != "5.25":
+                    Element('allremaining1').element.value = term_payment
+
+                Element('remittance').element.setAttribute("style","display:grid")
+                Element('orderinfo').element.setAttribute("style","display:none")
+
+            elif Element('global_lump').element.value == "lump":
+                Element('remittance').element.setAttribute("style","display:grid")
+                Element('orderinfo').element.setAttribute("style","display:none")
+                Element('reallylump').element.hidden = True
+
+            elif Element('termiwo').element.checked == 1:
+                Element('principal').element.value = ""
+                Element('days1').element.value = ""
+                Element('daysof').element.value = ""
+                Element('days2').element.value = ""
+                Element('withholdpercent').element.value = ""
+                Element('statetribeterritory2').element.value = ""
+                Element('remitto').element.value = ""
+                Element('remitaddress').element.value = ""
+                Element('remittance').element.setAttribute("style","display:grid")
+                Element('orderinfo').element.setAttribute("style","display:none")
+                Element('reallylump').element.hidden = True
+
+            else:
+                print(Element('lumpsum').element.value)
+                num_children = 0
+                for i in range(1,7):
+                    if Element("child" + str(i)).element.value != "":
+                        num_children = num_children + 1
+                if num_children > 0:
+                    Element('reallylump').element.hidden = False
+
+        def lump(choice):
+            if choice == 'no':
+                Element('lumpsum').element.value = ""
+                Element('reallylump').element.hidden = True
+                Element('global_lump').element.value = ""
+                next3to4()
+            if choice == 'yes':
+                Element('lumpsum').element.value= "{0:.2f}".format(float(Element("lumpsum").element.value))
+                for i in range(1,7):
+                    Element('dollar' + str(i)).element.value = ""
+                    Element('per' + str(i)).element.value = ""
+                Element('totalwithhold').element.value = "{0:.2f}".format(Decimal(Element('lumpsum').element.value) + Decimal(Element('dollar7').element.value))
+                Element('per8').element.value = "one-time payment"
+                Element('per7').element.value = "one-time payment"
+                Element('perweek').element.value = ""
+                Element('permonth').element.value = ""
+                Element('persemimonth').element.value = ""
+                Element('pertwoweeks').element.value = ""
+                Element('reallylump').element.hidden = True
+                Element('global_lump').element.value = "lump"
+                    
+
+
+        def next4to5():
+            Element('contactinfo').element.setAttribute("style","display:grid")
+            Element('remittance').element.setAttribute("style","display:none")
+            
+            if Element('termiwo').element.checked == 1:
+                Element('next5to6').element.hidden = True
+                Element('make_document2').element.hidden = False
+
+        def next5to6():
+
+            Element('arrearsbonus').element.setAttribute("style","display:grid")
+            Element('contactinfo').element.setAttribute("style","display:none")
+
+            Element('arrearspaymentper').element.value = Element('per8').value
+
+        def next6to7():
+            Element('termschedule').element.setAttribute("style","display:grid")
+            Element('arrearsbonus').element.setAttribute("style","display:none")
+            Element('make_document').element.disabled = False
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </py-script>
+
+
+
+    
+</body>
+</html>
