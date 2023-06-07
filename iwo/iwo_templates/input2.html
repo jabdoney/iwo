@@ -1127,7 +1127,7 @@
         </div>
         <div style="grid-column:7/span 8;grid-row:2/span 9">
             <p>The amount of arrears owed, if any, is $ <input py-change="calc_arrears_dollars('arrears','fixdollar9')" type="text" id="arrears" name="arrears" style="width:5em !important" value="{{request.session.arrears}}">. You must withhold an additional twenty percent (20%) or more
-             of the ongoing periodic obligation towards same at the rate of $ <input py-blur="arrears_per('arrearsrate','arrearsper')" py-change="calc_arrears_dollars('arrearsrate','fixdollar9')" type="text" id="arrearsrate" name="arrearsrate" style="width:5em !important" {% if request.session.arrearsrate != "" %} value="{{request.session.arrearsrate}}" {% endif %}> 
+             of the ongoing periodic obligation towards same at the rate of $ <input py-change="calc_arrears_dollars('arrearsrate','fixdollar9')" type="text" id="arrearsrate" name="arrearsrate" style="width:5em !important" {% if request.session.arrearsrate != "" %} value="{{request.session.arrearsrate}}" {% endif %}> 
              per <input type="text" id="arrearsper" name="arrearsper" style="width:7em !important" {% if request.session.arrearsper != "" %} value="{{request.session.arrearsper}}" {% endif %}> until full payment is made of any arrearage, attorney's fees and costs - provided that no deduction 
              shall be applied to attorneys' fees and costs until the full amount of any arrearage is paid.  If a delinquency accrues after the order establishing, modifying, or enforcing support has been 
              entered and there is no existing order for repayment of the delinquency or a preexisting arrearage, a payor shall deduct $ 
