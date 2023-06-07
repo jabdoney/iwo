@@ -15,4 +15,8 @@ pip==23.0.1
 python-docx==0.8.11
 pytz==2022.7
 setuptools==67.8.0
+<<<<<<< HEAD
 six==1.16.0
+=======
+six==1.16.0
+>>>>>>> a216230db89a5cb2fc18f7b5fc6c280a53900a92
