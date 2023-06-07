@@ -756,7 +756,7 @@ def download(request):
             "perweek": request.POST.get('perweek') + "_"*(10-len(request.POST.get('perweek'))),
             "lumpsum":request.POST.get('lumpsum') + "_"*(10-len(request.POST.get('lumpsum'))),
             "documentid":request.POST.get('documentid') + "_"*(27-len(request.POST.get('documentid'))),
-            "principal":request.POST.get('principal') + "_"*(17-len(request.POST.get('per1'))),
+            "principal":request.POST.get('principal') + "_"*(17-len(request.POST.get('statetribeterritory'))),
             "days1":request.POST.get('days1') + "_"*(5-len(request.POST.get('days1'))),
             "daysof":request.POST.get('daysof') + "_"*(11-len(request.POST.get('daysof'))),
             "days2":request.POST.get('days2') + "_"*(5-len(request.POST.get('days2'))),
