@@ -39,9 +39,15 @@ def readword(request):
         doc = Document(request.FILES['word_file'])
         allText = []
         for p in doc.paragraphs:
+
             allText.append(p.text)
-        
-        data_list = allText[-1].split("|")
+
+        for item in allText:
+            if "dummy" in item:
+                idx = allText.index(item)
+
+        data_list = allText[idx].split("|")
+
         print(data_list)
 
         request.session["countycode"] = data_list[1]
