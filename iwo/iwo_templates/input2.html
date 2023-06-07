@@ -1357,6 +1357,9 @@
             <button py-click="back7to6()" class="next_back" type="button" style="margin-left:50%;margin-right:50%">Back</button>
         </div>
         <div style="grid-column:3;grid-row:13;">
+            <button py-click="finish()" id="finish" name="finish" type="button">Finish</button>
+        </div>
+        <div style="grid-column:3;grid-row:13;">
                 <button id="make_document" name="make_document" type="submit" style="background-color:#339933" disabled>Make Document</button>
         </div>
     </div>
@@ -2424,6 +2427,14 @@
 
             Element('termschedule').element.setAttribute("style","display:none")
             Element('arrearsbonus').element.setAttribute("style","display:grid")
+            Element('make_document').element.disabled = True
+            Element('make_document').element.hidden = True
+            Element('finish').element.hidden = False
+            Element('fixdollar20').element.hidden = True
+
+            for i in range(1,7):
+            
+                Element('allremaining' + str(i)).element.setAttribute("style","background-color:white")
 
         def back8to7():
 
@@ -2549,10 +2560,30 @@
         def next6to7():
             Element('termschedule').element.setAttribute("style","display:grid")
             Element('arrearsbonus').element.setAttribute("style","display:none")
-            Element('make_document').element.disabled = False
 
+        def finish():
 
+            for i in range(1,7):
 
+                if len(Element('childinit' + str(i)).element.value) > 0 and len(Element('allremaining' + str(i)).element.value) == 0:
+                    Element('fixdollar20').element.hidden = False
+                    Element('allremaining' + str(i)).element.setAttribute("style","background-color:pink")
+                    Element('allremaining' + str(i)).element.focus()
+                    return
+            y = 0
+            for i in range(1,7):
+
+                if (len(Element('childinit' + str(i)).element.value) > 0 and len(Element('allremaining' + str(i)).element.value) > 0) or (len(Element('childinit' + str(i)).element.value) == 0 and len(Element('allremaining' + str(i)).element.value) == 0):
+                    y += 1
+            
+            if y == 6:
+
+                Element('fixdollar20').element.hidden = False
+                Element('allremaining' + str(i)).element.setAttribute("style","background-color:white")
+                Element('fixdollar20').element.hidden = True
+                Element('make_document').element.disabled = False
+                Element('make_document').element.hidden = False
+                Element('finish').element.hidden = True
 
 
 
