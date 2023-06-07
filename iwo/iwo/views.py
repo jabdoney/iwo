@@ -796,7 +796,7 @@ def download(request):
             "arrearspaymentper":request.POST.get('arrearspaymentper'),
             "deductfull":request.POST.get('deductfull'),
             "deductpercent":request.POST.get('deductpercent'),
-            "deductpercentamount":request.POST.get('deductpercentamount'),
+            "deductpercentamount":"$" + request.POST.get('deductpercentamount'),
             "deductnone":request.POST.get('deductnone'),
             "childinit1":request.POST.get('childinit1'),
             "childdobtwo1":request.POST.get('childdobtwo1'),
