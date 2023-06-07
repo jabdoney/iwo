@@ -657,7 +657,12 @@ def download(request):
 
         supp = supp1 + "_"*(93-len(supp1)) + "\n" + supp2 + "_"*(93-len(supp2)) + "\n" + supp3 + "_"*(93-len(supp3)) + "\n" + supp4 + "_"*(93-len(supp4)) + "\n" + supp5 + "_"*(93-len(supp5)) + "\n" + supp6 + "_"*(93-len(supp6))
 
-
+        all_remaining_list = []
+        for i in range(1,7):
+            if len(request.POST.get('allremaining' + str(i))) > 0:
+                all_remaining_list.append("$" + request.POST.get('allremaining' + str(i)))
+            else:
+                all_remaining_list.append(request.POST.get('allremaining' + str(i)))
 
         context = {
             "countycode":request.POST.get('countycode'),
@@ -796,27 +801,27 @@ def download(request):
             "childinit1":request.POST.get('childinit1'),
             "childdobtwo1":request.POST.get('childdobtwo1'),
             "dob181":request.POST.get('dob181'),
-            "allremaining1":request.POST.get('allremaining1'),
+            "allremaining1":all_remainin_list[0],
             "childinit2":request.POST.get('childinit2'),
             "childdobtwo2":request.POST.get('childdobtwo2'),
             "dob182":request.POST.get('dob182'),
-            "allremaining2":request.POST.get('allremaining2'),
+            "allremaining2":all_remainin_list[1],
             "childinit3":request.POST.get('childinit3'),
             "childdobtwo3":request.POST.get('childdobtwo3'),
             "dob183":request.POST.get('dob183'),
-            "allremaining3":request.POST.get('allremaining3'),
+            "allremaining3":all_remainin_list[2],
             "childinit4":request.POST.get('childinit4'),
             "childdobtwo4":request.POST.get('childdobtwo4'),
             "dob184":request.POST.get('dob184'),
-            "allremaining4":request.POST.get('allremaining4'),
+            "allremaining4":all_remainin_list[3],
             "childinit5":request.POST.get('childinit5'),
             "childdobtwo5":request.POST.get('childdobtwo5'),
             "dob185":request.POST.get('dob185'),
-            "allremaining5":request.POST.get('allremaining5'),
+            "allremaining5":all_remainin_list[4],
             "childinit6":request.POST.get('childinit6'),
             "childdobtwo6":request.POST.get('childdobtwo6'),
             "dob186":request.POST.get('dob186'),
-            "allremaining6":request.POST.get('allremaining6'),
+            "allremaining6":all_remainin_list[5],
             "data_string":data_string
         }
 
