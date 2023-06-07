@@ -382,12 +382,12 @@ def download(request):
         if request.POST.get('arrears') == "":
             arrears = "NA"
         else:
-            arrears = request.POST.get('arrears')
+            arrears = "$" + request.POST.get('arrears')
 
         if request.POST.get('arrearsrate') == "":
             arrearsrate = "NA"
         else:
-            arrearsrate = request.POST.get('arrearsrate')
+            arrearsrate = "$" + request.POST.get('arrearsrate')
 
         if request.POST.get('arrearsper') == "":
             arrearsper = "NA"
