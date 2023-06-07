@@ -612,7 +612,7 @@
             <p>Employee/Obligor's DOB:<p>
         </div>
         <div style="grid-column:11/span 3;grid-row:10">
-            <input py-change="sub_isdate('employeedob')" type="text" id="employeedob" name="employeedob" value="{{request.session.employeedob}}"> 
+            <input py-change="employee_dob_isdate()" type="text" id="employeedob" name="employeedob" value="{{request.session.employeedob}}"> 
         </div>
         <div class="warning" style="grid-column:22;grid-row:10" id="fixdate0" hidden>
             <h3>Please enter a valid date in the highlighted field in mm/dd/yyyy format.</h3>
@@ -1756,11 +1756,25 @@
                     if name in ['child1','child2','child3','child4','child5','child6']:
                         Element(name).element.setAttribute("style","background-color:pink;margin-left:-13px;width:13em !important")
 
+        def employee_dob_isdate():
+            datestr = Element('employeedob').element.value
+            format_list = ["%m/%d/%Y","%m-%d-%Y","%m.%d.%Y","%m/%d/%Y","%m/%d/%y","%m-%-d-%Y","%m-%d-%y","%m.%d.%Y","%m.%d.%y","%B %d, %Y","%b %d, %Y","%b %d, %y","%m %d, %y","%B %d, %y"]
+            for f in format_list:
+                try:
+                    Element('employeedob').element.value = datetime.strftime(datetime.strptime(datestr,f).date(),"%m/%d/%Y")
+                    Element('employeedob').element.setAttribute("style","background-color:white")
+                    Element('employeedob').element.hidden = True
+                    Element('fixdate0').element.hidden = True
+                    break
+                except ValueError:
+                    Element('fixdate0').element.hidden = False
+                    Element('employeedob').element.value = ""
+                    Element('employeedob').element.setAttribute("style","background-color:pink")
+                    Element('employeedob').element.focus()
 
         def sub_isdate(dateid):
-            if dateid == "employeedob":
-                fixdate = "fixdate0"
-            elif Element("child" + list(dateid)[5]).element.value != "":
+
+            if Element("child" + list(dateid)[5]).element.value != "":
                 fixdate = "fixdate" + list(dateid)[5]
             else:
                 fixdate = None
@@ -1774,7 +1788,7 @@
                             Element(dateid).element.setAttribute("style","background-color:white;width:8em !important")
                         else:
                             Element(dateid).element.setAttribute("style","background-color:white")
-                        Element(fixdate).element.hidden = True
+                        Element(dateid).element.hidden = True
                         Element("enterchilddob" + list(dateid)[5]).element.hidden = True
                         num = list(dateid)[5]
                         num2 = int(num) + 1

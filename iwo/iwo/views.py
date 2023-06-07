@@ -679,6 +679,7 @@ def download(request):
             "statetribeterritory2": request.POST.get('statetribeterritory') + "_"*(17-len(request.POST.get('statetribeterritory'))),
             "statetribeterritory3": request.POST.get('statetribeterritory') + "_"*(17-len(request.POST.get('statetribeterritory'))),
             "statetribeterritory4": request.POST.get('statetribeterritory') + "_"*(17-len(request.POST.get('statetribeterritory'))),
+            "statetribeterritory10": request.POST.get('statetribeterritory') + "_"*(43-len(request.POST.get('statetribeterritory'))),
             "remittanceid": request.POST.get('remittanceid') + "_"*(21-len(request.POST.get('remittanceid'))),
             "citycountydisttribe": request.POST.get('citycountydisttribe') + "_"*(22-len(request.POST.get('citycountydisttribe'))),
             "orderid": request.POST.get('orderid') + "_"*(40-len(request.POST.get('orderid'))),
