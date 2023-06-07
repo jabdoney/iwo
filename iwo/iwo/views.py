@@ -767,7 +767,7 @@ def download(request):
             "remitid":request.POST.get('remitid') + "_"*(11-len(request.POST.get('remitid'))),
             "liability":liability,
             "antidiscrimination":antidisc,
-            "supplemental":request.POST.get('supplemental') + "_"*(558-len(request.POST.get('supplemental'))),
+            "supplemental":supp,
             "sender":request.POST.get('sender') + "_"*(28-len(request.POST.get('sender'))),
             "sendertel":request.POST.get('sendertel') + "_"*(14-len(request.POST.get('sendertel'))),
             "senderfax":request.POST.get('senderfax') + "_"*(13-len(request.POST.get('senderfax'))),
