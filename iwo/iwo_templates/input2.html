@@ -1225,7 +1225,7 @@
                         <p style="padding:0px; margin:0px">following monthly amount:</p>
                     </td>
                     <td>
-                        <p>$ <input type="text" id="allremaining1" name="allremaining1" value="{{request.session.allremaining1}}"></p>
+                        <p>$ <input py-change="calc_allremaining_dollars('allremaining1','fixdollar20')" type="text" id="allremaining1" name="allremaining1" value="{{request.session.allremaining1}}"></p>
                     </td>
                 </tr>
                 <tr>
@@ -1249,7 +1249,7 @@
                         <p style="padding:0px; margin:0px">following monthly amount:</p>
                     </td>
                     <td>
-                        <p>$ <input type="text" id="allremaining2" name="allremaining2" value="{{request.session.allremaining2}}"></p>
+                        <p>$ <input py-change="calc_allremaining_dollars('allremaining2','fixdollar20')" type="text" id="allremaining2" name="allremaining2" value="{{request.session.allremaining2}}"></p>
                     </td>
                 </tr>
                 <tr>
@@ -1273,7 +1273,7 @@
                         <p style="padding:0px; margin:0px">following monthly amount:</p>
                     </td>
                     <td>
-                        <p>$ <input type="text" id="allremaining3" name="allremaining3" value="{{request.session.allremaining3}}"></p>
+                        <p>$ <input py-change="calc_allremaining_dollars('allremaining3','fixdollar20')" type="text" id="allremaining3" name="allremaining3" value="{{request.session.allremaining3}}"></p>
                     </td>
                 </tr>
                 <tr>
@@ -1297,7 +1297,7 @@
                         <p style="padding:0px; margin:0px">following monthly amount:</p>
                     </td>
                     <td>
-                        <p>$ <input type="text" id="allremaining4" name="allremaining4" value="{{request.session.allremaining4}}"></p>
+                        <p>$ <input py-change="calc_allremaining_dollars('allremaining4','fixdollar20')" type="text" id="allremaining4" name="allremaining4" value="{{request.session.allremaining4}}"></p>
                     </td>
                 </tr>
                 <tr>
@@ -1321,7 +1321,7 @@
                         <p style="padding:0px; margin:0px">following monthly amount:</p>
                     </td>
                     <td>
-                        <p>$ <input type="text" id="allremaining5" name="allremaining5" value="{{request.session.allremaining5}}"></p>
+                        <p>$ <input py-change="calc_allremaining_dollars('allremaining5','fixdollar20') "type="text" id="allremaining5" name="allremaining5" value="{{request.session.allremaining5}}"></p>
                     </td>
                 </tr>
                 <tr id="hiddenchild" hidden>
@@ -1345,10 +1345,13 @@
                         <p style="padding:0px; margin:0px">following monthly amount:</p>
                     </td>
                     <td>
-                        <p>$ <input type="text" id="allremaining6" name="allremaining6" value="{{request.session.allremaining6}}"></p>
+                        <p>$ <input py-change="calc_allremaining_dollars('allremaining6','fixdollar20')" type="text" id="allremaining6" name="allremaining6" value="{{request.session.allremaining6}}"></p>
                     </td>
                 </tr>
             </table> 
+        </div>
+        <div  class="warning" style="grid-column:3;grid-row:19/span4" id="fixdollar20" name="fixdollar20" hidden>
+            <h3>Please enter an amount in valid U.S. Dollars (omit "$" symbol).</h3>
         </div>
         <div style="grid-column:2;grid-row:22">
             <button py-click="back7to6()" class="next_back" type="button" style="margin-left:50%;margin-right:50%">Back</button>
@@ -2003,6 +2006,37 @@
             if element == "arrearspayment":
                 Element("arrearspaymentper").element.value = Element("per8").element.value
 
+        
+        def calc_allremaining_dollars(element,fixdollar):
+
+            allowables = [".","0","1","2","3","4","5","6","7","8","9"]
+            amount = Element(element).element.value
+            for ltr in amount:
+                if ltr not in allowables:
+                    Element(fixdollar).element.hidden = False
+                    Element(element).element.setAttribute("style","background-color:pink")
+                    Element(element).element.value = ""
+                    Element(element).element.focus()
+                    return
+                
+                elif "." in amount:
+                    amount = amount.split(".")
+                    if len(amount[1]) > 1:
+                        amount = str(amount[0]) +"."+ str(list(amount)[1][0]) + str(list(amount)[1][1])
+                    else:
+                        amount = str(amount[0]) +"."+ str(list(amount)[1][0]) + "0"
+
+                    Element(element).element.value = amount
+                    Element(element).element.setAttribute("style","background-color:white; text-align:right")
+                
+
+
+                else:
+                    if len(amount) > 0:
+
+                        Element(fixdollar).element.hidden = True
+                        Element(element).element.value = amount + ".00"
+                        Element(element).element.setAttribute("style","background-color:white;text-align:right")
 
         def sub3():
             Element('totalwithhold').element.value= "{0:.2f}".format(float(Element("totalwithhold").value))
