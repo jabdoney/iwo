@@ -553,7 +553,7 @@ def download(request):
             supp1 = ""
 
         if len(supp1) > 0 and len(supp_list) > len(supp1.split()):
-            i = supp_list
+            i = 1
             supp_list = supp_list[len(supp1.split()):]
             temp_supp_list = [supp_list[0]]
             while i != 0 and i <= len(supp_list) - 1:
@@ -570,7 +570,7 @@ def download(request):
 
             supp2 = "" 
         if len(supp2) > 0 and len(supp_list) > len(supp2.split()):
-            i = supp_list
+            i = 1
             supp_list = supp_list[len(supp2.split()):]
             temp_supp_list = [supp_list[0]]
             while i != 0 and i <= len(supp_list) - 1:
@@ -588,7 +588,7 @@ def download(request):
             supp3 = "" 
 
         if len(supp3) > 0 and len(supp_list) > len(supp3.split()):
-            i = supp_list
+            i = 1
             supp_list = supp_list[len(supp3.split()):]
             temp_supp_list = [supp_list[0]]
             while i != 0 and i <= len(supp_list) - 1:
@@ -606,7 +606,7 @@ def download(request):
             supp4 = "" 
 
         if len(supp4) > 0 and len(supp_list) > len(supp4.split()):
-            i = supp_list
+            i = 1
             supp_list = supp_list[len(supp4.split()):]
             temp_supp_list = [supp_list[0]]
             while i != 0 and i <= len(supp_list) - 1:
@@ -624,7 +624,7 @@ def download(request):
             supp5 = "" 
 
         if len(supp5) > 0 and len(supp_list) > len(supp5.split()):
-            i = supp_list
+            i = 1
             supp_list = supp_list[len(supp5.split()):]
             temp_supp_list = [supp_list[0]]
             while i != 0 and i <= len(supp_list) - 1:
@@ -642,6 +642,10 @@ def download(request):
             supp6 = "" 
 
         supp = supp1 + "_"*(93-len(supp1)) + "\n" + supp2 + "_"*(93-len(supp2)) + "\n" + supp3 + "_"*(93-len(supp3)) + "\n" + supp4 + "_"*(93-len(supp4)) + "\n" + supp5 + "_"*(93-len(supp5)) + "\n" + supp6 + "_"*(93-len(supp6))
+
+        print(supp)
+        print(antidisc)
+        print(liability)
 
         all_remaining_list = []
         for i in range(1,7):
