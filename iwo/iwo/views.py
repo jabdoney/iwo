@@ -646,10 +646,6 @@ def download(request):
                 all_remaining_list.append("$" + request.POST.get('allremaining' + str(i)))
             else:
                 all_remaining_list.append(request.POST.get('allremaining' + str(i)))
-<<<<<<< HEAD
-
-=======
->>>>>>> ddd73fc4e7254aa4c64db75b48bc5dae4f015d93
 
         context = {
             "countycode":request.POST.get('countycode'),
