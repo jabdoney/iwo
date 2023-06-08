@@ -8,8 +8,10 @@
 
 
     <script defer src="https://pyscript.net/latest/pyscript.js"></script> 
-
-
+    <py-config>
+        [splashscreen]
+            enabled = false
+    </py-config>
     <title>Tenth Circuit CAPS-Compatible IWO/Florida Addendum</title>
 
 
@@ -147,6 +149,11 @@
     color:red;
     margin-left:-200px;
 }
+.warning2{
+    color:red;
+
+    justify-content:center
+}
 .footer{
   display:grid;
   grid-template-columns:30;
@@ -191,6 +198,7 @@
     <input type="text" id="global_alimony" value="">
     <input type="text" id="global_import" value="">
     <input type="text" id="global_term" value="">
+    <input type="text" id="global_downloading" value="">
 </div>
 
 <div class="main-container">
@@ -515,7 +523,7 @@
             <input type="text" id="privateindividualentity" value="" name="privateindividualentity" value="{{request.session.privateindividualentity}}">
         </div>
         <div style="grid-column:7/span 6;grid-row:17">
-            <p>Remittance ID (include w/payment):<p>
+            <p>Remittance ID:<p>
         </div>
         <div style="grid-column:11/span 3;grid-row:17">
             <input type="text" id="remittanceid" value="" name="remittanceid" value="{{request.session.remittanceid}}">
@@ -712,7 +720,7 @@
             <p style="width:40px !important">DOB:</p>
         </div>
         <div style="grid-column:13/span 2;grid-row:16">
-            <input py-blur = "enterchilddob(4)" py-change="sub_isdate('child4dob')" type="text" id="child4dob" name="child4dob" style="width:8em !important" value="{{request.session.child4.dob}}"> 
+            <input py-blur = "enterchilddob(4)" py-change="sub_isdate('child4dob')" type="text" id="child4dob" name="child4dob" style="width:8em !important" value="{{request.session.child4dob}}"> 
         </div>
         <div class="warning" style="grid-column:22;grid-row:16"  id="fixdate4" hidden>
             <h3>Please enter a date for Child 4 in the highlighted field in mm/dd/yyyy format.</h3>
@@ -1127,7 +1135,7 @@
         </div>
         <div style="grid-column:7/span 8;grid-row:2/span 9">
             <p>The amount of arrears owed, if any, is $ <input py-change="calc_arrears_dollars('arrears','fixdollar9')" type="text" id="arrears" name="arrears" style="width:5em !important" value="{{request.session.arrears}}">. You must withhold an additional twenty percent (20%) or more
-             of the ongoing periodic obligation towards same at the rate of $ <input py-blur="arrears_per('arrearsrate','arrearsper')" py-change="calc_arrears_dollars('arrearsrate','fixdollar9')" type="text" id="arrearsrate" name="arrearsrate" style="width:5em !important" {% if request.session.arrearsrate != "" %} value="{{request.session.arrearsrate}}" {% endif %}> 
+             of the ongoing periodic obligation towards same at the rate of $ <input py-change="calc_arrears_dollars('arrearsrate','fixdollar9')" type="text" id="arrearsrate" name="arrearsrate" style="width:5em !important" {% if request.session.arrearsrate != "" %} value="{{request.session.arrearsrate}}" {% endif %}> 
              per <input type="text" id="arrearsper" name="arrearsper" style="width:7em !important" {% if request.session.arrearsper != "" %} value="{{request.session.arrearsper}}" {% endif %}> until full payment is made of any arrearage, attorney's fees and costs - provided that no deduction 
              shall be applied to attorneys' fees and costs until the full amount of any arrearage is paid.  If a delinquency accrues after the order establishing, modifying, or enforcing support has been 
              entered and there is no existing order for repayment of the delinquency or a preexisting arrearage, a payor shall deduct $ 
@@ -1173,10 +1181,10 @@
 
     <div class="form-container-2" id="termschedule" style="display:none">
         <div style="grid-column:2;grid-row:1">
-            <h3 style="background-color:#d9d9d9;padding-left:5px">Child Support Reduction/Termination Schedule</h3>
+            <h3 style="background-color:#d9d9d9;padding-left:5px" id="termtableheader" name="termtableheader">Child Support Reduction/Termination Schedule</h3>
         </div>
 
-        <div style="grid-column:2;grid-row:2/span 20">
+        <div style="grid-column:2;grid-row:2/span 20" id="termtable" name="termtable">
             <table>
                 <tr style="text-align:left">
                     <th style="border:1px solid;border-collapse:collapse">
@@ -1225,7 +1233,7 @@
                         <p style="padding:0px; margin:0px">following monthly amount:</p>
                     </td>
                     <td>
-                        <p>$ <input type="text" id="allremaining1" name="allremaining1" value="{{request.session.allremaining1}}"></p>
+                        <p>$ <input py-change="calc_allremaining_dollars('allremaining1','fixdollar20')" type="text" id="allremaining1" name="allremaining1" value="{{request.session.allremaining1}}" style="text-align:right important!"></p>
                     </td>
                 </tr>
                 <tr>
@@ -1249,7 +1257,7 @@
                         <p style="padding:0px; margin:0px">following monthly amount:</p>
                     </td>
                     <td>
-                        <p>$ <input type="text" id="allremaining2" name="allremaining2" value="{{request.session.allremaining2}}"></p>
+                        <p>$ <input py-change="calc_allremaining_dollars('allremaining2','fixdollar20')" type="text" id="allremaining2" name="allremaining2" value="{{request.session.allremaining2}}"></p>
                     </td>
                 </tr>
                 <tr>
@@ -1273,7 +1281,7 @@
                         <p style="padding:0px; margin:0px">following monthly amount:</p>
                     </td>
                     <td>
-                        <p>$ <input type="text" id="allremaining3" name="allremaining3" value="{{request.session.allremaining3}}"></p>
+                        <p>$ <input py-change="calc_allremaining_dollars('allremaining3','fixdollar20')" type="text" id="allremaining3" name="allremaining3" value="{{request.session.allremaining3}}"></p>
                     </td>
                 </tr>
                 <tr>
@@ -1297,7 +1305,7 @@
                         <p style="padding:0px; margin:0px">following monthly amount:</p>
                     </td>
                     <td>
-                        <p>$ <input type="text" id="allremaining4" name="allremaining4" value="{{request.session.allremaining4}}"></p>
+                        <p>$ <input py-change="calc_allremaining_dollars('allremaining4','fixdollar20')" type="text" id="allremaining4" name="allremaining4" value="{{request.session.allremaining4}}"></p>
                     </td>
                 </tr>
                 <tr>
@@ -1321,7 +1329,7 @@
                         <p style="padding:0px; margin:0px">following monthly amount:</p>
                     </td>
                     <td>
-                        <p>$ <input type="text" id="allremaining5" name="allremaining5" value="{{request.session.allremaining5}}"></p>
+                        <p>$ <input py-change="calc_allremaining_dollars('allremaining5','fixdollar20')" type="text" id="allremaining5" name="allremaining5" value="{{request.session.allremaining5}}"></p>
                     </td>
                 </tr>
                 <tr id="hiddenchild" hidden>
@@ -1345,19 +1353,47 @@
                         <p style="padding:0px; margin:0px">following monthly amount:</p>
                     </td>
                     <td>
-                        <p>$ <input type="text" id="allremaining6" name="allremaining6" value="{{request.session.allremaining6}}"></p>
+                        <p>$ <input py-change="calc_allremaining_dollars('allremaining6','fixdollar20')" type="text" id="allremaining6" name="allremaining6" value="{{request.session.allremaining6}}"></p>
                     </td>
                 </tr>
             </table> 
         </div>
+        <div  class="warning" style="grid-column:3;grid-row:19/span4" id="fixdollar20" name="fixdollar20" hidden>
+            <h3>Please enter an amount in valid U.S. Dollars (omit "$" symbol).</h3>
+        </div>
         <div style="grid-column:2;grid-row:22">
-            <button py-click="back7to6()" class="next_back" type="button" style="margin-left:50%;margin-right:50%">Back</button>
+            <button py-click="back7to6()" class="next_back" id="last_back" name="last_back" type="button" style="margin-left:50%;margin-right:50%">Back</button>
         </div>
         <div style="grid-column:3;grid-row:13;">
-                <button id="make_document" name="make_document" type="submit" style="background-color:#339933" disabled>Make Document</button>
+            <button py-click="finish()" id="finish" name="finish" type="button">Finish</button>
+        </div>
+        <div style="grid-column:3;grid-row:13;">
+            <button py-onClick="messaging()" id="make_document" name="make_document" type="submit" style="background-color:#339933" disabled hidden>Make Document</button>
+        </div>
+    </form>
+        <div  class="warning2" style="grid-column:2;grid-row:10; width:auto;margin:auto;color:black !important" id="message" name="message" hidden>
+            <h2>Your file is downloading.  Check your downloads folder.</h2>
+        </div>
+
+        <div style="grid-column:2;grid-row:12; width:auto;margin:auto" id="buttons" name="buttons" hidden>
+            <div style="display:inline-flex; justify-content:center;padding:10px">
+                <div>
+                    <form method="POST" action="/input2/">
+                    {% csrf_token %}
+                        <button type="submit" style="padding:5px;margin-right:5px;font-weight:bold">Edit Document</button>
+                    </form>
+                </div>
+                <div>
+                    <form method="POST" action="/home/">
+                    {% csrf_token %}
+                        <button type="submit" style="padding:5px;margin-left:5px;font-weight:bold">New Document</button>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
-</form>
+</div>
+
 
 
     <py-script>
@@ -1369,6 +1405,16 @@
 
 
         c = document.getElementById("output")
+    
+        def messaging():
+            Element('buttons').element.hidden = False
+            Element('message').element.hidden = False
+            Element('termtable').element.hidden = True
+            Element('make_document').element.hidden = True
+            Element('termtableheader').element.hidden = True
+            Element('last_back').element.hidden=True
+
+
 
         def focus_border(button):
             element = button
@@ -1771,6 +1817,7 @@
                     Element('employeedob').element.value = ""
                     Element('employeedob').element.setAttribute("style","background-color:pink")
                     Element('employeedob').element.focus()
+
         def sub_isdate(dateid):
 
             if Element("child" + list(dateid)[5]).element.value != "":
@@ -1787,7 +1834,7 @@
                             Element(dateid).element.setAttribute("style","background-color:white;width:8em !important")
                         else:
                             Element(dateid).element.setAttribute("style","background-color:white")
-                        Element(dateid).element.hidden = True
+                        Element(fixdate).element.hidden = True
                         Element("enterchilddob" + list(dateid)[5]).element.hidden = True
                         num = list(dateid)[5]
                         num2 = int(num) + 1
@@ -1799,6 +1846,7 @@
                         Element(dateid).element.value = ""
                         Element(dateid).element.setAttribute("style","background-color:pink")
                         Element(dateid).element.focus()
+
 
         def order_child():
 
@@ -1994,7 +2042,37 @@
             if element == "arrearspayment":
                 Element("arrearspaymentper").element.value = Element("per8").element.value
 
+        def calc_allremaining_dollars(element,fixdollar):
 
+            allowables = [".","0","1","2","3","4","5","6","7","8","9"]
+            amount = Element(element).element.value
+            for ltr in amount:
+                if ltr not in allowables:
+                    Element(fixdollar).element.hidden = False
+                    Element(element).element.setAttribute("style","background-color:pink")
+                    Element(element).element.value = ""
+                    Element(element).element.focus()
+                    return
+                
+                elif "." in amount:
+                    amount = amount.split(".")
+                    if len(amount[1]) > 1:
+                        amount = str(amount[0]) +"."+ str(list(amount)[1][0]) + str(list(amount)[1][1])
+                    else:
+                        amount = str(amount[0]) +"."+ str(list(amount)[1][0]) + "0"
+
+                    Element(element).element.value = amount
+                    Element(element).element.setAttribute("style","background-color:white; text-align:right")
+                
+
+
+                else:
+                    if len(amount) > 0:
+
+                        Element(fixdollar).element.hidden = True
+                        Element(element).element.value = amount + ".00"
+                        Element(element).element.setAttribute("style","background-color:white;text-align:right")
+            
         def sub3():
             Element('totalwithhold').element.value= "{0:.2f}".format(float(Element("totalwithhold").value))
             payment_plus = Decimal(Element('totalwithhold').element.value)
@@ -2381,6 +2459,14 @@
 
             Element('termschedule').element.setAttribute("style","display:none")
             Element('arrearsbonus').element.setAttribute("style","display:grid")
+            Element('make_document').element.disabled = True
+            Element('make_document').element.hidden = True
+            Element('finish').element.hidden = False
+            Element('fixdollar20').element.hidden = True
+
+            for i in range(1,7):
+            
+                Element('allremaining' + str(i)).element.setAttribute("style","background-color:white")
 
         def back8to7():
 
@@ -2506,35 +2592,32 @@
         def next6to7():
             Element('termschedule').element.setAttribute("style","display:grid")
             Element('arrearsbonus').element.setAttribute("style","display:none")
-            Element('make_document').element.disabled = False
 
+        def finish():
 
+            for i in range(1,7):
 
+                if len(Element('childinit' + str(i)).element.value) > 0 and len(Element('allremaining' + str(i)).element.value) == 0:
+                    Element('fixdollar20').element.hidden = False
+                    Element('allremaining' + str(i)).element.setAttribute("style","background-color:pink")
+                    Element('allremaining' + str(i)).element.focus()
+                    return
+            y = 0
+            for i in range(1,7):
 
+                if (len(Element('childinit' + str(i)).element.value) > 0 and len(Element('allremaining' + str(i)).element.value) > 0) or (len(Element('childinit' + str(i)).element.value) == 0 and len(Element('allremaining' + str(i)).element.value) == 0):
+                    y += 1
+            
+            if y == 6:
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                Element('fixdollar20').element.hidden = False
+                Element('allremaining' + str(i)).element.setAttribute("style","background-color:white")
+                Element('fixdollar20').element.hidden = True
+                Element('make_document').element.disabled = False
+                Element('make_document').element.hidden = False
+                Element('finish').element.hidden = True
+        
     </py-script>
-
-
-
     
 </body>
 </html>

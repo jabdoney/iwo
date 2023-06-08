@@ -1,23 +1,10 @@
-from django.http import HttpResponse,request,HttpRequest,FileResponse, StreamingHttpResponse
+from django.http import StreamingHttpResponse
 from django.shortcuts import render,redirect
 from django.contrib.sessions.models import Session
-import docxtpl
-from docx.oxml import OxmlElement
-from docx.oxml.ns import qn
 from docxtpl import DocxTemplate
 from datetime import datetime,date
 import io
-import zipfile
-import sendfile
-import tempfile
 from docx import Document
-
-
-
-
-HTML_STRING = """
-<h1>Hello Word</h1>
-"""
 
 def home(request):
 
@@ -29,7 +16,6 @@ def home(request):
 def input(request):
 
     this_day = date.today().__str__()
-
     return render(request,"input2.html",{'date1':this_day})
 
 def readword(request):
@@ -39,9 +25,15 @@ def readword(request):
         doc = Document(request.FILES['word_file'])
         allText = []
         for p in doc.paragraphs:
+
             allText.append(p.text)
-        
-        data_list = allText[-1].split("|")
+
+        for item in allText:
+            if "dummy" in item:
+                idx = allText.index(item)
+
+        data_list = allText[idx].split("|")
+
         print(data_list)
 
         request.session["countycode"] = data_list[1]
@@ -84,9 +76,6 @@ def readword(request):
         request.session["employeessn"]=data_list[38]
         request.session["employeedob"]=data_list[39]
         request.session["obligeename"]=data_list[40]
-
-
-
         request.session["child1"]=data_list[41]
         request.session["child1dob"]=data_list[42]
         request.session["child2"]=data_list[43]
@@ -187,8 +176,8 @@ def readword(request):
 def download(request):
 
     if request.method == "POST":
-        message = 'message'
-        
+
+       
         if request.POST.get('termiwo') != "on":
             doc = DocxTemplate("DjangoIWOTemplate.docx")
         else:
@@ -376,12 +365,12 @@ def download(request):
         if request.POST.get('arrears') == "":
             arrears = "NA"
         else:
-            arrears = request.POST.get('arrears')
+            arrears = "$" + request.POST.get('arrears')
 
         if request.POST.get('arrearsrate') == "":
             arrearsrate = "NA"
         else:
-            arrearsrate = request.POST.get('arrearsrate')
+            arrearsrate = "$" + request.POST.get('arrearsrate')
 
         if request.POST.get('arrearsper') == "":
             arrearsper = "NA"
@@ -651,6 +640,12 @@ def download(request):
 
         supp = supp1 + "_"*(93-len(supp1)) + "\n" + supp2 + "_"*(93-len(supp2)) + "\n" + supp3 + "_"*(93-len(supp3)) + "\n" + supp4 + "_"*(93-len(supp4)) + "\n" + supp5 + "_"*(93-len(supp5)) + "\n" + supp6 + "_"*(93-len(supp6))
 
+        all_remaining_list = []
+        for i in range(1,7):
+            if len(request.POST.get('allremaining' + str(i))) > 0:
+                all_remaining_list.append("$" + request.POST.get('allremaining' + str(i)))
+            else:
+                all_remaining_list.append(request.POST.get('allremaining' + str(i)))
 
 
         context = {
@@ -750,7 +745,7 @@ def download(request):
             "perweek": request.POST.get('perweek') + "_"*(10-len(request.POST.get('perweek'))),
             "lumpsum":request.POST.get('lumpsum') + "_"*(10-len(request.POST.get('lumpsum'))),
             "documentid":request.POST.get('documentid') + "_"*(27-len(request.POST.get('documentid'))),
-            "principal":request.POST.get('principal') + "_"*(17-len(request.POST.get('per1'))),
+            "principal":request.POST.get('principal') + "_"*(17-len(request.POST.get('statetribeterritory'))),
             "days1":request.POST.get('days1') + "_"*(5-len(request.POST.get('days1'))),
             "daysof":request.POST.get('daysof') + "_"*(11-len(request.POST.get('daysof'))),
             "days2":request.POST.get('days2') + "_"*(5-len(request.POST.get('days2'))),
@@ -761,7 +756,7 @@ def download(request):
             "remitid":request.POST.get('remitid') + "_"*(11-len(request.POST.get('remitid'))),
             "liability":liability,
             "antidiscrimination":antidisc,
-            "supplemental":request.POST.get('supplemental') + "_"*(558-len(request.POST.get('supplemental'))),
+            "supplemental":supp,
             "sender":request.POST.get('sender') + "_"*(28-len(request.POST.get('sender'))),
             "sendertel":request.POST.get('sendertel') + "_"*(14-len(request.POST.get('sendertel'))),
             "senderfax":request.POST.get('senderfax') + "_"*(13-len(request.POST.get('senderfax'))),
@@ -785,32 +780,32 @@ def download(request):
             "arrearspaymentper":request.POST.get('arrearspaymentper'),
             "deductfull":request.POST.get('deductfull'),
             "deductpercent":request.POST.get('deductpercent'),
-            "deductpercentamount":request.POST.get('deductpercentamount'),
+            "deductpercentamount":"$" + request.POST.get('deductpercentamount'),
             "deductnone":request.POST.get('deductnone'),
             "childinit1":request.POST.get('childinit1'),
             "childdobtwo1":request.POST.get('childdobtwo1'),
             "dob181":request.POST.get('dob181'),
-            "allremaining1":request.POST.get('allremaining1'),
+            "allremaining1":all_remaining_list[0],
             "childinit2":request.POST.get('childinit2'),
             "childdobtwo2":request.POST.get('childdobtwo2'),
             "dob182":request.POST.get('dob182'),
-            "allremaining2":request.POST.get('allremaining2'),
+            "allremaining2":all_remaining_list[1],
             "childinit3":request.POST.get('childinit3'),
             "childdobtwo3":request.POST.get('childdobtwo3'),
             "dob183":request.POST.get('dob183'),
-            "allremaining3":request.POST.get('allremaining3'),
+            "allremaining3":all_remaining_list[2],
             "childinit4":request.POST.get('childinit4'),
             "childdobtwo4":request.POST.get('childdobtwo4'),
             "dob184":request.POST.get('dob184'),
-            "allremaining4":request.POST.get('allremaining4'),
+            "allremaining4":all_remaining_list[3],
             "childinit5":request.POST.get('childinit5'),
             "childdobtwo5":request.POST.get('childdobtwo5'),
             "dob185":request.POST.get('dob185'),
-            "allremaining5":request.POST.get('allremaining5'),
+            "allremaining5":all_remaining_list[4],
             "childinit6":request.POST.get('childinit6'),
             "childdobtwo6":request.POST.get('childdobtwo6'),
             "dob186":request.POST.get('dob186'),
-            "allremaining6":request.POST.get('allremaining6'),
+            "allremaining6":all_remaining_list[5],
             "data_string":data_string
         }
 
@@ -825,6 +820,7 @@ def download(request):
         response = StreamingHttpResponse(streaming_content=buffer,content_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
         response["Content-Disposition"] = 'attachment;filename="test.docx"'
         response['Content-Encoding'] = 'UTF-8'
-  
+
+
     return response
 
