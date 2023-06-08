@@ -18,6 +18,9 @@ def input(request):
     this_day = date.today().__str__()
     return render(request,"input2.html",{'date1':this_day})
 
+def help(request):
+    return render(request,'help.html')
+
 def readword(request):
     if request.method == "POST":
 
@@ -784,7 +787,7 @@ def download(request):
             "childinit1":request.POST.get('childinit1'),
             "childdobtwo1":request.POST.get('childdobtwo1'),
             "dob181":request.POST.get('dob181'),
-<<<<<<< HEAD
+
             "allremaining1":all_remaining_list[0],
             "childinit2":request.POST.get('childinit2'),
             "childdobtwo2":request.POST.get('childdobtwo2'),
@@ -806,29 +809,6 @@ def download(request):
             "childdobtwo6":request.POST.get('childdobtwo6'),
             "dob186":request.POST.get('dob186'),
             "allremaining6":all_remaining_list[5],
-=======
-            "allremaining1":all_remainin_list[0],
-            "childinit2":request.POST.get('childinit2'),
-            "childdobtwo2":request.POST.get('childdobtwo2'),
-            "dob182":request.POST.get('dob182'),
-            "allremaining2":all_remainin_list[1],
-            "childinit3":request.POST.get('childinit3'),
-            "childdobtwo3":request.POST.get('childdobtwo3'),
-            "dob183":request.POST.get('dob183'),
-            "allremaining3":all_remainin_list[2],
-            "childinit4":request.POST.get('childinit4'),
-            "childdobtwo4":request.POST.get('childdobtwo4'),
-            "dob184":request.POST.get('dob184'),
-            "allremaining4":all_remainin_list[3],
-            "childinit5":request.POST.get('childinit5'),
-            "childdobtwo5":request.POST.get('childdobtwo5'),
-            "dob185":request.POST.get('dob185'),
-            "allremaining5":all_remainin_list[4],
-            "childinit6":request.POST.get('childinit6'),
-            "childdobtwo6":request.POST.get('childdobtwo6'),
-            "dob186":request.POST.get('dob186'),
-            "allremaining6":all_remainin_list[5],
->>>>>>> ddd73fc4e7254aa4c64db75b48bc5dae4f015d93
             "data_string":data_string
         }
 

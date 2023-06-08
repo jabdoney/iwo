@@ -15,13 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import home,input,download,readword
+from .views import home,input,download,readword,help
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
     path('home/',home),
     path('download/',download),
+    path('help/',help),
     path('input2/',input,name="input2"),
     path('readword/',readword),
     path('admin/', admin.site.urls)

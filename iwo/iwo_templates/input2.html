@@ -210,12 +210,18 @@
         {% csrf_token %}
 
             <div style="grid-column:2;grid-row:1;margin-right:10px">
-            <div style="display:inline-flex;float:right">
-                <label for="word-file" style="margin-right:10px"><strong>Import Data:</strong></label>
-                <input py-click="show_import()" type="file" name="word_file" id="word_file" style="margin-right:10px">
-                <button py-click="unshow_import()" type="submit" name="read_word" id="read_word" hidden>Import</button>
+                            <div style="display:inline-block;float:right;">
 
-            </div>
+                <div style="display:inline-flex;float:right">
+                    <label for="word-file" style="margin-right:10px"><strong>Import Data:</strong></label>
+                    <input py-click="show_import()" type="file" name="word_file" id="word_file" style="margin-right:10px">
+                    <button py-click="unshow_import()" type="submit" name="read_word" id="read_word" hidden>Import</button>
+                </div>
+                <div style="text-align:right;margin-right:10px;margin-bottom:-5px">
+                    <a href="/help/"><strong>Help/Information</strong></a>
+                </div>
+                </div>
+
             </div>
          </form>
     </div>
