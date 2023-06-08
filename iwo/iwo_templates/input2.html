@@ -12,7 +12,7 @@
         [splashscreen]
             enabled = false
     </py-config>
-    <title>Tenth Circuit CAPS-Compatible IWO/Florida Addendum</title>
+    <title>Tenth Circuit ICMS-Compatible IWO/Florida Addendum</title>
 
 
 <style>
@@ -293,7 +293,7 @@
             <P>UCN number: </p>
         </div>
         <div style="grid-column:11/span 2;grid-row:6">
-            <input type="text" id="casenumber" name="casenumber">
+            <input type="text" id="casenumber" name="casenumber" value="{{request.session.casenumber}}">
         </div>
 
         <div style="grid-column:6/span 10;grid-row:7">

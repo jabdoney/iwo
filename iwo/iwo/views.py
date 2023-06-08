@@ -791,7 +791,6 @@ def download(request):
             "childinit1":request.POST.get('childinit1'),
             "childdobtwo1":request.POST.get('childdobtwo1'),
             "dob181":request.POST.get('dob181'),
-
             "allremaining1":all_remaining_list[0],
             "childinit2":request.POST.get('childinit2'),
             "childdobtwo2":request.POST.get('childdobtwo2'),
@@ -816,7 +815,7 @@ def download(request):
             "data_string":data_string
         }
 
-
+        filename = request.POST.get('casenumber').replace("-","_") + "_" + datetime.now().strftime("%m.%d.%Y_%I%M%S%p") + ".docx"
 
         doc.render(context)
         doc2 = doc.render(context)
@@ -825,7 +824,7 @@ def download(request):
         buffer.seek(0)
 
         response = StreamingHttpResponse(streaming_content=buffer,content_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
-        response["Content-Disposition"] = 'attachment;filename="test.docx"'
+        response["Content-Disposition"] = 'attachment;filename=' + filename
         response['Content-Encoding'] = 'UTF-8'
 
 
