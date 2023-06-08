@@ -481,7 +481,7 @@ def download(request):
             antidisc_list = antidisc_list[len(antidisc1.split()):]
             temp_antidisc_list = [antidisc_list[0]]
             while i != 0 and i <= len(antidisc_list) - 1:
-                temp_liability_list.append(antidisc_list[i])
+                temp_antidisc_list.append(antidisc_list[i])
                 if len(" ".join(temp_antidisc_list)) <=93:
                     antidisc2 = " ".join(temp_antidisc_list)
                     temp_antidisc_list[0] = antidisc2
