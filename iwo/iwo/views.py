@@ -6,17 +6,30 @@ from datetime import datetime,date
 import io
 from docx import Document
 
+def format_dollars(amount):
+    print(amount)
+    amount = amount.replace("$","").replace(",","")
+    if len(amount) > 9:
+        amount = amount[0:len(amount)-9] + "," + amount[len(amount)-9:len(amount)-6] + "," + amount[-6:]
+    elif len(amount) > 6:
+        amount = amount[0:len(amount)-6] + "," + amount[-6:]
+    else:
+        amount = amount
+    print("new amount = ",amount)
+    
+    return amount
+
 def home(request):
 
     request.session.flush()
     request.session.modified = True
 
-    return redirect("/input2/")
+    return redirect("/bar-services/iwo/input/")
 
 def input(request):
 
     this_day = date.today().__str__()
-    return render(request,"input2.html",{'date1':this_day})
+    return render(request,"input.html",{'date1':this_day})
 
 def help(request):
     return render(request,'help.html')
@@ -171,16 +184,30 @@ def readword(request):
         request.session["childdobtwo6"]=data_list[130]
         request.session["dob186"]=data_list[131]
         request.session["allremaining6"]=data_list[132]
+        request.session["global_format_off"]=data_list[133]
+        request.session["obligorname_noformat1"]=data_list[134]
+        request.session["obligeename_noformat1"]=data_list[135]
+        request.session["child1_noformat1"]=data_list[136]
+        request.session["child2_noformat1"]=data_list[137]
+        request.session["child3_noformat1"]=data_list[138]
+        request.session["child4_noformat1"]=data_list[139]
+        request.session["child5_noformat1"]=data_list[140]
+        request.session["child6_noformat1"]=data_list[141]
+        request.session["employername2"]=data_list[142]
+        request.session["fein2"]=data_list[143]
+        request.session["employeename2"]=data_list[144]
+        request.session["employeessn2"]=data_list[145]
+        request.session["caseid2"]=data_list[146]
+        request.session["orderid2"]=data_list[147]
 
-
-        return redirect("/input2/")
+        return redirect("/bar-services/iwo/input/")
 
 
 def download(request):
 
     if request.method == "POST":
 
-       
+        print(request.POST.get('global_format_off'))
         if request.POST.get('termiwo') != "on":
             doc = DocxTemplate("DjangoIWOTemplate.docx")
         else:
@@ -319,6 +346,24 @@ def download(request):
             request.POST.get('childdobtwo6'),
             request.POST.get('dob186'),
             request.POST.get('allremaining6'),
+            request.POST.get('global_format_off'),
+            request.POST.get('obligorname_noformat1'),
+            request.POST.get('obligeename_noformat1'),
+            request.POST.get('child1_noformat1'),
+            request.POST.get('child2_noformat1'),
+            request.POST.get('child3_noformat1'),
+            request.POST.get('child4_noformat1'),
+            request.POST.get('child5_noformat1'),
+            request.POST.get('child6_noformat1'),    
+            request.POST.get('employername2'),
+            request.POST.get('fein'),
+            request.POST.get('employeename2'),
+            request.POST.get('employeessn2'),
+            request.POST.get('caseid2'),
+            request.POST.get('orderid2'),
+
+           
+
         ]
 
         data_string = "dummy"
@@ -368,12 +413,12 @@ def download(request):
         if request.POST.get('arrears') == "":
             arrears = "NA"
         else:
-            arrears = "$" + request.POST.get('arrears')
+            arrears = "$" + format_dollars(request.POST.get('arrears'))
 
         if request.POST.get('arrearsrate') == "":
             arrearsrate = "NA"
         else:
-            arrearsrate = "$" + request.POST.get('arrearsrate')
+            arrearsrate = "$" + format_dollars(request.POST.get('arrearsrate'))
 
         if request.POST.get('arrearsper') == "":
             arrearsper = "NA"
@@ -648,11 +693,50 @@ def download(request):
         print(liability)
 
         all_remaining_list = []
+
+
+
+
+
         for i in range(1,7):
             if len(request.POST.get('allremaining' + str(i))) > 0:
-                all_remaining_list.append("$" + request.POST.get('allremaining' + str(i)))
+                all_remaining_list.append("$" + format_dollars(request.POST.get('allremaining' + str(i))))
             else:
                 all_remaining_list.append(request.POST.get('allremaining' + str(i)))
+
+
+        def format_lengthy(element,len_dict):
+            
+            if len(request.POST.get(element)) < len_dict['short']:
+                field1 = request.POST.get(element)[:len_dict['short']] + "_"*(len_dict['short'] - len(request.POST.get(element)))
+                field2 = ""
+                field3 = ""
+            elif len(request.POST.get(element)) < len_dict['long']:
+                field1 = ""
+                field2 = request.POST.get(element)[:len_dict['long']] + "_"*(len_dict['long'] - len(request.POST.get(element)))
+                print(field2)
+                field3 = ""
+            else:
+                field1 = ""
+                field2 = ""
+                field3 = request.POST.get(element)[:len_dict['ellipse']] + "..." + "_"*(len_dict['ellipse'] - len(request.POST.get(element)))
+            return [field1,field2,field3]
+
+
+
+        # if len(request.POST.get('sender')) < 29:
+        #     sender = request.POST.get('sender') + "_"*(28-len(request.POST.get('sender')))
+        #     sender_long = ""
+        #     sender_ellipse = ""
+        # elif len(request.POST.get('sender')) < 38:
+        #     sender = ""
+        #     sender_long = request.POST.get('sender')+ "_"*(37-len(request.POST.get('sender')))
+        #     sender_ellipse = ""
+        # else:
+        #     sender = ""
+        #     sender_long = ""
+        #     sender_ellipse = request.POST.get('sender')[:33] + "..." + "_"*(34-len(request.POST.get('sender')))
+
 
         context = {
             "countycode":request.POST.get('countycode'),
@@ -681,18 +765,18 @@ def download(request):
             "statetribeterritory3": request.POST.get('statetribeterritory') + "_"*(17-len(request.POST.get('statetribeterritory'))),
             "statetribeterritory4": request.POST.get('statetribeterritory') + "_"*(17-len(request.POST.get('statetribeterritory'))),
             "statetribeterritory10": request.POST.get('statetribeterritory') + "_"*(43-len(request.POST.get('statetribeterritory'))),
-            "remittanceid": request.POST.get('remittanceid') + "_"*(21-len(request.POST.get('remittanceid'))),
+            "remittanceidshort": format_lengthy("remittanceid",{"short":21,"long":28,"ellipse":25})[0],
+            "remittanceidlong": format_lengthy("remittanceid",{"short":21,"long":28,"ellipse":25})[1],
+            "remittanceidellipse": format_lengthy("remittanceid",{"short":21,"long":28,"ellipse":25})[2],
             "citycountydisttribe": request.POST.get('citycountydisttribe') + "_"*(22-len(request.POST.get('citycountydisttribe'))),
             "orderid": request.POST.get('orderid') + "_"*(40-len(request.POST.get('orderid'))),
             "orderid2": request.POST.get('orderid') + "_"*(44-len(request.POST.get('orderid'))),
-            "orderid3": request.POST.get('orderid') + "_"*(44-len(request.POST.get('orderid'))),
-            "orderid4": request.POST.get('orderid') + "_"*(44-len(request.POST.get('orderid'))),
             "privateindividualentity": request.POST.get('privateindividualentity') + "_"*(22-len(request.POST.get('privateindividualentity'))),
             "caseid": request.POST.get('caseid') + "_"*(40-len(request.POST.get('caseid'))),
             "caseid2": request.POST.get('caseid') + "_"*(33-len(request.POST.get('caseid'))),
-            "caseid3": request.POST.get('caseid') + "_"*(33-len(request.POST.get('caseid'))),
-            "caseid4": request.POST.get('caseid') + "_"*(33-len(request.POST.get('caseid'))),
-            "employername": request.POST.get('employername') + "_"*(40-len(request.POST.get('employername'))),
+            "employernameshort": format_lengthy("employername",{"short":40,"long":53,"ellipse":50})[0],
+            "employernamelong": format_lengthy("employername",{"short":40,"long":53,"ellipse":50})[1],
+            "employernameellipse": format_lengthy("employername",{"short":40,"long":53,"ellipse":50})[2],
             "employername2":employername_short,
             "employername3":employername_short,
             "employername4":employername_short,
@@ -701,55 +785,61 @@ def download(request):
             "employeraddress3": request.POST.get('employeraddress3') + "_"*(40-len(request.POST.get('employeraddress3'))),
             "fein":request.POST.get('fein') + "_"*(19-len(request.POST.get('fein'))),
             "fein2":request.POST.get('fein') + "_"*(17-len(request.POST.get('fein'))),
-            "fein3":request.POST.get('fein') + "_"*(17-len(request.POST.get('fein'))),
-            "fein4":request.POST.get('fein') + "_"*(17-len(request.POST.get('fein'))),
             "employeename": request.POST.get('employeename') + "_"*(42-len(request.POST.get('employeename'))),
-            "employeename2": request.POST.get('employeename') + "_"*(47-len(request.POST.get('employeename'))),
-            "employeename2": request.POST.get('employeename') + "_"*(47-len(request.POST.get('employeename'))),
             "employeename2": request.POST.get('employeename') + "_"*(47-len(request.POST.get('employeename'))),
             "employeessn": request.POST.get('employeessn') + "_"*(42-len(request.POST.get('employeessn'))),
             "employeessn2": request.POST.get('employeessn') + "_"*(22-len(request.POST.get('employeessn'))),
-            "employeessn3": request.POST.get('employeessn') + "_"*(22-len(request.POST.get('employeessn'))),
-            "employeessn4": request.POST.get('employeessn') + "_"*(22-len(request.POST.get('employeessn'))),
             "employeedob": request.POST.get('employeedob') + "_"*(42-len(request.POST.get('employeedob'))),
             "obligeename": request.POST.get('obligeename') + "_"*(42-len(request.POST.get('obligeename'))),
-            "child1":request.POST.get('child1') + "_"*(28-len(request.POST.get('child1'))),
+            "child1short":format_lengthy("child1",{"short":28,"long":37,"ellipse":34})[0],
+            "child1long":format_lengthy("child1",{"short":28,"long":37,"ellipse":34})[1],
+            "child1ellipse":format_lengthy("child1",{"short":28,"long":37,"ellipse":34})[2],
             "child1dob":request.POST.get('child1dob') + "_"*(17-len(request.POST.get('child1dob'))),
-            "child2":request.POST.get('child2') + "_"*(28-len(request.POST.get('child2'))),
+            "child2short":format_lengthy("child2",{"short":28,"long":37,"ellipse":34})[0],
+            "child2long":format_lengthy("child2",{"short":28,"long":37,"ellipse":34})[1],
+            "child2ellipse":format_lengthy("child2",{"short":28,"long":37,"ellipse":34})[2],            
             "child2dob":request.POST.get('child2dob') + "_"*(17-len(request.POST.get('child2dob'))),
-            "child3":request.POST.get('child3') + "_"*(28-len(request.POST.get('child3'))),
+            "child3short":format_lengthy("child3",{"short":28,"long":37,"ellipse":34})[0],
+            "child3long":format_lengthy("child3",{"short":28,"long":37,"ellipse":34})[1],
+            "child3ellipse":format_lengthy("child3",{"short":28,"long":37,"ellipse":34})[2],            
             "child3dob":request.POST.get('child3dob') + "_"*(17-len(request.POST.get('child3dob'))),
-            "child4":request.POST.get('child4') + "_"*(28-len(request.POST.get('child4'))),
+            "child4short":format_lengthy("child4",{"short":28,"long":37,"ellipse":34})[0],
+            "child4long":format_lengthy("child4",{"short":28,"long":37,"ellipse":34})[1],
+            "child4ellipse":format_lengthy("child4",{"short":28,"long":37,"ellipse":34})[2],            
             "child4dob":request.POST.get('child4dob') + "_"*(17-len(request.POST.get('child4dob'))),
-            "child5":request.POST.get('child5') + "_"*(28-len(request.POST.get('child5'))),
+            "child5short":format_lengthy("child5",{"short":28,"long":37,"ellipse":34})[0],
+            "child5long":format_lengthy("child5",{"short":28,"long":37,"ellipse":34})[1],
+            "child5ellipse":format_lengthy("child5",{"short":28,"long":37,"ellipse":34})[2],            
             "child5dob":request.POST.get('child5dob') + "_"*(17-len(request.POST.get('child5dob'))),
-            "child6":request.POST.get('child6') + "_"*(28-len(request.POST.get('child6'))),
+            "child6short":format_lengthy("child6",{"short":28,"long":37,"ellipse":34})[0],
+            "child6long":format_lengthy("child6",{"short":28,"long":37,"ellipse":34})[1],
+            "child6ellipse":format_lengthy("child6",{"short":28,"long":37,"ellipse":34})[2],            
             "child6dob":request.POST.get('child6dob') + "_"*(17-len(request.POST.get('child6dob'))),
             "orderfromstate":request.POST.get('orderfromstate') + "_"*(43-len(request.POST.get('orderfromstate'))),
-            "dollar1":request.POST.get('dollar1') + "_"*(12-len(request.POST.get('dollar1'))),
+            "dollar1":"_"*(12-len(format_dollars(request.POST.get('dollar1')))) + format_dollars(request.POST.get('dollar1')),
             "per1":request.POST.get('per1') + "_"*(13-len(request.POST.get('per1'))),
-            "dollar2":request.POST.get('dollar2') + "_"*(12-len(request.POST.get('dollar2'))),
+            "dollar2":"_"*(12-len(format_dollars(request.POST.get('dollar2')))) + format_dollars(request.POST.get('dollar2')),
             "per2":request.POST.get('per2') + "_"*(13-len(request.POST.get('per2'))),
             "yes12":request.POST.get('yes12'),
             "no12":request.POST.get('no12'),
-            "dollar3":request.POST.get('dollar3') + "_"*(12-len(request.POST.get('dollar3'))),
+            "dollar3":"_"*(12-len(format_dollars(request.POST.get('dollar3')))) + format_dollars(request.POST.get('dollar3')),
             "per3":request.POST.get('per3') + "_"*(13-len(request.POST.get('per3'))),
-            "dollar4":request.POST.get('dollar4') + "_"*(12-len(request.POST.get('dollar4'))),
+            "dollar4":"_"*(12-len(format_dollars(request.POST.get('dollar4')))) + format_dollars(request.POST.get('dollar4')),
             "per4":request.POST.get('per4') + "_"*(13-len(request.POST.get('per4'))),
-            "dollar5":request.POST.get('dollar5') + "_"*(12-len(request.POST.get('dollar5'))),
+            "dollar5":"_"*(12-len(format_dollars(request.POST.get('dollar5')))) + format_dollars(request.POST.get('dollar5')),
             "per5":request.POST.get('per5') + "_"*(13-len(request.POST.get('per5'))),
-            "dollar6":request.POST.get('dollar6') + "_"*(12-len(request.POST.get('dollar6'))),
+            "dollar6":"_"*(12-len(format_dollars(request.POST.get('dollar6')))) + format_dollars(request.POST.get('dollar6')),
             "per6":request.POST.get('per6') + "_"*(13-len(request.POST.get('per6'))),
-            "dollar7":request.POST.get('dollar7') + "_"*(12-len(request.POST.get('dollar7'))),
+            "dollar7":"_"*(12-len(format_dollars(request.POST.get('dollar7')))) + format_dollars(request.POST.get('dollar7')),
             "per7":request.POST.get('per7') + "_"*(13-len(request.POST.get('per7'))),
             "other":request.POST.get('other') + "_"*(40-len(request.POST.get('other'))),
-            "totalwithhold":request.POST.get('totalwithhold') + "_"*(10-len(request.POST.get('totalwithhold'))),
+            "totalwithhold":"_"*(10-len(format_dollars(request.POST.get('totalwithhold')))) + format_dollars(request.POST.get('totalwithhold')),
             "per8":request.POST.get('per8') + "_"*(13-len(request.POST.get('per8'))),
-            "permonth": request.POST.get('permonth') + "_"*(11-len(request.POST.get('permonth'))),
-            "pertwoweeks": request.POST.get('pertwoweeks') + "_"*(10-len(request.POST.get('pertwoweeks'))),
-            "persemimonth": request.POST.get('persemimonth') + "_"*(11-len(request.POST.get('persemimonth'))),
-            "perweek": request.POST.get('perweek') + "_"*(10-len(request.POST.get('perweek'))),
-            "lumpsum":request.POST.get('lumpsum') + "_"*(10-len(request.POST.get('lumpsum'))),
+            "permonth":"_"*(11-len(format_dollars(request.POST.get('permonth')))) + format_dollars(request.POST.get('permonth')),
+            "pertwoweeks":"_"*(10-len(format_dollars(request.POST.get('pertwoweeks')))) + format_dollars(request.POST.get('pertwoweeks')),
+            "persemimonth":"_"*(11-len(format_dollars(request.POST.get('persemimonth')))) + format_dollars(request.POST.get('persemimonth')),
+            "perweek":"_"*(10-len(format_dollars(request.POST.get('perweek')))) + format_dollars(request.POST.get('perweek')),
+            "lumpsum":"_"*(10-len(format_dollars(request.POST.get('lumpsum')))) +format_dollars(request.POST.get('lumpsum')),
             "documentid":request.POST.get('documentid') + "_"*(27-len(request.POST.get('documentid'))),
             "principal":request.POST.get('principal') + "_"*(17-len(request.POST.get('statetribeterritory'))),
             "days1":request.POST.get('days1') + "_"*(5-len(request.POST.get('days1'))),
@@ -763,12 +853,18 @@ def download(request):
             "liability":liability,
             "antidiscrimination":antidisc,
             "supplemental":supp,
-            "sender":request.POST.get('sender') + "_"*(28-len(request.POST.get('sender'))),
+            "sendershort":format_lengthy("sender",{"short":28,"long":37,"ellipse":34})[0],
+            "senderlong":format_lengthy("sender",{"short":28,"long":37,"ellipse":34})[1],
+            "senderellipse":format_lengthy("sender",{"short":28,"long":37,"ellipse":34})[2],
             "sendertel":request.POST.get('sendertel') + "_"*(14-len(request.POST.get('sendertel'))),
             "senderfax":request.POST.get('senderfax') + "_"*(13-len(request.POST.get('senderfax'))),
             "senderwebsite":request.POST.get('senderwebsite') + "_"*(29-len(request.POST.get('senderwebsite'))),
-            "noticeto":request.POST.get('noticeto') + "_"*(89-len(request.POST.get('noticeto'))),
-            "sender2":request.POST.get('sender2') + "_"*(24-len(request.POST.get('sender2'))),
+            "noticetoshort":format_lengthy("noticeto",{"short":89,"long":120,"ellipse":117})[0],
+            "noticetolong":format_lengthy("noticeto",{"short":89,"long":120,"ellipse":117})[1],
+            "noticetoellipse":format_lengthy("noticeto",{"short":89,"long":120,"ellipse":117})[2],
+            "sender2short":format_lengthy("sender2",{"short":25,"long":33,"ellipse":30})[0],
+            "sender2long":format_lengthy("sender2",{"short":25,"long":33,"ellipse":30})[1],
+            "sender2ellipse":format_lengthy("sender2",{"short":25,"long":33,"ellipse":30})[2],
             "sender2tel":request.POST.get('sender2tel') + "_"*(14-len(request.POST.get('sender2tel'))),
             "senderfax2":request.POST.get('senderfax2') + "_"*(13-len(request.POST.get('senderfax2'))),
             "senderwebsite2":request.POST.get('senderwebsite2') + "_"*(29-len(request.POST.get('senderwebsite2'))),
@@ -782,11 +878,11 @@ def download(request):
             "arrears":arrears,
             "arrearsrate":arrearsrate,
             "arrearsper":arrearsper,
-            "arrearspayment":request.POST.get('arrearspayment'),
+            "arrearspayment":format_dollars(request.POST.get('arrearspayment')),
             "arrearspaymentper":request.POST.get('arrearspaymentper'),
             "deductfull":request.POST.get('deductfull'),
             "deductpercent":request.POST.get('deductpercent'),
-            "deductpercentamount":"$" + request.POST.get('deductpercentamount'),
+            "deductpercentamount":request.POST.get('deductpercentamount') + "%",
             "deductnone":request.POST.get('deductnone'),
             "childinit1":request.POST.get('childinit1'),
             "childdobtwo1":request.POST.get('childdobtwo1'),
@@ -812,7 +908,17 @@ def download(request):
             "childdobtwo6":request.POST.get('childdobtwo6'),
             "dob186":request.POST.get('dob186'),
             "allremaining6":all_remaining_list[5],
-            "data_string":data_string
+            "data_string":data_string,
+            "global_format_off":request.POST.get('global_format_off'),
+            "obligorname_noformat":request.POST.get('obligorname_noformat1'),
+            "obligeenname_noformat":request.POST.get('obligeename_noformat1'),
+            "child1_noformat":request.POST.get('child1_noformat1'),
+            "child2_noformat":request.POST.get('child2_noformat1'),
+            "child3_noformat":request.POST.get('child3_noformat1'),
+            "child4_noformat":request.POST.get('child4_noformat1'),
+            "child5_noformat":request.POST.get('child5_noformat1'),
+            "child6_noformat":request.POST.get('child6_noformat1'),
+
         }
 
         filename = request.POST.get('casenumber').replace("-","_") + "_" + datetime.now().strftime("%m.%d.%Y_%I%M%S%p") + ".docx"

@@ -15,6 +15,7 @@ import os
 
 
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -43,6 +44,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'iwo',
 ]
+
+AUTHENTICATION_BACKENDS = ('django.auth.adfs.backend.AdfsAuthCodeBackend',
+                           'django.contrib.auth.backends.ModelBackend')
 
 MEDIA_URL = '/media/'
 

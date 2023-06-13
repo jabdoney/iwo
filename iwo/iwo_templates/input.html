@@ -51,7 +51,7 @@
     background-color:#bfbfbf;
     justify-content:space-between;
     align-items: center;
-    height:8vh;
+    height:8.6vh;
     padding-left:10px;
 }
 .form-container{
@@ -125,6 +125,9 @@
 .form-container-2 td:nth-child(even){
     font-style:italic;
 }
+.allremaining {
+    text-align:right;
+}
 .form-container-2 th{
     border:1px solid black;
     padding:3px;
@@ -154,6 +157,9 @@
 
     justify-content:center
 }
+.noauto{
+    margin-left:-200px;
+}
 .footer{
   display:grid;
   grid-template-columns:30;
@@ -180,8 +186,8 @@
 
 <div class="banner" id="banner" name="banner" style="background-color:rgb(0, 51, 153)">
     <div>
-        <h3 style="margin-top:20px; padding-left:5px; margin-bottom:0px; color:white">Florida's Tenth Judicial Circuit</h3>
-        <h5 style="margin-top:0px; padding-left:5px; color:white"><i>Where Professionalism is a Priority</i></h5>
+        <h3 style="margin-top:20px; padding-left:20px; margin-bottom:0px; color:white">Florida's Tenth Judicial Circuit</h3>
+        <h5 style="margin-top:0px; padding-left:20px; color:white"><i>Where Professionalism is a Priority</i></h5>
     </div>
     <div>
         <h1 style="grid-column:1/span 4;grid-row:1;margin-top:20px; margin-bottom:0px; padding-right:20px; color:white; text-align:right">Bar Services</h1>
@@ -190,51 +196,65 @@
 </div>
 
 
-<div id=globals hidden>
-    <input type="text" id="global_obligoraddress" value="">
-    <input type="text" id="global_obligeeaddress" value="">
-    <input type="text" id="global_per" value="">
-    <input type="text" id="global_lump" value="">
-    <input type="text" id="global_alimony" value="">
-    <input type="text" id="global_import" value="">
-    <input type="text" id="global_term" value="">
-    <input type="text" id="global_downloading" value="">
-</div>
+
 
 <div class="main-container">
     <div class="sub-banner">
-        <div style="grid-column:1;grid-row:1">
+        <div style="grid-column:1;grid-row:1;padding-left:10px">
             <h2>ICMS-Compatible Income Withholding Order for Support/Florida Addendum</h2> 
         </div>
-        <form method="POST" action="/readword/" enctype="multipart/form-data">
+        <form method="POST" action="/bar-services/iwo/readword/" enctype="multipart/form-data">
         {% csrf_token %}
-
+            <div id=globals hidden>
+                <input type="text" id="global_obligoraddress" value="">
+                <input type="text" id="global_obligeeaddress" value="">
+                <input type="text" id="global_per" value="">
+                <input type="text" id="global_lump" value="">
+                <input type="text" id="global_alimony" value="">
+                <input type="text" id="global_import" value="">
+                <input type="text" id="global_term" value="">
+                <input type="text" id="global_downloading" value="">
+            </div>
             <div style="grid-column:2;grid-row:1;margin-right:10px">
-                            <div style="display:inline-block;float:right;">
+                <div style="display:inline-block;float:right;">
+                    <div style="display:inline-flex;float:right;margin-top:5px">
+                        <label for="word-file" style="margin-right:10px"><strong>Import Data:</strong></label>
+                        <input py-click="show_import()" type="file" name="word_file" id="word_file" style="margin-right:10px">
+                        <button py-click="unshow_import()" type="submit" name="read_word" id="read_word" hidden>Import</button>
+                    </div>
+                    <div style="display:inline-flex;float:right;margin-top:5px;align-items:center">
+                        <a href="/bar-services/iwo/home/">
+                        <button type="button" an="/bar-services/iwo/home/" id="gohome" name="gohome" style="font-size:10px;width:90px;margin-right:5px;margin-bottom:5px"><strong>Home</strong></button>
+                        </a>
+                        <a href="/bar-services/iwo/home/">
+                        <button type="button" an="/bar-services/iwo/home/" id="clear" name="clear" style="font-size:10px;width:95px;margin-right:5px;margin-bottom:5px"><strong>Clear Form</strong></button>
+                        </a>
+                        <button py-click="show_noformat('yes')" type="button" id="disableformat" name="disableformat" style = "font-size:10px;margin-right:5px"><strong>Autoformat Options</strong></button>
 
-                <div style="display:inline-flex;float:right">
-                    <label for="word-file" style="margin-right:10px"><strong>Import Data:</strong></label>
-                    <input py-click="show_import()" type="file" name="word_file" id="word_file" style="margin-right:10px">
-                    <button py-click="unshow_import()" type="submit" name="read_word" id="read_word" hidden>Import</button>
+                        <div style="font-size:10px;text-align:right;margin-right:10px;">
+                            <a href="/bar-services/iwo/help/">
+                            <button type="button" id="help" name="help" style="font-size:10px;width:95px;padding-right:2px;padding-left:0px;margin-right:1px"><strong>Help/Information</strong></button>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                <div style="text-align:right;margin-right:10px;margin-bottom:-5px">
-                    <a href="/help/"><strong>Help/Information</strong></a>
-                </div>
-                </div>
-
             </div>
          </form>
     </div>
 
-    <form method="POST" action="/download/">
+    <form method="POST" action="/bar-services/iwo/download/">
     {% csrf_token %}
+
     <div class="form-container" id="casepartyinfo">
+        <div style="grid-column22/row:23" hidden>
+            <input type="text" id="global_format_off" name="global_format_off" value="{{request.session.global_format_off}}">
+        </div>
         <div style="grid-column:6/span 10;grid-row:1">
             <h3 style="background-color:#d9d9d9;padding-left:5px">Case Number</h3>
         </div>
 
         <div style="grid-column:7/span 3;grid-row:2"> 
-            <p>County code: </p>
+            <p>County: </p>
         </div>
         <div style="grid-column:11/span 2;grid-row:2">
 
@@ -253,6 +273,56 @@
                 {% endif %}
             </select> 
         </div>
+
+
+        <div class="noauto" style="grid-column:22;grid-row:1/span 22;margin-top:30px;" id="globalnoformatdiv1" hidden>
+            <div>
+                <h3>Turn off autoformatting for:</h3>
+            </div>
+            <div>
+                <input py-change="add_to_global_format_off('obligorname_noformat1')" type="checkbox" id="obligorname_noformat1" name="obligorname_noformat1" {% if request.session.obligorname_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="obligorname_noformat" style="margin-left:30px">Obligor Name</label>
+            </div>      
+            <div>
+                <input py-change="add_to_global_format_off('obligeename2_noformat1')" type="checkbox" id="obligeename2_noformat1" name="obligeename2_noformat1" {% if request.session.obligeename_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="obligeename_noformat" style="margin-left:30px">Obligee Name</label>
+            </div>
+            <div>
+                <input py-change="add_to_global_format_off('child1_noformat1')" type="checkbox" id="child1_noformat1" name="child1_noformat1" {% if request.session.child1_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child1_noformat" style="margin-left:30px">Child 1</label>
+            </div>     
+            <div>
+                <input py-change="add_to_global_format_off('child2_noformat1')" type="checkbox" id="child2_noformat1" name="child2_noformat1" {% if request.session.child2_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child2_noformat" style="margin-left:30px">Child 2</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child3_noformat1')" type="checkbox" id="child3_noformat1" name="child3_noformat1" {% if request.session.child3_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child3_noformat" style="margin-left:30px">Child 3</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child4_noformat1')" type="checkbox" id="child4_noformat1" name="child4_noformat1" {% if request.session.child4_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child4_noformat" style="margin-left:30px">Child 4</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child5_noformat1')" type="checkbox" id="child5_noformat1" name="child5_noformat1" {% if request.session.child5_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child5_noformat" style="margin-left:30px">Child 5</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child6_noformat1')" type="checkbox" id="child6_noformat1" name="child6_noformat1" {% if request.session.child6_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child6_noformat" style="margin-left:30px">Child 6</label>
+            </div>  
+            <div  style="margin-bottom:-20px">
+                <h3>Names must still formatted as follows:</h3>
+            </div>
+            <div>
+                <h4><i>'Last Name(s),<sub style="font-size:20px">&#8248</sub>First Name,<sub style="font-size:20px">&#8248</sub>Middle Name(s)'</i></h4></span>
+            </div>
+            <div style="margin-top:30px">
+                <button py-click="show_noformat('no')" type="button" id="disableformat2" name="disableformat2" style="width:50px">OK</button>
+                <button py-click="show_noformat('no')" type="button" id="cancelformat" name="cancelformat" style="width:50px;margin-left:10px">Cancel</button>
+            </div>  
+        </div>
+
 
          <div class="warning" style="grid-column:22;grid-row:2" id="fixcountycode" hidden>
             <h3>Please select a county.</h3>
@@ -329,19 +399,19 @@
             <p>Address (line 1):</p> 
         </div>
         <div style="grid-column:11/span 2;grid-row:11">
-            <input py-change="unpinkaddress()" type="text" id="obligoraddress1" name="obligoraddress1" value="{{request.session.obligoraddress1}}">
+            <input py-change="format_proper('obligoraddress1')" type="text" id="obligoraddress1" name="obligoraddress1" value="{{request.session.obligoraddress1}}">
         </div>
         <div style="grid-column:7/span 3;grid-row:12">
             <p>Address (line 2): </p>
         </div>
         <div style="grid-column:11/span 2;grid-row:12">
-            <input py-change="unpinkaddress()" type="text" id="obligoraddress2" name="obligoraddress2" value="{{request.session.obligoraddress2}}">
+            <input py-change="format_proper('obligoraddress2')" type="text" id="obligoraddress2" name="obligoraddress2" value="{{request.session.obligoraddress2}}">
         </div>
         <div style="grid-column:7/span 3;grid-row:13">
             <p>Address (line 3): </p>
         </div>
         <div style="grid-column:11/span 2;grid-row:13">
-            <input py-change="unpinkaddress()" type="text" id="obligoraddress3" name="obligoraddress3" value="{{request.session.obligoraddress3}}">
+            <input py-change="format_proper('obligoraddress3')" type="text" id="obligoraddress3" name="obligoraddress3" value="{{request.session.obligoraddress3}}">
         </div>
             <div class="warning" style="grid-column:22;grid-row:11" id="enter_obligoraddress" hidden>
                 <h3>Do you know the obligor's address?</h3>
@@ -374,19 +444,19 @@
             <p>Address (line 1): </p>
         </div>
         <div style="grid-column:11/span 2;grid-row:16">
-            <input py-change="unpinkaddress()" type="text" id="obligeeaddress1" name="obligeeaddress1" value="{{request.session.obligoraddress1}}">
+            <input py-change="format_proper('obligeeaddress1')" type="text" id="obligeeaddress1" name="obligeeaddress1" value="{{request.session.obligoraddress1}}">
         </div>
         <div style="grid-column:7/span 3;grid-row:17">
             <p>Address (line 2): </p>
         </div>
         <div style="grid-column:11/span 2;grid-row:17">
-            <input py-change="unpinkaddress()" type="text" id="obligeeaddress2" name="obligeeaddress2" value="{{request.session.obligoraddress2}}">
+            <input py-change="format_proper('obligeeaddress2')" type="text" id="obligeeaddress2" name="obligeeaddress2" value="{{request.session.obligoraddress2}}">
         </div>
         <div style="grid-column:7/span 3;grid-row:18">
             <p>Address (line 3): </p>
         </div>
         <div style="grid-column:11/span 2;grid-row:18">
-            <input py-change="unpinkaddress()" type="text" id="obligeeaddress3" name="obligeeaddress3" value="{{request.session.obligoraddress3}}">
+            <input py-change="format_proper('obligeeaddress3')" type="text" id="obligeeaddress3" name="obligeeaddress3" value="{{request.session.obligoraddress3}}">
         </div>
 
             <div class="warning" style="grid-column:22;grid-row:16" id="enter_obligeeaddress" hidden>
@@ -434,6 +504,55 @@
     <div class="form-container" id="sender-info" style="display:none">
         <div style="grid-column:6/span 10;grid-row:1">
             <h3 style="background-color:#d9d9d9;padding-left:5px">Date</h3>
+        </div>
+
+
+         <div class="noauto" style="grid-column:22;grid-row:1/span 22;margin-top:30px;" id="globalnoformatdiv2" hidden>
+            <div>
+                <h3>Turn off autoformatting for:</h3>
+            </div>
+            <div>
+                <input py-change="add_to_global_format_off('obligorname_noformat2')" type="checkbox" id="obligorname_noformat2" name="obligorname_noformat2" {% if request.session.obligorname_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="obligorname_noformat" style="margin-left:30px">Obligor Name</label>
+            </div>      
+            <div>
+                <input py-change="add_to_global_format_off('obligeename2_noformat2')" type="checkbox" id="obligeename2_noformat2" name="obligeename2_noformat2" {% if request.session.obligeename_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="obligeename_noformat" style="margin-left:30px">Obligee Name</label>
+            </div>
+            <div>
+                <input py-change="add_to_global_format_off('child1_noformat2')" type="checkbox" id="child1_noformat2" name="child1_noformat2" {% if request.session.child1_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child1_noformat" style="margin-left:30px">Child 1</label>
+            </div>     
+            <div>
+                <input py-change="add_to_global_format_off('child2_noformat2')" type="checkbox" id="child2_noformat2" name="child2_noformat2" {% if request.session.child2_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child2_noformat" style="margin-left:30px">Child 2</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child3_noformat2')" type="checkbox" id="child3_noformat2" name="child3_noformat2" {% if request.session.child3_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child3_noformat" style="margin-left:30px">Child 3</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child4_noformat2')" type="checkbox" id="child4_noformat2" name="child4_noformat2" {% if request.session.child4_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child4_noformat" style="margin-left:30px">Child 4</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child5_noformat2')" type="checkbox" id="child5_noformat2" name="child5_noformat2" {% if request.session.child5_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child5_noformat" style="margin-left:30px">Child 5</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child6_noformat2')" type="checkbox" id="child6_noformat2" name="child6_noformat2" {% if request.session.child6_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child6_noformat" style="margin-left:30px">Child 6</label>
+            </div>  
+            <div  style="margin-bottom:-20px">
+                <h3>Names must still formatted as follows:</h3>
+            </div>
+            <div>
+                <h4><i>'Last Name(s),<sub style="font-size:20px">&#8248</sub>First Name,<sub style="font-size:20px">&#8248</sub>Middle Name(s)'</i></h4></span>
+            </div>
+            <div style="margin-top:30px">
+                <button py-click="show_noformat('no')" type="button" id="disableformat2" name="disableformat2" style="width:50px">OK</button>
+                <button py-click="show_noformat('no')" type="button" id="cancelformat" name="cancelformat" style="width:50px;margin-left:10px">Cancel</button>
+            </div>  
         </div>
                 
         <div style="grid-column:7/span 3;grid-row:2">
@@ -514,37 +633,37 @@
             <p>State/Tribe/Territory:<p>
         </div>
         <div style="grid-column:11/span 3;grid-row:14">
-            <input type="text" id="statetribeterritory" value="" name="statetribeterritory" value="{{request.session.statetribeterritory}}">
+            <input type="text" id="statetribeterritory" name="statetribeterritory" value="{{request.session.statetribeterritory}}">
         </div>
         <div style="grid-column:7/span 6;grid-row:15">
             <p>City/County/Dist./Tribe:<p>
         </div>
         <div style="grid-column:11/span 3;grid-row:15">
-            <input type="text" id="citycountydisttribe" value="" name="citycountydisttribe" value="{{request.session.countydisttribe}}">
+            <input type="text" id="citycountydisttribe" name="citycountydisttribe" value="{{request.session.citycountydisttribe}}">
         </div>
         <div style="grid-column:7/span 6;grid-row:16">
             <p>Private Individual/Entity:<p>
         </div>
         <div style="grid-column:11/span 3;grid-row:16">
-            <input type="text" id="privateindividualentity" value="" name="privateindividualentity" value="{{request.session.privateindividualentity}}">
+            <input type="text" id="privateindividualentity" name="privateindividualentity" value="{{request.session.privateindividualentity}}">
         </div>
         <div style="grid-column:7/span 6;grid-row:17">
             <p>Remittance ID:<p>
         </div>
         <div style="grid-column:11/span 3;grid-row:17">
-            <input type="text" id="remittanceid" value="" name="remittanceid" value="{{request.session.remittanceid}}">
+            <input type="text" id="remittanceid" name="remittanceid" value="{{request.session.remittanceid}}">
         </div>
         <div style="grid-column:7/span 6;grid-row:18">
             <p>Order ID:</p>
         </div>
         <div style="grid-column:11/span 3;grid-row:18">
-            <input type="text" id="orderid" value="" name="orderid" value="{{request.session.orderid}}">
+            <input type="text" id="orderid" name="orderid" value="{{request.session.orderid}}">
         </div>
         <div style="grid-column:7/span 6;grid-row:19">
             <p>Case ID:<p>
         </div>
         <div style="grid-column:11/span 3;grid-row:19">
-            <input type="text" id="caseid" value="" name="caseid" value="{{request.session.caseid}}">
+            <input type="text" id="caseid" name="caseid" value="{{request.session.caseid}}">
         </div>
         <div style="grid-column:10;grid-row:22">
             <button py-click="back1to0()" class="next_back" type="button" style="margin-right:10px">Back</button>
@@ -557,6 +676,55 @@
 
 
     <div class="form-container" id="employercaseinfo" style="display:none">
+
+        <div class="noauto" style="grid-column:22;grid-row:1/span 22;margin-top:30px;" id="globalnoformatdiv3" hidden>
+            <div>
+                <h3>Turn off autoformatting for:</h3>
+            </div>
+            <div>
+                <input py-change="add_to_global_format_off('obligorname_noformat3')" type="checkbox" id="obligorname_noformat3" name="obligorname_noformat3" {% if request.session.obligorname_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="obligorname_noformat" style="margin-left:30px">Obligor Name</label>
+            </div>      
+            <div>
+                <input py-change="add_to_global_format_off('obligeename2_noformat3')" type="checkbox" id="obligeename2_noformat3" name="obligeename2_noformat3" {% if request.session.obligeename_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="obligeename_noformat" style="margin-left:30px">Obligee Name</label>
+            </div>
+            <div>
+                <input py-change="add_to_global_format_off('child1_noformat3')" type="checkbox" id="child1_noformat3" name="child1_noformat3" {% if request.session.child1_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child1_noformat" style="margin-left:30px">Child 1</label>
+            </div>     
+            <div>
+                <input py-change="add_to_global_format_off('child2_noformat3')" type="checkbox" id="child2_noformat3" name="child2_noformat3" {% if request.session.child2_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child2_noformat" style="margin-left:30px">Child 2</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child3_noformat3')" type="checkbox" id="child3_noformat3" name="child3_noformat3" {% if request.session.child3_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child3_noformat" style="margin-left:30px">Child 3</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child4_noformat3')" type="checkbox" id="child4_noformat3" name="child4_noformat3" {% if request.session.child4_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child4_noformat" style="margin-left:30px">Child 4</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child5_noformat3')" type="checkbox" id="child5_noformat3" name="child5_noformat3" {% if request.session.child5_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child5_noformat" style="margin-left:30px">Child 5</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child6_noformat3')" type="checkbox" id="child6_noformat3" name="child6_noformat3" {% if request.session.child6_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child6_noformat" style="margin-left:30px">Child 6</label>
+            </div>  
+            <div  style="margin-bottom:-20px">
+                <h3>Names must still formatted as follows:</h3>
+            </div>
+            <div>
+                <h4><i>'Last Name(s),<sub style="font-size:20px">&#8248</sub>First Name,<sub style="font-size:20px">&#8248</sub>Middle Name(s)'</i></h4></span>
+            </div>
+            <div style="margin-top:30px">
+                <button py-click="show_noformat('no')" type="button" id="disableformat2" name="disableformat2" style="width:50px">OK</button>
+                <button py-click="show_noformat('no')" type="button" id="cancelformat" name="cancelformat" style="width:50px;margin-left:10px">Cancel</button>
+            </div>  
+        </div>
+
         <div style="grid-column:6/span 10;grid-row:1">
             <h3 style="background-color:#d9d9d9;padding-left:5px">Employer/Withholder Information</h3>
         </div>
@@ -564,7 +732,7 @@
             <p>Employer/Withholder's Name:<p>
         </div>
         <div style="grid-column:11/span 3;grid-row:2">
-            <input py-blur="sub_anyall()" type="text" id="employername" name="employername" value="{{request.session.employername}}">
+            <input py-change="format_proper('employername')" py-blur="sub_anyall()" type="text" id="employername" name="employername" value="{{request.session.employername}}">
         </div>
         <div class="warning" style="grid-column:22;grid-row:2" id="employeranyall" hidden>
             <h3>Do you want this IWO addressed to any and all employers/withholders?  If not, please enter the employer name here.</h3>
@@ -580,25 +748,25 @@
             <p>Address (line 1):<p>
         </div>
         <div style="grid-column:11/span 3;grid-row:3">
-            <input type="text" id="employeraddress1" value="" name="employeraddress1" value="{{request.session.employeraddress1}}">
+            <input py-change="format_proper('employeraddress1')" type="text" id="employeraddress1" name="employeraddress1" value="{{request.session.employeraddress1}}">
         </div>
         <div style="grid-column:7/span 4;grid-row:4">
             <p>Address (line 2):<p>
         </div>
         <div style="grid-column:11/span 3;grid-row:4">
-            <input type="text" id="employeraddress2" value="" name="employeraddress2" value="{{request.session.employeraddress2}}"> 
+            <input py-change="format_proper('employeraddress2')" type="text" id="employeraddress2" name="employeraddress2" value="{{request.session.employeraddress2}}"> 
         </div>
         <div style="grid-column:7/span 4;grid-row:5">                   
             <p>Address (line 3):<p>
         </div>
         <div style="grid-column:11/span 3;grid-row:5">
-            <input type="text" id="employeraddress3" value="" name="employeraddress3" value="{{request.session.employeraddress3}}">
+            <input py-change="format_proper('employeraddress3')" type="text" id="employeraddress3" name="employeraddress3" value="{{request.session.employeraddress3}}">
         </div>
         <div style="grid-column:7/span 4;grid-row:6">                   
             <p>Employer/Withholder's FEIN:<p>
         </div>
         <div style="grid-column:11/span 3;grid-row:6">
-            <input type="text" id="fein" value="" name="fein" value="{{request.session.fein}}">
+            <input type="text" id="fein" name="fein" value="{{request.session.fein}}">
         </div>
 
         <div style="grid-column:6/span 10;grid-row:7">
@@ -620,7 +788,7 @@
             <p>Employee/Obligor's SSN:<p>
         </div>
         <div style="grid-column:11/span 3;grid-row:9">
-            <input type="text" id="employeessn" value="" name="employeessn" value="{{request.session.employeessn}}">
+            <input type="text" id="employeessn" name="employeessn" value="{{request.session.employeessn}}">
         </div>
         <div style="grid-column:7/span 4;grid-row:10">
             <p>Employee/Obligor's DOB:<p>
@@ -635,7 +803,7 @@
             <p>Custodial Party/Obligee's Name:<p>
         </div>
         <div style="grid-column:11/span 3;grid-row:11">
-            <input py-blur="sub_entername('obligeename','entername2','formatname2')" type="text" id="obligeename" value="" name="obligeename" value="{{request.session.obligeename}}">
+            <input py-blur="sub_entername('obligeename','entername2','formatname2')" type="text" id="obligeename" name="obligeename" value="{{request.session.obligeename}}">
         </div>
         <div class="warning" style="grid-column:22;grid-row:11" id="entername2" hidden>
             <h3>Please enter a name in the highlighted field.</h3>
@@ -803,6 +971,55 @@
 
 
     <div class="form-container" id="orderinfo" style="display:none">
+
+        <div class="noauto" style="grid-column:22;grid-row:1/span 22;margin-top:30px;" id="globalnoformatdiv4" hidden>
+            <div>
+                <h3>Turn off autoformatting for:</h3>
+            </div>5
+            <div>
+                <input py-change="add_to_global_format_off('obligorname_noformat4')" type="checkbox" id="obligorname_noformat4" name="obligorname_noformat4" {% if request.session.obligorname_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="obligorname_noformat" style="margin-left:30px">Obligor Name</label>
+            </div>      
+            <div>
+                <input py-change="add_to_global_format_off('obligeename2_noformat4')" type="checkbox" id="obligeename2_noformat4" name="obligeename2_noformat4" {% if request.session.obligeename_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="obligeename_noformat" style="margin-left:30px">Obligee Name</label>
+            </div>
+            <div>
+                <input py-change="add_to_global_format_off('child1_noformat4')" type="checkbox" id="child1_noformat4" name="child1_noformat4" {% if request.session.child1_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child1_noformat" style="margin-left:30px">Child 1</label>
+            </div>     
+            <div>
+                <input py-change="add_to_global_format_off('child2_noformat4')" type="checkbox" id="child2_noformat4" name="child2_noformat4" {% if request.session.child2_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child2_noformat" style="margin-left:30px">Child 2</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child3_noformat4')" type="checkbox" id="child3_noformat4" name="child3_noformat4" {% if request.session.child3_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child3_noformat" style="margin-left:30px">Child 3</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child4_noformat4')" type="checkbox" id="child4_noformat4" name="child4_noformat4" {% if request.session.child4_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child4_noformat" style="margin-left:30px">Child 4</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child5_noformat4')" type="checkbox" id="child5_noformat4" name="child5_noformat4" {% if request.session.child5_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child5_noformat" style="margin-left:30px">Child 5</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child6_noformat4')" type="checkbox" id="child6_noformat4" name="child6_noformat4" {% if request.session.child6_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child6_noformat" style="margin-left:30px">Child 6</label>
+            </div>  
+            <div  style="margin-bottom:-20px">
+                <h3>Names must still formatted as follows:</h3>
+            </div>
+            <div>
+                <h4><i>'Last Name(s),<sub style="font-size:20px">&#8248</sub>First Name,<sub style="font-size:20px">&#8248</sub>Middle Name(s)'</i></h4></span>
+            </div>
+            <div style="margin-top:30px">
+                <button py-click="show_noformat('no')" type="button" id="disableformat2" name="disableformat2" style="width:50px">OK</button>
+                <button py-click="show_noformat('no')" type="button" id="cancelformat" name="cancelformat" style="width:50px;margin-left:10px">Cancel</button>
+            </div>  
+        </div>
+
         <div style="grid-column:6/span 10;grid-row:1">
             <h3 style="background-color:#d9d9d9;padding-left:5px">Origination</h3>
         </div>
@@ -811,7 +1028,7 @@
             <p>This IWO is based on the support order from:</p>
         </div>
         <div style="grid-column:13/span 3;grid-row:2">
-            <input type="text" id="orderfromstate" value="Florida" name="orderfromstate" style="width:7em !important" value="{{request.session.orderfromstate}}">
+            <input type="text" id="orderfromstate" name="orderfromstate" style="width:7em !important" {% if request.session.orderfromstate != None %}value="{{request.session.orderfromstate}}"{% else %} value="Florida"{% endif %}>
         </div> 
 
 
@@ -1004,6 +1221,55 @@
 
 
     <div class="form-container" id="remittance" style="display:none">
+
+        <div class="noauto" style="grid-column:22;grid-row:1/span 22;margin-top:30px;" id="globalnoformatdiv5" hidden>
+            <div>
+                <h3>Turn off autoformatting for:</h3>
+            </div>
+            <div>
+                <input py-change="add_to_global_format_off('obligorname_noformat5')" type="checkbox" id="obligorname_noformat5" name="obligorname_noformat5" {% if request.session.obligorname_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="obligorname_noformat" style="margin-left:30px">Obligor Name</label>
+            </div>      
+            <div>
+                <input py-change="add_to_global_format_off('obligeename2_noformat5')" type="checkbox" id="obligeename2_noformat5" name="obligeename2_noformat5" {% if request.session.obligeename_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="obligeename_noformat" style="margin-left:30px">Obligee Name</label>
+            </div>
+            <div>
+                <input py-change="add_to_global_format_off('child1_noformat5')" type="checkbox" id="child1_noformat5" name="child1_noformat5" {% if request.session.child1_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child1_noformat" style="margin-left:30px">Child 1</label>
+            </div>     
+            <div>
+                <input py-change="add_to_global_format_off('child2_noformat5')" type="checkbox" id="child2_noformat5" name="child2_noformat5" {% if request.session.child2_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child2_noformat" style="margin-left:30px">Child 2</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child3_noformat5')" type="checkbox" id="child3_noformat5" name="child3_noformat5" {% if request.session.child3_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child3_noformat" style="margin-left:30px">Child 3</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child4_noformat5')" type="checkbox" id="child4_noformat5" name="child4_noformat5" {% if request.session.child4_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child4_noformat" style="margin-left:30px">Child 4</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child5_noformat5')" type="checkbox" id="child5_noformat5" name="child5_noformat5" {% if request.session.child5_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child5_noformat" style="margin-left:30px">Child 5</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child6_noformat5')" type="checkbox" id="child6_noformat5" name="child6_noformat5" {% if request.session.child6_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child6_noformat" style="margin-left:30px">Child 6</label>
+            </div>  
+            <div  style="margin-bottom:-20px">
+                <h3>Names must still formatted as follows:</h3>
+            </div>
+            <div>
+                <h4><i>'Last Name(s),<sub style="font-size:20px">&#8248</sub>First Name,<sub style="font-size:20px">&#8248</sub>Middle Name(s)'</i></h4></span>
+            </div>
+            <div style="margin-top:30px">
+                <button py-click="show_noformat('no')" type="button" id="disableformat2" name="disableformat2" style="width:50px">OK</button>
+                <button py-click="show_noformat('no')" type="button" id="cancelformat" name="cancelformat" style="width:50px;margin-left:10px">Cancel</button>
+            </div>  
+        </div>
+
         <div style="grid-column:6/span 10;grid-row:1">
             <h3 style="background-color:#d9d9d9;padding-left:5px">Remittance Information</h3>
         </div>
@@ -1058,6 +1324,54 @@
     </div>
 
     <div class="form-container" id="contactinfo" style="display:none">
+
+        <div class="noauto" style="grid-column:22;grid-row:1/span 22;margin-top:30px;" id="globalnoformatdiv6" hidden>
+            <div>
+                <h3>Turn off autoformatting for:</h3>
+            </div>
+            <div>
+                <input py-change="add_to_global_format_off('obligorname_noformat6')" type="checkbox" id="obligorname_noformat6" name="obligorname_noformat6" {% if request.session.obligorname_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="obligorname_noformat" style="margin-left:30px">Obligor Name</label>
+            </div>      
+            <div>
+                <input py-change="add_to_global_format_off('obligeename2_noformat6')" type="checkbox" id="obligeename2_noformat6" name="obligeename2_noformat6" {% if request.session.obligeename_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="obligeename_noformat" style="margin-left:30px">Obligee Name</label>
+            </div>
+            <div>
+                <input py-change="add_to_global_format_off('child1_noformat6')" type="checkbox" id="child1_noformat6" name="child1_noformat6" {% if request.session.child1_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child1_noformat" style="margin-left:30px">Child 1</label>
+            </div>     
+            <div>
+                <input py-change="add_to_global_format_off('child2_noformat6')" type="checkbox" id="child2_noformat6" name="child2_noformat6" {% if request.session.child2_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child2_noformat" style="margin-left:30px">Child 2</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child3_noformat6')" type="checkbox" id="child3_noformat6" name="child3_noformat6" {% if request.session.child3_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child3_noformat" style="margin-left:30px">Child 3</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child4_noformat6')" type="checkbox" id="child4_noformat6" name="child4_noformat6" {% if request.session.child4_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child4_noformat" style="margin-left:30px">Child 4</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child5_noformat6')" type="checkbox" id="child5_noformat6" name="child5_noformat6" {% if request.session.child5_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child5_noformat" style="margin-left:30px">Child 5</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child6_noformat6')" type="checkbox" id="child6_noformat6" name="child6_noformat6" {% if request.session.child6_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child6_noformat" style="margin-left:30px">Child 6</label>
+            </div>  
+            <div  style="margin-bottom:-20px">
+                <h3>Names must still formatted as follows:</h3>
+            </div>
+            <div>
+                <h4><i>'Last Name(s),<sub style="font-size:20px">&#8248</sub>First Name,<sub style="font-size:20px">&#8248</sub>Middle Name(s)'</i></h4></span>
+            </div>
+            <div style="margin-top:30px">
+                <button py-click="show_noformat('no')" type="button" id="disableformat2" name="disableformat2" style="width:50px">OK</button>
+                <button py-click="show_noformat('no')" type="button" id="cancelformat" name="cancelformat" style="width:50px;margin-left:10px">Cancel</button>
+            </div>  
+        </div>
         <div style="grid-column:6/span 10;grid-row:1">
             <h3 style="background-color:#d9d9d9;padding-left:5px">Contact Information</h3>
         </div>
@@ -1068,14 +1382,14 @@
             <p>Sender Name:</p>
         </div>
         <div style="grid-column:10/span 2;grid-row:3">
-            <input type="text" id="sender" name="sender" value="S.O.F Disbursement Unit">
+            <input py-change="format_proper('sender')" type="text" id="sender" name="sender" {% if request.session.sender != None %} value="{{request.session.sender}}" {% else %} value="S.O.F Disbursement Unit" {% endif %}>
         </div>
 
         <div style="grid-column:7/span 3;grid-row:4">
             <p> by telephone:</p>
         </div>
         <div style="grid-column:10/span 2;grid-row:4">
-            <input type="text" id="sendertel" name="sendertel" value="1-877-769-0251">
+            <input type="text" id="sendertel" name="sendertel" {% if request.session.sendertel != None %} value="{{request.session.sendertel}}" {% else %} value="1-877-769-0251" {% endif %}>
         </div>
         <div style="grid-column:7/span 3;grid-row:5">
             <p>by fax: </p>
@@ -1087,13 +1401,13 @@
             <p>by email or website:</p>
         </div>
         <div style="grid-column:10/span 2;grid-row:6">
-            <input type="text" id="senderwebsite" name="senderwebsite" value="www.FloridaSDU.com">
+            <input type="text" id="senderwebsite" name="senderwebsite" {% if request.session.senderwebsite != None %} value="{{request.session.senderwebsite}}" {% else %} value="www.FloridaSDU.com" {% endif %}>
         </div>
         <div style="grid-column:7/span 9;grid-row:7">
             <p>Send termination/income status notice and other correspondence to:</p>
         </div>
         <div style="grid-column:7/span 8;grid-row:8">
-            <textarea id="noticeto" name="noticeto"rows="3" style="width:100%;margin-top:30px" wrap="soft" value="{{request.session.noticeto}}"></textarea>
+            <textarea py-change="format_proper('noticeto')" id="noticeto" name="noticeto"rows="3" style="width:100%;margin-top:30px" wrap="soft" {% if request.session.noticeto != None %} value="{{request.session.noticeto}}" {% endif %}></textarea>
         </div>
         <div style="grid-column:7/span 9;grid-row:11">
             <p><strong>To employee/obligor:</strong> If the employee/obligor has questions, contact:</p>
@@ -1102,13 +1416,13 @@
             <p>Sender Name:</p>
         </div>
         <div style="grid-column:10/span 2;grid-row:12">
-            <input type="text" id="sender2" name="sender2"  value="S.O.F Disbursement Unit">
+            <input py-change="format_proper('sender2')" type="text" id="sender2" name="sender2" {% if request.session.sender2 != None %} value="{{request.session.sender2}}" {% else %} value="S.O.F Disbursement Unit" {% endif %}>
         </div>
         <div style="grid-column:7/span 3;grid-row:13">
             <p>telephone: </p>
         </div>
         <div style="grid-column:10/span 2;grid-row:13">
-            <input type="text" id="sender2tel" name="sender2tel" value="1-877-769-0251">
+            <input type="text" id="sender2tel" name="sender2tel" {% if request.session.sender2tel != None %} value="{{request.session.sender2tel}}" {% else %} value="1-877-769-0251" {% endif %}>
         </div>
         <div style="grid-column:7/span 3;grid-row:14">
             <p>by fax: </p>
@@ -1120,10 +1434,10 @@
             <p>by email or website: </p>
         </div>
         <div style="grid-column:10/span 2;grid-row:15">
-             <input type="text" id="senderwebsite2" name="senderwebsite2" value="www.FloridaSDU.com">
+             <input type="text" id="senderwebsite2" name="senderwebsite2" {% if request.session.senderwebsite2 != None %} value="{{request.session.senderwebsite2}}" {% else %} value="www.FloridaSDU.com" {% endif %}>
         </div>
         <div style="grid-column:22;grid-row:13;">
-            <button id="make_document2" name="make_document2" type="submit" style="background-color:#339933" hidden>Make Document</button>
+            <button py-onClick="messaging()" id="make_document2" name="make_document2" type="submit" style="background-color:#339933" hidden disabled>Make Document</button>
         </div>
         <div style="grid-column:10;grid-row:22">
             <button py-click="back5to4()" class="next_back" type="button" style="margin-right:10px">Back</button>
@@ -1131,11 +1445,61 @@
         <div style="grid-column:11;grid-row:22">
             <button py-click="next5to6()" class="next_back" type="button" name="next5to6" id="next5to6">Next</button>                
         </div> 
+        <div style="grid-column:22;grid-row:13;">
+            <button py-click="finish('finish2')" id="finish2" name="finish2" type="button">Finish</button>
+        </div>
     </div>
 
 
 
     <div class="form-container" id="arrearsbonus" style="display:none">
+        <div class="noauto" style="grid-column:22;grid-row:1/span 22;margin-top:30px;" id="globalnoformatdiv7" hidden>
+            <div>
+                <h3>Turn off autoformatting for:</h3>
+            </div>
+            <div>
+                <input py-change="add_to_global_format_off('obligorname_noformat7')" type="checkbox" id="obligorname_noformat7" name="obligorname_noformat7" {% if request.session.obligorname_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="obligorname_noformat" style="margin-left:30px">Obligor Name</label>
+            </div>      
+            <div>
+                <input py-change="add_to_global_format_off('obligeename2_noformat7')" type="checkbox" id="obligeename2_noformat7" name="obligeename2_noformat7" {% if request.session.obligeename_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="obligeename_noformat" style="margin-left:30px">Obligee Name</label>
+            </div>
+            <div>
+                <input py-change="add_to_global_format_off('child1_noformat7')" type="checkbox" id="child1_noformat7" name="child1_noformat7" {% if request.session.child1_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child1_noformat" style="margin-left:30px">Child 1</label>
+            </div>     
+            <div>
+                <input py-change="add_to_global_format_off('child2_noformat7')" type="checkbox" id="child2_noformat7" name="child2_noformat7" {% if request.session.child2_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child2_noformat" style="margin-left:30px">Child 2</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child3_noformat7')" type="checkbox" id="child3_noformat7" name="child3_noformat7" {% if request.session.child3_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child3_noformat" style="margin-left:30px">Child 3</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child4_noformat7')" type="checkbox" id="child4_noformat7" name="child4_noformat7" {% if request.session.child4_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child4_noformat" style="margin-left:30px">Child 4</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child5_noformat7')" type="checkbox" id="child5_noformat7" name="child5_noformat7" {% if request.session.child5_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child5_noformat" style="margin-left:30px">Child 5</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child6_noformat7')" type="checkbox" id="child6_noformat7" name="child6_noformat7" {% if request.session.child6_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child6_noformat" style="margin-left:30px">Child 6</label>
+            </div>  
+            <div  style="margin-bottom:-20px">
+                <h3>Names must still formatted as follows:</h3>
+            </div>
+            <div>
+                <h4><i>'Last Name(s),<sub style="font-size:20px">&#8248</sub>First Name,<sub style="font-size:20px">&#8248</sub>Middle Name(s)'</i></h4></span>
+            </div>
+            <div style="margin-top:30px">
+                <button py-click="show_noformat('no')" type="button" id="disableformat2" name="disableformat2" style="width:50px">OK</button>
+                <button py-click="show_noformat('no')" type="button" id="cancelformat" name="cancelformat" style="width:50px;margin-left:10px">Cancel</button>
+            </div>  
+        </div>
         <div style="grid-column:6/span 10;grid-row:1">
             <h3 style="background-color:#d9d9d9;padding-left:5px">Arrears/Delinquency</h3>
         </div>
@@ -1186,6 +1550,53 @@
 
 
     <div class="form-container-2" id="termschedule" style="display:none">
+        <div class="noauto" style="grid-column:22;grid-row:1/span 22;margin-top:30px;" id="globalnoformatdiv8" hidden>
+            <div>
+                <h3>Turn off autoformatting for:</h3>
+            </div>
+            <div>
+                <input py-change="add_to_global_format_off('obligorname_noformat8')" type="checkbox" id="obligorname_noformat8" name="obligorname_noformat8" {% if request.session.obligorname_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="obligorname_noformat" style="margin-left:30px">Obligor Name</label>
+            </div>      
+            <div>
+                <input py-change="add_to_global_format_off('obligeename2_noformat8')" type="checkbox" id="obligeename2_noformat8" name="obligeename2_noformat8" {% if request.session.obligeename_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="obligeename_noformat" style="margin-left:30px">Obligee Name</label>
+            </div>
+            <div>
+                <input py-change="add_to_global_format_off('child1_noformat8')" type="checkbox" id="child1_noformat8" name="child1_noformat8" {% if request.session.child1_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child1_noformat" style="margin-left:30px">Child 1</label>
+            </div>     
+            <div>
+                <input py-change="add_to_global_format_off('child2_noformat8')" type="checkbox" id="child2_noformat8" name="child2_noformat8" {% if request.session.child2_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child2_noformat" style="margin-left:30px">Child 2</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child3_noformat8')" type="checkbox" id="child3_noformat8" name="child3_noformat8" {% if request.session.child3_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child3_noformat" style="margin-left:30px">Child 3</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child4_noformat8')" type="checkbox" id="child4_noformat8" name="child4_noformat8" {% if request.session.child4_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child4_noformat" style="margin-left:30px">Child 4</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child5_noformat8')" type="checkbox" id="child5_noformat8" name="child5_noformat8" {% if request.session.child5_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child5_noformat" style="margin-left:30px">Child 5</label>
+            </div>                
+            <div>
+                <input py-change="add_to_global_format_off('child6_noformat8')" type="checkbox" id="child6_noformat8" name="child6_noformat8" {% if request.session.child6_noformat1 == 'on' %} checked=True {% endif %}>
+                <label for="child6_noformat" style="margin-left:30px">Child 6</label>
+            </div>  
+            <div  style="margin-bottom:-20px">
+                <h3>Names must still formatted as follows:</h3>
+            </div>
+            <div>
+                <h4><i>'Last Name(s),<sub style="font-size:20px">&#8248</sub>First Name,<sub style="font-size:20px">&#8248</sub>Middle Name(s)'</i></h4></span>
+            </div>
+            <div style="margin-top:30px">
+                <button py-click="show_noformat('no')" type="button" id="disableformat2" name="disableformat2" style="width:50px">OK</button>
+                <button py-click="show_noformat('no')" type="button" id="cancelformat" name="cancelformat" style="width:50px;margin-left:10px">Cancel</button>
+            </div>  
+        </div>
         <div style="grid-column:2;grid-row:1">
             <h3 style="background-color:#d9d9d9;padding-left:5px" id="termtableheader" name="termtableheader">Child Support Reduction/Termination Schedule</h3>
         </div>
@@ -1239,7 +1650,7 @@
                         <p style="padding:0px; margin:0px">following monthly amount:</p>
                     </td>
                     <td>
-                        <p>$ <input py-change="calc_allremaining_dollars('allremaining1','fixdollar20')" type="text" id="allremaining1" name="allremaining1" value="{{request.session.allremaining1}}" style="text-align:right important!"></p>
+                        <p>$ <input class="allremaining" py-change="calc_allremaining_dollars('allremaining1','fixdollar20')" type="text" id="allremaining1" name="allremaining1" value="{{request.session.allremaining1}}" style="text-align:right important!"></p>
                     </td>
                 </tr>
                 <tr>
@@ -1263,7 +1674,7 @@
                         <p style="padding:0px; margin:0px">following monthly amount:</p>
                     </td>
                     <td>
-                        <p>$ <input py-change="calc_allremaining_dollars('allremaining2','fixdollar20')" type="text" id="allremaining2" name="allremaining2" value="{{request.session.allremaining2}}"></p>
+                        <p>$ <input class="allremaining" py-change="calc_allremaining_dollars('allremaining2','fixdollar20')" type="text" id="allremaining2" name="allremaining2" value="{{request.session.allremaining2}}"></p>
                     </td>
                 </tr>
                 <tr>
@@ -1287,7 +1698,7 @@
                         <p style="padding:0px; margin:0px">following monthly amount:</p>
                     </td>
                     <td>
-                        <p>$ <input py-change="calc_allremaining_dollars('allremaining3','fixdollar20')" type="text" id="allremaining3" name="allremaining3" value="{{request.session.allremaining3}}"></p>
+                        <p>$ <input class="allremaining" py-change="calc_allremaining_dollars('allremaining3','fixdollar20')" type="text" id="allremaining3" name="allremaining3" value="{{request.session.allremaining3}}"></p>
                     </td>
                 </tr>
                 <tr>
@@ -1311,7 +1722,7 @@
                         <p style="padding:0px; margin:0px">following monthly amount:</p>
                     </td>
                     <td>
-                        <p>$ <input py-change="calc_allremaining_dollars('allremaining4','fixdollar20')" type="text" id="allremaining4" name="allremaining4" value="{{request.session.allremaining4}}"></p>
+                        <p>$ <input class="allremaining" py-change="calc_allremaining_dollars('allremaining4','fixdollar20')" type="text" id="allremaining4" name="allremaining4" value="{{request.session.allremaining4}}"></p>
                     </td>
                 </tr>
                 <tr>
@@ -1335,7 +1746,7 @@
                         <p style="padding:0px; margin:0px">following monthly amount:</p>
                     </td>
                     <td>
-                        <p>$ <input py-change="calc_allremaining_dollars('allremaining5','fixdollar20')" type="text" id="allremaining5" name="allremaining5" value="{{request.session.allremaining5}}"></p>
+                        <p>$ <input class="allremaining" py-change="calc_allremaining_dollars('allremaining5','fixdollar20')" type="text" id="allremaining5" name="allremaining5" value="{{request.session.allremaining5}}"></p>
                     </td>
                 </tr>
                 <tr id="hiddenchild" hidden>
@@ -1359,7 +1770,7 @@
                         <p style="padding:0px; margin:0px">following monthly amount:</p>
                     </td>
                     <td>
-                        <p>$ <input py-change="calc_allremaining_dollars('allremaining6','fixdollar20')" type="text" id="allremaining6" name="allremaining6" value="{{request.session.allremaining6}}"></p>
+                        <p>$ <input class="allremaining" py-change="calc_allremaining_dollars('allremaining6','fixdollar20')" type="text" id="allremaining6" name="allremaining6" value="{{request.session.allremaining6}}"></p>
                     </td>
                 </tr>
             </table> 
@@ -1371,7 +1782,7 @@
             <button py-click="back7to6()" class="next_back" id="last_back" name="last_back" type="button" style="margin-left:50%;margin-right:50%">Back</button>
         </div>
         <div style="grid-column:3;grid-row:13;">
-            <button py-click="finish()" id="finish" name="finish" type="button">Finish</button>
+            <button py-click="finish('finish')" id="finish" name="finish" type="button">Finish</button>
         </div>
         <div style="grid-column:3;grid-row:13;">
             <button py-onClick="messaging()" id="make_document" name="make_document" type="submit" style="background-color:#339933" disabled hidden>Make Document</button>
@@ -1384,13 +1795,13 @@
         <div style="grid-column:2;grid-row:12; width:auto;margin:auto" id="buttons" name="buttons" hidden>
             <div style="display:inline-flex; justify-content:center;padding:10px">
                 <div>
-                    <form method="POST" action="/input2/">
+                    <form method="POST" action="/bar-services/iwo/input/">
                     {% csrf_token %}
                         <button type="submit" style="padding:5px;margin-right:5px;font-weight:bold">Edit Document</button>
                     </form>
                 </div>
                 <div>
-                    <form method="POST" action="/home/">
+                    <form method="POST" action="/bar-services/iwo/home/">
                     {% csrf_token %}
                         <button type="submit" style="padding:5px;margin-left:5px;font-weight:bold">New Document</button>
                     </form>
@@ -1400,15 +1811,147 @@
     </div>
 </div>
 
-
-
     <py-script>
         from decimal import Decimal
         from js import document
         from datetime import datetime
         import csv
 
+        def show_noformat(choice):
+            if choice == 'yes':
+                Element("globalnoformatdiv1").element.hidden = False
+                Element("globalnoformatdiv2").element.hidden = False
+                Element("globalnoformatdiv3").element.hidden = False
+                Element("globalnoformatdiv4").element.hidden = False
+                Element("globalnoformatdiv5").element.hidden = False
+                Element("globalnoformatdiv6").element.hidden = False
+                Element("globalnoformatdiv7").element.hidden = False
+                Element("globalnoformatdiv8").element.hidden = False
 
+                Element("obligorname").element.setAttribute("style","background-color:white")
+                Element("obligeename2").element.setAttribute("style","background-color:white")
+                Element("child1").element.setAttribute("style","background-color:white")
+                Element("child2").element.setAttribute("style","background-color:white")
+                Element("child3").element.setAttribute("style","background-color:white")
+                Element("child4").element.setAttribute("style","background-color:white")
+                Element("child5").element.setAttribute("style","background-color:white")
+                Element("child6").element.setAttribute("style","background-color:white")
+
+                Element("entername").element.hidden = True
+                Element("entername2").element.hidden = True
+
+
+                Element("formatname").element.hidden = True
+                Element("formatname2").element.hidden = True
+                Element("formatname3").element.hidden = True
+                Element("formatname4").element.hidden = True
+                Element("formatname5").element.hidden = True
+                Element("formatname6").element.hidden = True
+                Element("formatname7").element.hidden = True
+                Element("formatname8").element.hidden = True
+
+            else:
+                Element("globalnoformatdiv1").element.hidden = True
+                Element("globalnoformatdiv2").element.hidden = True
+                Element("globalnoformatdiv3").element.hidden = True
+                Element("globalnoformatdiv4").element.hidden = True
+                Element("globalnoformatdiv5").element.hidden = True
+                Element("globalnoformatdiv6").element.hidden = True
+                Element("globalnoformatdiv7").element.hidden = True
+                Element("globalnoformatdiv8").element.hidden = True
+ 
+        def add_to_global_format_off(element):
+            element2 = element[:-10]
+            if Element(element).element.checked == 1:
+                for i in range(1,9):
+                    Element(element2 + "_noformat" + str(i)).element.checked = 1
+                if element2 not in Element('global_format_off').element.value:
+                    if Element('global_format_off').element.value == "":
+                        if "dummy" not in Element('global_format_off').element.value:                
+                            Element('global_format_off').element.value = "dummy"
+                    Element('global_format_off').element.value = Element('global_format_off').element.value + "," + element2 
+                    Element("entername").element.hidden = True
+                    Element("entername2").element.hidden = True
+                    Element("formatname").element.hidden = True
+                    Element("formatname2").element.hidden = True
+                    Element("formatname3").element.hidden = True
+                    Element("formatname4").element.hidden = True
+                    Element("formatname5").element.hidden = True
+                    Element("formatname6").element.hidden = True
+                    Element("formatname7").element.hidden = True
+                    Element("formatname8").element.hidden = True
+
+                    Element(element.split("_")[0]).element.setAttribute("style","background-color:white")
+
+                    if element2 == 'obligorname':
+                        Element('global_format_off').element.value = Element('global_format_off').element.value + "," + 'employeename'
+
+            if Element(element).element.checked == 0:
+                for i in range(1,9):
+                    Element(element2 + "_noformat" + str(i)).element.checked = 0
+                global_format_off = Element('global_format_off').element.value
+                global_format_off_list = global_format_off.split(",")
+                global_format_off_list.pop(global_format_off_list.index(element2))
+                if element == 'obligorname':
+                    global_format_off_list.pop(global_format_off_list.index('employeename'))
+                global_format_off = ",".join(global_format_off_list)
+                Element('global_format_off').element.value = global_format_off
+
+        
+        mac_list = [
+            "MacAlister", "MacArthur", "MacAuley", "MacBain", "MacCallum", "MacDecy", "MacDonald", "MacDonnell", "MacDougall", "MacDowall",
+            "MacDuff", "MacFarlane", "McGowan", "MacGregor", "MacIntyre", "MacKay", "MacKenzie", "MacKinnon", "MacKintosh", "MacLaine",
+            "MacLachlan", "MacLaren", "MacLean", "MacLennan", "MacLeod", "MacMillan", "MacNab", "MacNaughton", "MacNeacail", "MacNeil",
+            "MacPherson", "MacQuarie", "MacTavish", "MacThomas",
+            ]
+
+        def reformat(text,delimiter):
+            stringlist = []
+            newstring = text.split(delimiter)
+            frontstring = newstring[0]
+            endstring = newstring[1]
+            stringlist.append(frontstring.title())
+            stringlist.append(endstring.title())
+
+            finalstringlist = []
+            for string in stringlist:
+                templist = []
+                a = string.split()
+                for s in a:
+                    b = list(s)
+                    if "".join(b[:2]).lower() == "mc":
+                        b[2] = b[2].upper()
+                    s = "".join(b)
+
+                    new_mac_list = []
+                    for item in mac_list:
+                        new_mac_list.append(item.lower())
+
+                    if s.lower() in new_mac_list:
+                        s = mac_list[new_mac_list.index(s.lower())]
+                    
+                    templist.append(s)
+                string = " ".join(templist)
+                finalstringlist.append(string)
+
+
+                if " " in list(finalstringlist[0]):
+                    idx = list(finalstringlist[0]).index(" ")
+                    list(finalstringlist[0]).pop(idx)
+                    list(finalstringlist[0]).insert(idx,"-")
+
+                if "-" in list(finalstringlist[0]):
+
+                    hyphenstring = reformat(finalstringlist[0],"-")
+                    idx = list(hyphenstring).index(",")
+                    hyphenstringlist = list(hyphenstring)
+                    hyphenstringlist.pop(idx + 1)
+                    hyphenstringlist.pop(idx)
+                    hyphenstringlist.insert(idx,"-")
+                    finalstringlist[0] = "".join(hyphenstringlist)
+
+            mystring = ", ".join(finalstringlist)
+            return(mystring)
 
         c = document.getElementById("output")
     
@@ -1416,11 +1959,13 @@
             Element('buttons').element.hidden = False
             Element('message').element.hidden = False
             Element('termtable').element.hidden = True
+            Element('termschedule').element.setAttribute("style","display:grid")
             Element('make_document').element.hidden = True
             Element('termtableheader').element.hidden = True
             Element('last_back').element.hidden=True
-
-
+            Element('contactinfo').element.setAttribute("style","display:none")
+            Element('finish').element.hidden=True
+            Element('finish2').element.hidden=True
 
         def focus_border(button):
             element = button
@@ -1502,8 +2047,6 @@
                     Element('citycountydisttribe').element.value = "Highlands"
                     
 
-
-                
                 Element('suffix').element.value = Element('suffix').element.value.upper()
                 suffix = Element('suffix').element.value
 
@@ -1527,8 +2070,6 @@
                     Element('fixdivision').element.hidden = True
                     Element('division').element.setAttribute("style","background-color:white;")
 
-
-
                 casenumber = county + "-" + year + "-DR-" + filenumber + "-" + presuffix + "-" + suffix
                 Element('casenumber').element.value = casenumber
                 Element('statetribeterritory').element.value = "Florida"
@@ -1546,8 +2087,6 @@
                     Element('fixpetitionerrespondent').element.hidden = True
                     Element('petitionerlabel').element.setAttribute("style","color:black;margin-left:-20px")
                     Element('respondentlabel').element.setAttribute("style","color:black;margin-left:-20px")
-
-
         
         def sub1_1():
             if Element('iwo').element.checked == 1:
@@ -1658,7 +2197,6 @@
                     Element('petitionerlabel').element.setAttribute("style","color:black")
                     Element('respondentlabel').element.setAttribute("style","color:black")
                     Element('fixpetitionerrespondent').element.hidden = True
-
         
         def checkgroup_3choice(checked,unchecked1,unchecked2):
 
@@ -1675,32 +2213,12 @@
                         Element('deductpercentamount').element.value = "60"
                 else:
                     Element('deductpercentamount').element.value = "" 
-            
-
 
         def sub2_1(id):
             date_string = Element(id).element.value
             if not sub_isdate(date_string,False):
                 Element(id).element.style.color = 'pink'
 
-        def sub2():
-            for i in range(5):
-                Element('output').write(f"Hello, {Element('name').value} from {Element('countries').value}")
-        
-
-
-        def sub4():
-        
-
- 
-            my_file = open("docs/doc2.docx", "rb")
- 
-
-            text = my_file.read()
- 
-            my_file.close()
-            return text
-        
         def sub_anyall():
             if Element('privateindividualentity').element.value == "":
                 if Element('employername').element.value == "":
@@ -1709,7 +2227,7 @@
                     Element('anyallbuttonyes').element.focus()
                 else:
                     if Element('employername').element.value != "":
-                        Element('employername').element.value = Element('employername').element.value.title()
+
                         Element('enteremployer').element.hidden = True
                         Element('employername').element.setAttribute("style","background-color:white")
         
@@ -1724,50 +2242,79 @@
                 Element('employeranyall').element.hidden = True
                 Element('employername').element.focus()
 
+        
         def sub_entername(name,entername,formatname):
-
-            if Element(name).element.value != "" and Element(name).element.value.split(',')[-1] == "" or Element(name).element.value.split(',')[-1] == " ":
-                Element(formatname).element.hidden = False
-                if name == "obligorname" or name == "obligeename2":
-                    Element(name).element.setAttribute("style","background-color:pink")
-                else:
-                    Element(name).element.setAttribute("style","background-color:pink;margin-left:-13px;width:13em !important")
-                Element(name).element.value = ""
-                Element(name).element.focus()
-                return
-
-            if not "child" in name:
-                if Element(name).element.value == "":
-                    if Element(entername).element is not None:
-                        Element(entername).element.hidden = False
+            if name not in Element('global_format_off').element.value:
+                if Element(name).element.value != "" and Element(name).element.value.split(',')[-1] == "" or Element(name).element.value.split(',')[-1] == " ":
+                    Element(formatname).element.hidden = False
+                    if name == "obligorname" or name == "obligeename2":
                         Element(name).element.setAttribute("style","background-color:pink")
-                        Element(name).element.focus()
-                        if name == 'obligorname':
-                            Element('obligorname').element.setAttribute("style","background-color:pink")
-                        if name == 'obligeename2':
-                            Element('obligeename2').element.setAttribute("style","background-color:pink")
-
-                else:
-                    if "," in Element(name).element.value:
-                   
-                        name2 = Element(name).element.value.replace(', ',',').split(",")
-                        name2[0] = name2[0].title() + ","
-                        Element(name).element.setAttribute("style","background-color:white")
-                        Element(formatname).element.hidden = True
-                        Element(entername).element.hidden = True
-                        if Element(entername).element is not None:
-                            Element(entername).element.hidden = True
-                        Element(name).element.value = " ".join(name2).title()
-                        if name == 'obligorname':
-                            Element('obligorname').element.setAttribute("style","background-color:white")
-                        if name == 'obligeename2':
-                            Element('obligeename2').element.setAttribute("style","background-color:white")
-
-
-                
                     else:
-                        Element(formatname).element.hidden = False
+                        Element(name).element.setAttribute("style","background-color:pink;margin-left:-13px;width:13em !important")
+                    Element(name).element.value = ""
+                    Element(name).element.focus()
+                    return
+
+                if not "child" in name:
+                    if Element(name).element.value == "":
+                        if Element(entername).element is not None:
+                            Element(entername).element.hidden = False
+                            Element(name).element.setAttribute("style","background-color:pink")
+                            Element(name).element.focus()
+                            if name == 'obligorname':
+                                Element('obligorname').element.setAttribute("style","background-color:pink")
+                            if name == 'obligeename2':
+                                Element('obligeename2').element.setAttribute("style","background-color:pink")
+
+                    else:
+                        if "," in Element(name).element.value:
+                    
+                            name2 = Element(name).element.value.replace(', ',',').split(",")
+                            name2[0] = name2[0].title() + ","
+                            Element(name).element.setAttribute("style","background-color:white")
+                            Element(formatname).element.hidden = True
+                            Element(entername).element.hidden = True
+                            if Element(entername).element is not None:
+                                Element(entername).element.hidden = True
+                            Element(name).element.value = reformat(" ".join(name2).title(),",")
+                            if name == 'obligorname':
+                                Element('obligorname').element.setAttribute("style","background-color:white")
+                            if name == 'obligeename2':
+                                Element('obligeename2').element.setAttribute("style","background-color:white")
+
+                        else:
+                            Element(formatname).element.hidden = False
+                            Element(entername).element.hidden = True
+                            Element(name).element.value = ""
+                            Element(name).element.setAttribute("style","background-color:pink")
+                            Element(name).element.focus()
+                            if name == 'obligorname':
+                                Element('obligorname').element.setAttribute("style","background-color:pink")
+                            if name == 'obligeename2':
+                                Element('obligeename2').element.setAttribute("style","background-color:pink")
+
+                elif "," in Element(name).element.value:
+                    name2 = Element(name).element.value.replace(', ',',').split(",")
+                    name2[0] = name2[0].title() + ","
+                    Element(name).element.setAttribute("style","background-color:white")
+                    if name == 'obligorname':
+                        Element('obligorname').element.setAttribute("style","background-color:white")
+                    if name == 'obligeename2':
+                        Element('obligeename2').element.setAttribute("style","background-color:white")
+                    if name in ['child1','child2','child3','child4','child5','child6']:
+                        Element(name).element.setAttribute("style","background-color:white;margin-left:-13px;width:13em !important")
+
+                    Element(formatname).element.hidden = True
+                    if Element(entername).element is not None:
                         Element(entername).element.hidden = True
+                    Element(name).element.value = reformat(" ".join(name2).title(),",")
+                                            
+                    Element('alim_enterchild').element.hidden = True
+                    Element('alimonyonly').element.hidden = True
+        
+                else:
+                    if Element(name).element.value != "":
+                        Element(formatname).element.hidden = False
                         Element(name).element.value = ""
                         Element(name).element.setAttribute("style","background-color:pink")
                         Element(name).element.focus()
@@ -1775,38 +2322,8 @@
                             Element('obligorname').element.setAttribute("style","background-color:pink")
                         if name == 'obligeename2':
                             Element('obligeename2').element.setAttribute("style","background-color:pink")
-
-            elif "," in Element(name).element.value:
-                name2 = Element(name).element.value.replace(', ',',').split(",")
-                name2[0] = name2[0].title() + ","
-                Element(name).element.setAttribute("style","background-color:white")
-                if name == 'obligorname':
-                    Element('obligorname').element.setAttribute("style","background-color:white")
-                if name == 'obligeename2':
-                    Element('obligeename2').element.setAttribute("style","background-color:white")
-                if name in ['child1','child2','child3','child4','child5','child6']:
-                    Element(name).element.setAttribute("style","background-color:white;margin-left:-13px;width:13em !important")
-
-                Element(formatname).element.hidden = True
-                if Element(entername).element is not None:
-                    Element(entername).element.hidden = True
-                Element(name).element.value = " ".join(name2).title()
-                                        
-                Element('alim_enterchild').element.hidden = True
-                Element('alimonyonly').element.hidden = True
-      
-            else:
-                if Element(name).element.value != "":
-                    Element(formatname).element.hidden = False
-                    Element(name).element.value = ""
-                    Element(name).element.setAttribute("style","background-color:pink")
-                    Element(name).element.focus()
-                    if name == 'obligorname':
-                        Element('obligorname').element.setAttribute("style","background-color:pink")
-                    if name == 'obligeename2':
-                        Element('obligeename2').element.setAttribute("style","background-color:pink")
-                    if name in ['child1','child2','child3','child4','child5','child6']:
-                        Element(name).element.setAttribute("style","background-color:pink;margin-left:-13px;width:13em !important")
+                        if name in ['child1','child2','child3','child4','child5','child6']:
+                            Element(name).element.setAttribute("style","background-color:pink;margin-left:-13px;width:13em !important")
 
         def employee_dob_isdate():
             datestr = Element('employeedob').element.value
@@ -1852,7 +2369,21 @@
                         Element(dateid).element.value = ""
                         Element(dateid).element.setAttribute("style","background-color:pink")
                         Element(dateid).element.focus()
+        
+        def child_init(tup):
 
+
+            split_child = tup[0].split(",")
+
+            first_inits_list1 = split_child[1].split()
+            last_inits_list1 = split_child[0].split()
+            first_inits_list2 = [(first_inits_list1[i][0].upper() + ".") for i in range(0,len(first_inits_list1))]
+            last_inits_list2 = [(last_inits_list1[i][0].upper() + ".") for i in range(0,len(last_inits_list1))]
+            first_inits = "".join(first_inits_list2)
+            last_inits = "".join(last_inits_list2)
+            inits = first_inits + last_inits               
+
+            return inits
 
         def order_child():
 
@@ -1884,38 +2415,24 @@
                     i = i + 1
 
                 j = 1
+
                 for tup in child_dob_tuple_list:
-                    split_child = tup[0].split()
-                    first_init = split_child[1][0] + "."
-                    last_init = split_child[0][0] + "."
+
+                    inits = child_init(tup)
+                    
 
                     date_split = tup[1].split("/")
                     add_years = str(int(date_split[2]) + 18)
                     date_split[2] = add_years
                     new_dob = "/".join(date_split)
 
-                    if len(split_child) < 3:
-                        Element("childinit" + str(j)).element.value = first_init + last_init
-                        Element("childdobtwo" + str(j)).element.value = tup[1]
-                        Element("dob18" + str(j)).element.value = new_dob
-                        j = j + 1
-                    else:
-                        rest_init_list = []
-                        for i in range(2,len(split_child)):
+                    Element("childinit" + str(j)).element.value = inits
+                    Element("childdobtwo" + str(j)).element.value = tup[1]
+                    Element("dob18" + str(j)).element.value = new_dob
+                    j = j + 1
 
-                            rest_init_list.append(split_child[i][0] + ".")
-                            rest_init = ''.join(rest_init_list)
-                        Element("childinit" + str(j)).element.value = first_init + rest_init + last_init
-                        Element("childdobtwo" + str(j)).element.value = tup[1]
-                        Element("dob18" + str(j)).element.value = new_dob
-                        j = j + 1
                 if len(child_dob_tuple_list) == 6:
                     Element("hiddenchild").element.hidden = False
-
-
-
-            
-
 
         def enterchilddob(num):
             dobelementtext = Element("child" + str(num) + "dob").element.value
@@ -1938,13 +2455,12 @@
                 else:
                     Element("dollar1").element.focus()
 
-
-
         def calc_dollars(per):
             sum = 0
             allowables = [".","0","1","2","3","4","5","6","7","8","9"]
             for i in range(1,8):
                 amount = Element("dollar" + str(i)).element.value
+                amount = amount.replace(",","")
                 for ltr in amount:
                     if ltr not in allowables:
                         Element("fixdollar" + str(i)).element.hidden = False
@@ -1956,6 +2472,8 @@
                     else:
                         Element("fixdollar" + str(i)).element.hidden = True
                         Element("dollar" + str(i)).element.setAttribute("style","background-color:white; text-align:right;width:5em;text-align:right !important")
+                
+                amount = amount.replace(",","")
 
                 if "." in amount:
                     amount = amount.split(".")
@@ -1978,14 +2496,8 @@
                     sum = Decimal(sum) + Decimal(amount)
             Element("totalwithhold").element.value = '{:.2f}'.format(float(sum),2)
             Element("totalwithhold").element.setAttribute("style","text-align:right;width:5em;text-align:right !important")
-
-
-
-
-
             sub3()
             pop_pers("dummy")
-
             num_children_dollars = 0
             for i in range(1,5):
                 if Element('dollar' + str(i)).element.value != "":
@@ -2010,8 +2522,9 @@
 
         def calc_arrears_dollars(element,fixdollar):
             sum = 0
-            allowables = [".","0","1","2","3","4","5","6","7","8","9"]
+            allowables = [".",",","0","1","2","3","4","5","6","7","8","9"]
             amount = Element(element).element.value
+            amount = amount.replace(",","")
             for ltr in amount:
                 if ltr not in allowables:
                     Element(fixdollar).element.hidden = False
@@ -2030,8 +2543,6 @@
                     Element(element).element.value = amount
                     Element(element).element.setAttribute("style","background-color:white; text-align:right;width:5em !important")
                 
-
-
                 else:
                     if len(amount) > 0:
 
@@ -2069,8 +2580,6 @@
 
                     Element(element).element.value = amount
                     Element(element).element.setAttribute("style","background-color:white; text-align:right")
-                
-
 
                 else:
                     if len(amount) > 0:
@@ -2109,10 +2618,6 @@
                 Element('persemimonth').element.value="{0:.2f}".format((payment_minus * 26 / 24) + minus)
                 Element('perweek').element.value="{0:.2f}".format((payment_minus * 26 / 52) + minus)
 
-
-
-
-
         def pop_pers(this_per):
 
             for i in range (1,7):
@@ -2123,7 +2628,6 @@
                         Element("per" + str(i)).element.value = "month"
                         Element("per" + str(i)).element.setAttribute("style","background-color:white;width:7em !important")
                         Element('amountnoper').element.hidden = True
-
 
                 elif ("mo" in raw_period) and ("half" in raw_period or "semi" in raw_period or "two" in raw_period or "bi" in raw_period or "2" in raw_period):
                     if  Element("dollar" + str(i)).element.value != "":
@@ -2153,7 +2657,6 @@
                         Element("per" + str(i)).element.setAttribute("style","background-color:white;width:7em !important")
                         Element('amountnoper').element.hidden = True
 
-
             else:
                 per_list = []
                 for i in range(1,7):
@@ -2166,10 +2669,7 @@
                             Element("per" + str(i)).element.setAttribute("style","background-color:white;width:7em !important")
                             Element('amountnoper').element.hidden = True
             
-            sub3()
-            
-                
-                    
+            sub3()        
 
         def next0to1():
 
@@ -2216,7 +2716,6 @@
                 if Element('global_obligoraddress').element.value == "":
                     Element('enter_obligoraddress').element.hidden = False
                     return
-
             
             if Element('obligeename2').element.value == "":
                 Element('entername2').element.hidden = False
@@ -2251,6 +2750,8 @@
 
             Element('casepartyinfo').element.setAttribute("style","display:none")
             Element('sender-info').element.setAttribute("style","display:grid")
+
+
         
         def enterobligoraddress(choice):
             if choice == "yes":
@@ -2294,7 +2795,6 @@
             Element('sender-info').element.setAttribute("style","display:none")
             Element('casepartyinfo').element.setAttribute("style","display:grid")
 
-                
         def next1to2():
 
             if Element('termiwo').element.checked == 1:            
@@ -2319,6 +2819,7 @@
                     Element('private').element.style.color = 'black'
                     Element('employername').element.focus()
                     Element('casepartyinfo').element.setAttribute("style","display:none")
+                    Element('caseid').element.value = Element('caseid').element.value.upper()
 
             elif Element('iwo').element.checked == 0 and Element('amendiwo').element.checked == 0 and Element('lump').element.checked == 0 and Element('termiwo').element.checked == 0:
                 Element('pleasecheck').element.hidden = False
@@ -2348,6 +2849,7 @@
                 Element('private').element.style.color = 'black'
                 Element('employername').element.focus()
                 Element('casepartyinfo').element.setAttribute("style","display:none")
+                Element('caseid').element.value = Element('caseid').element.value.upper()
 
 
         def back2to1():
@@ -2385,25 +2887,19 @@
                     return
 
             obligeename = Element('obligeename').element.value
-            obligeename_split = obligeename.split()
-            obligeename_first = obligeename_split[1]
-            obligeename_last = obligeename_split[0].strip(",")
+            obligeename = obligeename.split(",")
+            obligeename = obligeename[1].strip() + " " + obligeename[0].strip()
+            
+            
+
             obligeeaddresslist = []
             for i in range(1,4):
                 if Element("obligeeaddress" + str(i)).element.value != "":
                     obligeeaddresslist.append(Element("obligeeaddress" + str(i)).element.value)
-            obligeeaddress = ",".join(obligeeaddresslist)
+            obligeeaddress = ", ".join(obligeeaddresslist)
 
 
-
-            if len(obligeename_split) > 2:
-                obligeename_rest_list = []
-                for i in range(2,len(obligeename_split)):
-                    obligeename_rest_list.append(obligeename_split[i])
-                    obligeename_rest = " ".join(obligeename_rest_list)
-                    Element('noticeto').element.value = obligeename_first + " " + obligeename_rest + " " + obligeename_last + ", " + obligeeaddress
-            else:
-                Element('noticeto').element.value = obligeename_first + " " + obligeename_last + ", " + obligeeaddress
+            Element('noticeto').element.value = obligeename + ", " + obligeeaddress
 
             if num_children > 0 or Element('termiwo').element.checked == 1:
                 
@@ -2417,9 +2913,7 @@
                 Element('alimonyonly').element.hidden = False
                 Element('employercaseinfo').element.setAttribute("style","display:grid")
                 Element('alimonyyes').element.focus()
-
-
-
+            Element('employeename').element.value = Element('obligorname').element.value
         def alim_yes_no(choice):
 
             if choice == 'yes':
@@ -2434,12 +2928,6 @@
                 Element('child1').element.focus()
                 Element('alim_enterchild').element.hidden = False
                 Element('alimonyonly').element.hidden = True
-
-
-
-
-
-
 
         def back3to2():
 
@@ -2475,7 +2963,6 @@
                 Element('allremaining' + str(i)).element.setAttribute("style","background-color:white")
 
         def back8to7():
-
 
             Element('arrearsbonus').element.hidden=False
 
@@ -2549,7 +3036,6 @@
                 Element('reallylump').element.hidden = True
 
             else:
-                print(Element('lumpsum').element.value)
                 num_children = 0
                 for i in range(1,7):
                     if Element("child" + str(i)).element.value != "":
@@ -2563,6 +3049,7 @@
                 Element('reallylump').element.hidden = True
                 Element('global_lump').element.value = ""
                 next3to4()
+
             if choice == 'yes':
                 Element('lumpsum').element.value= "{0:.2f}".format(float(Element("lumpsum").element.value))
                 for i in range(1,7):
@@ -2578,15 +3065,16 @@
                 Element('reallylump').element.hidden = True
                 Element('global_lump').element.value = "lump"
                     
-
-
         def next4to5():
             Element('contactinfo').element.setAttribute("style","display:grid")
             Element('remittance').element.setAttribute("style","display:none")
             
             if Element('termiwo').element.checked == 1:
                 Element('next5to6').element.hidden = True
-                Element('make_document2').element.hidden = False
+                Element('finish2').element.hidden = False
+            else:
+                Element('next5to6').element.hidden = False
+                Element('finish2').element.hidden = True
 
         def next5to6():
 
@@ -2599,30 +3087,92 @@
             Element('termschedule').element.setAttribute("style","display:grid")
             Element('arrearsbonus').element.setAttribute("style","display:none")
 
-        def finish():
+        def finish(element):
+            if element == 'finish':
+                for i in range(1,7):
 
-            for i in range(1,7):
+                    if len(Element('childinit' + str(i)).element.value) > 0 and len(Element('allremaining' + str(i)).element.value) == 0:
+                        Element('fixdollar20').element.hidden = False
+                        Element('allremaining' + str(i)).element.setAttribute("style","background-color:pink")
+                        Element('allremaining' + str(i)).element.focus()
+                        return
+                y = 0
+                for i in range(1,7):
 
-                if len(Element('childinit' + str(i)).element.value) > 0 and len(Element('allremaining' + str(i)).element.value) == 0:
+                    if (len(Element('childinit' + str(i)).element.value) > 0 and len(Element('allremaining' + str(i)).element.value) > 0) or (len(Element('childinit' + str(i)).element.value) == 0 and len(Element('allremaining' + str(i)).element.value) == 0):
+                        y += 1
+                
+                if y == 6:
+
                     Element('fixdollar20').element.hidden = False
-                    Element('allremaining' + str(i)).element.setAttribute("style","background-color:pink")
-                    Element('allremaining' + str(i)).element.focus()
-                    return
-            y = 0
-            for i in range(1,7):
-
-                if (len(Element('childinit' + str(i)).element.value) > 0 and len(Element('allremaining' + str(i)).element.value) > 0) or (len(Element('childinit' + str(i)).element.value) == 0 and len(Element('allremaining' + str(i)).element.value) == 0):
-                    y += 1
+                    Element('allremaining' + str(i)).element.setAttribute("style","background-color:white")
+                    Element('fixdollar20').element.hidden = True
+                    Element('make_document').element.disabled = False
+                    Element('make_document').element.hidden = False
+                    Element('finish').element.hidden = True
             
-            if y == 6:
+            if element == 'finish2':
+                Element('make_document2').element.hidden = False
+                Element('make_document2').element.disabled = False
+                Element('finish2').element.hidden = True
 
-                Element('fixdollar20').element.hidden = False
-                Element('allremaining' + str(i)).element.setAttribute("style","background-color:white")
-                Element('fixdollar20').element.hidden = True
-                Element('make_document').element.disabled = False
-                Element('make_document').element.hidden = False
-                Element('finish').element.hidden = True
+        states = [ 'AK', 'AL', 'AR','AS', 'AZ', 'CA', 'CO', 'CT', 'DC', 'DE', 'FL', 'GA',
+            'GU', 'HI', 'IA', 'ID', 'IL', 'IN', 'KS', 'KY', 'LA', 'MA', 'MD', 'ME',
+            'MI', 'MN', 'MO', 'MP', 'MS', 'MT', 'NC', 'ND', 'NE', 'NH', 'NJ', 'NM',
+            'NV', 'NY', 'OH', 'OK', 'OR', 'PA', 'PR', 'RI', 'SC', 'SD', 'TN', 'TX',
+            'UT', 'VA', 'VI', 'VT', 'WA', 'WI', 'WV', 'WY']
+
+        states_dict = {
+            'AK': 'Alaska', 'AL': 'Alabama', 'AR': 'Arkansas', 'AS': 'American Samoa', 'AZ': 'Arizona', 'CA': 'California', 'CO': 'Colorado',
+            'CT': 'Connecticut', 'DC': 'District of Columbia', 'DE': 'Delaware', 'GU': 'Guam', 'FL': 'Florida', 'GA': 'Georgia', 'HI': 'Hawaii',
+            'IA': 'Iowa', 'ID': 'Idaho', 'IL': 'Illinois', 'IN': 'Indiana', 'KS': 'Kansas', 'KY': 'Kentucky', 'LA': 'Louisiana', 'MA': 'Massachusetts',
+            'MD': 'Maryland', 'ME': 'Maine', 'MI': 'Michigan', 'MN': 'Minnesota', 'MO': 'Missouri', 'MP': 'Northern Mariana Islands',
+            'MS': 'Mississippi', 'MT': 'Montana', 'NC': 'North Carolina', 'ND': 'North Dakota', 'NE': 'Nebraska', 'NH': 'New Hampshire',
+            'NJ': 'New Jersey', 'NM': 'New Mexico', 'NV': 'Nevada', 'NY': 'New York', 'OH': 'Ohio', 'OK': 'Oklahoma', 'OR': 'Oregon',
+            'PR': 'Puerto Rico', 'PA': 'Pennsylvania', 'RI': 'Rhode Island', 'SC': 'South Carolina', 'SD': 'South Dakota', 'TN': 'Tennessee',
+            'TX': 'Texas', 'UT': 'Utah', 'VA': 'Virginia', 'VI': 'Virgin Islands', 'VT': 'Vermont', 'WA': 'Washington', 'WI': 'Wisconsin',
+            'WV': 'West Virginia', 'WY': 'Wyoming'
+        }
+
+        states_dict_inverted = {
+            'Alaska': 'AK', 'Alabama': 'AL', 'Arkansas': 'AR', 'American Samoa': 'AS', 'Arizona': 'AZ', 'California':'CA', 'Colorado': 'CO',
+            'Connecticut': 'CT', 'District of Columbia': 'DC', 'Delaware': 'DE', 'Guam': 'GU', 'Florida': 'FL', 'Georgia': 'GA', 'Hawaii': 'HI',
+            'Iowa': 'IA', 'Idaho': 'ID', 'Illinois': 'IL', 'Indiana': 'IN', 'Kansas': 'KS', 'Kentucky': 'KY', 'Louisiana': 'LA', 'Massachusetts': 'MA',
+            'Maryland': 'MD', 'Maine': 'ME', 'Michigan': 'MI', 'Minnesota': 'MN', 'Missouri': 'MO', 'Northern Mariana Islands': 'MP',
+            'Mississippi': 'MS', 'Montana': 'MT', 'North Carolina': 'NC', 'North Dakota': 'ND', 'Nebraska': 'NE', 'New Hampshire': 'NH',
+            'New Jersey': 'NJ', 'New Mexico': 'NM', 'Nevada': 'NV', 'New York': 'NY', 'Ohio': 'OH', 'Oklahoma': 'OK', 'Oregon': 'OR',
+            'Puerto Rico': 'PR', 'Pennsylvania': 'PA', 'Rhode Island': 'RI', 'South Carolina': 'SC', 'South Dakota': 'SD', 'Tennessee': 'TN',
+            'Texas': 'TX', 'Utah': 'UT', 'Virginia': 'VA', 'Virgin Islands': 'VI', 'Vermont': 'VT', 'Washington': 'WA', 'Wisconsin': 'WI',
+            'West Virginia': 'WV', 'Wyoming': 'WY'}
         
+        no_auto_format_list = ['a','an','and','for','in','of','the','to','DBA','dba','USA']
+
+
+        def format_proper(address):
+            element = address
+            address = Element(element).element.value
+            address = address.split()
+            new_address = []
+            for piece in address:
+                if piece.upper() in states:
+                    new_address.append(piece.upper())
+                elif piece.upper() in states_dict:
+                    new_address.append(states_dict[piece.upper()])
+                elif piece.title() in states_dict_inverted:
+                    new_address.append(states_dict_inverted[piece.title()])
+                elif piece.lower() in no_auto_format_list and piece != address[0]:
+                    new_address.append(no_auto_format_list[no_auto_format_list.index(piece.lower())])
+                else:
+                    new_address.append(piece.title())
+            address = " ".join(new_address)
+            unpinkaddress()
+            Element(element).element.value = address
+        
+
+
+
+
+
     </py-script>
     
 </body>
