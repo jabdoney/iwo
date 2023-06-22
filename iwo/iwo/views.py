@@ -5,6 +5,7 @@ from docxtpl import DocxTemplate
 from datetime import datetime,date
 import io
 from docx import Document
+import os
 
 def format_dollars(amount):
     amount = amount.replace("$","").replace(",","")
@@ -1039,6 +1040,14 @@ def download(request):
         response = StreamingHttpResponse(streaming_content=buffer,content_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
         response["Content-Disposition"] = 'attachment;filename=' + filename
         response['Content-Encoding'] = 'UTF-8'
+
+        log = open("log.txt","a")
+        if os.stat("log.txt").st_size == 0:
+            log.write("DATE" + " "*16 + "TIME" + " "*16 + "CIRCUIT" + " "*13 + "COUNTY" + " "*14 + "CASENUMBER\n")
+            log.write("-"*105 + "\n")
+        log.write(datetime.now().strftime("%m/%d/%Y          %I:%M:%S %p") + " "*9 + request.POST.get('countycode').split(",")[2] + " "*(20-len(request.POST.get('countycode').split(",")[2])) + request.POST.get('countycode').split(",")[1] + " "*(20 - len(request.POST.get('countycode').split(",")[1])) + request.POST.get('casenumber') + "\n")
+        log.close()
+
 
     return response
 
