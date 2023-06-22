@@ -5,16 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
-
-
     <script defer src="https://pyscript.net/latest/pyscript.js"></script> 
     <py-config>
         [splashscreen]
             enabled = false
     </py-config>
     <title>Tenth Circuit ICMS-Compatible IWO/Florida Addendum</title>
-
-
 <style>
 .banner{
     display:grid;
@@ -40,7 +36,7 @@
     position:absolute;
     left:0px;
     right:0px;
-    top:10vh;
+    top:9.5vh;
     bottom:0px;
     column-gap:5px;
 }
@@ -75,7 +71,6 @@
     margin-right:5px;
     font-size:12px;
 }
-
 .form-container > div input[type="checkbox"]{
     width:20px;
     margin-right:-20px;
@@ -169,101 +164,72 @@
   margin-top:0px;
   bottom:0px;
 }
-
 </style>
-
-
 </head>
-
-
 <body>
-
-<div class="banner" id="banner" name="banner" style="background-color:rgb(0, 51, 153)">
-    <div>
-        <h3 style="margin-top:20px; padding-left:5px; margin-bottom:0px; color:white">Florida's Tenth Judicial Circuit</h3>
-        <h5 style="margin-top:0px; padding-left:5px; color:white"><i>Where Professionalism is a Priority</i></h5>
-    </div>
-    <div>
-        <h1 style="grid-column:1/span 4;grid-row:1;margin-top:20px; margin-bottom:0px; padding-right:20px; color:white; text-align:right">Bar Services</h1>
-
-    </div>
-</div>
-
-
-<div id=globals hidden>
-    <input type="text" id="global_obligoraddress" value="">
-    <input type="text" id="global_obligeeaddress" value="">
-    <input type="text" id="global_per" value="">
-    <input type="text" id="global_lump" value="">
-    <input type="text" id="global_alimony" value="">
-    <input type="text" id="global_import" value="">
-    <input type="text" id="global_term" value="">
-    <input type="text" id="global_downloading" value="">
-</div>
-
-<div class="main-container">
-    <div class="sub-banner">
-        <div style="grid-column:1;grid-row:1">
-            <h2>ICMS-Compatible Income Withholding Order for Support/Florida Addendum</h2> 
+    <div class="banner" id="banner" name="banner" style="background-color:rgb(0, 51, 153)">
+        <div>
+            <h3 style="margin-top:20px; padding-left:5px; margin-bottom:0px; color:white">Florida's Tenth Judicial Circuit</h3>
+            <h5 style="margin-top:0px; padding-left:5px; color:white"><i>Where Professionalism is a Priority</i></h5>
         </div>
-        <form method="POST" action="/bar-services/iwo/readword/" enctype="multipart/form-data">
-        {% csrf_token %}
-
-            <div style="grid-column:2;grid-row:1;margin-right:10px">
-                <div style="display:inline-block;float:right;">
-                    <div style="display:inline-flex;float:right;margin-bottom:5px">
-                        <label for="word-file" style="margin-right:10px"><strong>Import Data:</strong></label>
-                        <input py-click="show_import()" type="file" name="word_file" id="word_file" style="margin-right:10px">
-                        <button py-click="unshow_import()" type="submit" name="read_word" id="read_word" hidden>Import</button>
-                    </div>
-                    <div style="display:inline-flex;float:right;margin-top:5px;align-items:center">
-                <a href="/bar-services/iwo/home/">
-                <button type="button" an="bar-services/iwo//home/" id="gohome" name="gohome" style="font-size:10px;width:90px;margin-right:5px;margin-bottom:5px"><strong>Home</strong></button>
-                </a>
-                <a href="/bar-services/iwo/home/">
-                <button type="button" an="bar-services/iwo//home/" id="clear" name="clear" style="font-size:10px;width:95px;margin-right:5px;margin-bottom:5px"><strong>Clear Form</strong></button>
-                </a>
-                <button type="button" id="disableformat" name="disableformat" style = "font-size:10px;margin-right:5px"><strong>Autoformat Options</strong></button>
-
-                <div style="font-size:10px;text-align:right;margin-right:10px;">
-                    <a href="bar-services/iwo//help/">
-                    <button type="button" id="help" name="help" style="font-size:10px;width:95px;padding-right:2px;padding-left:0px;margin-right:1px"><strong>Help/Information</strong></button>
-                    </a>
-                </div>
-                </div>
-            </div>
-            </div>
-         </form>
+        <div>
+            <h1 style="grid-column:1/span 4;grid-row:1;margin-top:20px; margin-bottom:0px; padding-right:20px; color:white; text-align:right">Bar Services</h1>
+        </div>
     </div>
-    <div class="form-container-2">
-        <div style="grid-column:2;grid-row:2/span 10;width:100%">
-
+    <div id=globals hidden>
+        <input type="text" id="global_obligoraddress" value="">
+        <input type="text" id="global_obligeeaddress" value="">
+        <input type="text" id="global_per" value="">
+        <input type="text" id="global_lump" value="">
+        <input type="text" id="global_alimony" value="">
+        <input type="text" id="global_import" value="">
+        <input type="text" id="global_term" value="">
+        <input type="text" id="global_downloading" value="">
+    </div>
+    <div class="main-container">
+        <div class="sub-banner">
+            <div style="grid-column:1;grid-row:1">
+                <h2>ICMS-Compatible Income Withholding Order for Support/Florida Addendum</h2> 
+            </div>
+            <form method="POST" action="/bar-services/iwo/readword/" enctype="multipart/form-data">
+            {% csrf_token %}
+                <div style="grid-column:2;grid-row:1;margin-right:10px">
+                    <div style="display:inline-block;float:right;">
+                        <div style="display:inline-flex;float:right;margin-bottom:5px">
+                            <label for="word-file" style="margin-right:10px"><strong>Import Data:</strong></label>
+                            <input py-click="show_import()" type="file" name="word_file" id="word_file" style="margin-right:10px">
+                            <button py-click="unshow_import()" type="submit" name="read_word" id="read_word" hidden>Import</button>
+                        </div>
+                        <div style="display:inline-flex;float:right;margin-top:5px;align-items:center">
+                            <a href="/bar-services/iwo/home/">
+                                <button type="button" an="bar-services/iwo//home/" id="gohome" name="gohome" style="font-size:10px;width:90px;margin-right:5px;margin-bottom:5px"><strong>Home</strong></button>
+                            </a>
+                            <a href="/bar-services/iwo/home/">
+                                <button type="button" an="bar-services/iwo//home/" id="clear" name="clear" style="font-size:10px;width:95px;margin-right:5px;margin-bottom:5px"><strong>Clear Form</strong></button>
+                            </a>
+                            <button type="button" id="disableformat" name="disableformat" style = "font-size:10px;margin-right:5px"><strong>Autoformat Options</strong></button>
+                            <div style="font-size:10px;text-align:right;margin-right:10px;">
+                                <a href="bar-services/iwo//help/">
+                                <button type="button" id="help" name="help" style="font-size:10px;width:95px;padding-right:2px;padding-left:0px;margin-right:1px"><strong>Help/Information</strong></button>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="form-container-2">
+            <div style="grid-column:2;grid-row:2/span 10;width:100%">
                 <h3>This application generates an Income Withholding Order consistent with Form OMB 0970-0154, approved through September 30, 2023.  The resulting document
                     is in .docx format and has been specially formatted to process correctly when proposed through the Florida E-Filing Portal and routed to the ICMS Case application
                     processing system.  <i>The rendering of the .docx file will appear to be formatted incorrectly.  The user should not be concerned.</i><br><br>
                     To avoid processing errors in ICMS, the .docx file generated by this application may not be edited directly.  Users must make edits using 
                     the form controls contained within the application. <br><br>
                     If edits are required after document creation, the user may import data from document by choosing the file using the control in the upper right
-                    corner of the screen, then clicking the "Import" button.</h3>
-
-        </div>
-    </div>
-
-
-
-                </div>
-
+                    corner of the screen, then clicking the "Import" button.
+                </h3>
             </div>
         </div>
-
     </div>
-</div>
-
-
-
-    <py-script>
-
-    </py-script>
-    
 </body>
 </html>

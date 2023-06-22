@@ -7,7 +7,6 @@ import io
 from docx import Document
 
 def format_dollars(amount):
-    print(amount)
     amount = amount.replace("$","").replace(",","")
     if len(amount) > 9:
         amount = amount[0:len(amount)-9] + "," + amount[len(amount)-9:len(amount)-6] + "," + amount[-6:]
@@ -15,8 +14,6 @@ def format_dollars(amount):
         amount = amount[0:len(amount)-6] + "," + amount[-6:]
     else:
         amount = amount
-    print("new amount = ",amount)
-    
     return amount
 
 def home(request):
@@ -34,10 +31,12 @@ def input(request):
 def help(request):
     return render(request,'help.html')
 
+# Function handling import of data from previously generated IWO/Addendum .docx file.  Data is stored in a comma-separated string in each .docx template which remains hidden
+# under white font color.  If new fields are added to the IWO/Addendum templates, the new data must be referenced by the same index as that in the "data" list contained
+# in the "download" function below.
+
 def readword(request):
     if request.method == "POST":
-
-        print(request.FILES['word_file'])
         doc = Document(request.FILES['word_file'])
         allText = []
         for p in doc.paragraphs:
@@ -49,8 +48,6 @@ def readword(request):
                 idx = allText.index(item)
 
         data_list = allText[idx].split("|")
-
-        print(data_list)
 
         request.session["countycode"] = data_list[1]
         request.session["caseyear"] = data_list[2]
@@ -202,17 +199,20 @@ def readword(request):
 
         return redirect("/bar-services/iwo/input/")
 
+# Function handling population of data from form-fields to .docx template and download to user's machine.
 
 def download(request):
 
     if request.method == "POST":
 
-        print(request.POST.get('global_format_off'))
         if request.POST.get('termiwo') != "on":
             doc = DocxTemplate("DjangoIWOTemplate.docx")
         else:
             doc = DocxTemplate("DjangoIWOTemplateShort.docx")
        
+        # Data string written to .docx template in comma-separated form under white font color.  Index of any new values added must correspond with indexes 
+        # referenced in the "readword" function above.
+
         data = [
             request.POST.get('countycode'),
             request.POST.get('caseyear'),
@@ -361,9 +361,6 @@ def download(request):
             request.POST.get('employeessn2'),
             request.POST.get('caseid2'),
             request.POST.get('orderid2'),
-
-           
-
         ]
 
         data_string = "dummy"
@@ -395,7 +392,7 @@ def download(request):
             obligeeaddress = request.POST.get('obligeeaddress1') + ", " + request.POST.get('obligeeaddress2') + ", " + request.POST.get('obligeeaddress3')
 
         if len(request.POST.get('employername')) < 23:
-            employername_short = request.POST.get('employername') + " "*(23-len(request.POST.get('employername')))
+            employername_short = request.POST.get('employername') + "_"*(23-len(request.POST.get('employername')))
         else:
             employername_short = "".join(list(request.POST.get('employername'))[:18]) + ". . ."
         
@@ -432,11 +429,10 @@ def download(request):
             temp_liability_list = [liability_list[0]]
             while i != 0 and i <= len(liability_list)-1:
                 temp_liability_list.append(liability_list[i])
-                if len(" ".join(temp_liability_list)) <=93:
-                    liability1 = " ".join(temp_liability_list)
+                if len("_".join(temp_liability_list)) <=93:
+                    liability1 = "_".join(temp_liability_list)
                     temp_liability_list[0] = liability1
                     temp_liability_list.pop(1)
-                    print(liability1)
                     i += 1
                 else:
                     i = 0
@@ -445,19 +441,22 @@ def download(request):
             liability1 = ""
 
         if len(liability1) > 0 and len(liability_list) > len(liability1.split()):
+            print("liability1 = " + liability1)
             i = 1
             liability_list = liability_list[len(liability1.split()):]
             temp_liability_list = [liability_list[0]]
-            while i != 0 and i <= len(liability_list) - 1:
-                temp_liability_list.append(liability_list[i])
-                if len(" ".join(temp_liability_list)) <=93:
-                    liability2 = " ".join(temp_liability_list)
-                    temp_liability_list[0] = liability2
-                    temp_liability_list.pop(1)
-                    print(liability2)
-                    i += 1
-                else:
-                    i = 0
+            if len(liability_list) - 1 > 0:
+                while i != 0 and i <= len(liability_list) - 1:
+                    temp_liability_list.append(liability_list[i])
+                    if len("_".join(temp_liability_list)) <=93:
+                        liability2 = "_".join(temp_liability_list)
+                        temp_liability_list[0] = liability2
+                        temp_liability_list.pop(1)
+                        i += 1
+                    else:
+                        i = 0
+            else:
+                liability2 = ""
         else: 
 
             liability2 = "" 
@@ -466,16 +465,18 @@ def download(request):
             i = 1
             liability_list = liability_list[len(liability2.split()):]
             temp_liability_list = [liability_list[0]]
-            while i != 0 and i <= len(liability_list) -1:
-                temp_liability_list.append(liability_list[i])
-                if len(" ".join(temp_liability_list)) <=93:
-                    liability3 = " ".join(temp_liability_list)
-                    temp_liability_list[0] = liability3
-                    temp_liability_list.pop(1)
-                    print(liability3)
-                    i += 1
-                else:
-                    i = 0
+            if len(liability_list) - 1 > 0:
+                while i != 0 and i <= len(liability_list) -1:
+                    temp_liability_list.append(liability_list[i])
+                    if len("_".join(temp_liability_list)) <=93:
+                        liability3 = "_".join(temp_liability_list)
+                        temp_liability_list[0] = liability3
+                        temp_liability_list.pop(1)
+                        i += 1
+                    else:
+                        i = 0
+            else:
+                liability3 = ""
         else: 
 
             liability3 = ""    
@@ -484,24 +485,23 @@ def download(request):
             i = 1
             liability_list = liability_list[len(liability2.split()):]
             temp_liability_list = [liability_list[0]]
-            while i != 0 and i <= len(liability_list) -1:
-                temp_liability_list.append(liability_list[i])
-                if len(" ".join(temp_liability_list)) <=93:
-                    liability4 = " ".join(temp_liability_list)
-                    temp_liability_list[0] = liability4
-                    temp_liability_list.pop(1)
-                    print(liability4)
-                    i += 1
-                else:
-                    i = 0
+            if len(liability_list) - 1 > 0:
+                while i != 0 and i <= len(liability_list) -1:
+                    temp_liability_list.append(liability_list[i])
+                    if len("_".join(temp_liability_list)) <=93:
+                        liability4 = "_".join(temp_liability_list)
+                        temp_liability_list[0] = liability4
+                        temp_liability_list.pop(1)
+                        i += 1
+                    else:
+                        i = 0
+            else:
+                liability4 = ""
         else: 
 
             liability4 = "" 
             
-               
-
         liability = liability1 + "_"*(93-len(liability1)) + "\n" + liability2 + "_"*(93-len(liability2)) + "\n" + liability3 + "_"*(93-len(liability3)) + "\n" + liability4 + "_"*(93-len(liability4))
-
 
         antidisc_list = request.POST.get('antidiscrimination').split()
         if len(antidisc_list) > 0:
@@ -509,11 +509,10 @@ def download(request):
             temp_antidisc_list = [antidisc_list[0]]
             while i != 0 and i <= len(antidisc_list)-1:
                 temp_antidisc_list.append(antidisc_list[i])
-                if len(" ".join(temp_antidisc_list)) <=93:
-                    antidisc1 = " ".join(temp_antidisc_list)
+                if len("_".join(temp_antidisc_list)) <=93:
+                    antidisc1 = "_".join(temp_antidisc_list)
                     temp_antidisc_list[0] = antidisc1
                     temp_antidisc_list.pop(1)
-                    print(antidisc1)
                     i += 1
                 else:
                     i = 0
@@ -525,16 +524,18 @@ def download(request):
             i = 1
             antidisc_list = antidisc_list[len(antidisc1.split()):]
             temp_antidisc_list = [antidisc_list[0]]
-            while i != 0 and i <= len(antidisc_list) - 1:
-                temp_antidisc_list.append(antidisc_list[i])
-                if len(" ".join(temp_antidisc_list)) <=93:
-                    antidisc2 = " ".join(temp_antidisc_list)
-                    temp_antidisc_list[0] = antidisc2
-                    temp_antidisc_list.pop(1)
-                    print(antidisc2)
-                    i += 1
-                else:
-                    i = 0
+            if len(antidisc_list) - 1 > 0:
+                while i != 0 and i <= len(antidisc_list) - 1:
+                    temp_antidisc_list.append(antidisc_list[i])
+                    if len("_".join(temp_antidisc_list)) <=93:
+                        antidisc2 = "_".join(temp_antidisc_list)
+                        temp_antidisc_list[0] = antidisc2
+                        temp_antidisc_list.pop(1)
+                        i += 1
+                    else:
+                        i = 0
+            else:
+                antidisc2 = ""
         else: 
 
             antidisc2 = "" 
@@ -543,16 +544,18 @@ def download(request):
             i = 1
             antidisc_list = antidisc_list[len(antidisc2.split()):]
             temp_antidisc_list = [antidisc_list[0]]
-            while i != 0 and i <= len(antidisc_list) -1:
-                temp_antidisc_list.append(antidisc_list[i])
-                if len(" ".join(temp_antidisc_list)) <=93:
-                    antidisc3 = " ".join(temp_antidisc_list)
-                    temp_antidisc_list[0] = antidisc3
-                    temp_antidisc_list.pop(1)
-                    print(antidisc3)
-                    i += 1
-                else:
-                    i = 0
+            if len(antidisc_list) - 1 > 0:
+                while i != 0 and i <= len(antidisc_list) -1:
+                    temp_antidisc_list.append(antidisc_list[i])
+                    if len("_".join(temp_antidisc_list)) <=93:
+                        antidisc3 = "_".join(temp_antidisc_list)
+                        temp_antidisc_list[0] = antidisc3
+                        temp_antidisc_list.pop(1)
+                        i += 1
+                    else:
+                        i = 0
+            else:
+                antidisc3 = ""
         else: 
 
             antidisc3 = ""    
@@ -561,23 +564,23 @@ def download(request):
             i = 1
             antidisc_list = antidisc_list[len(antidisc3.split()):]
             temp_antidisc_list = [antidisc_list[0]]
-            while i != 0 and i <= len(antidisc_list) -1:
-                temp_antidisc_list.append(antidisc_list[i])
-                if len(" ".join(temp_antidisc_list)) <=93:
-                    antidisc4 = " ".join(temp_antidisc_list)
-                    temp_antidisc_list[0] = antidisc4
-                    temp_antidisc_list.pop(1)
-                    print(antidisc4)
-                    i += 1
-                else:
-                    i = 0
+            if len(antidisc_list) - 1 > 0:
+                while i != 0 and i <= len(antidisc_list) -1:
+                    temp_antidisc_list.append(antidisc_list[i])
+                    if len("_".join(temp_antidisc_list)) <=93:
+                        antidisc4 = "_".join(temp_antidisc_list)
+                        temp_antidisc_list[0] = antidisc4
+                        temp_antidisc_list.pop(1)
+                        i += 1
+                    else:
+                        i = 0
+            else:
+                antidisc4 = ""
         else: 
 
             antidisc4 = "" 
         
         antidisc = antidisc1 + "_"*(93-len(antidisc1)) + "\n" + antidisc2 + "_"*(93-len(antidisc2)) + "\n" + antidisc3 + "_"*(93-len(antidisc3)) + "\n" + antidisc4 + "_"*(93-len(antidisc4))
-
-
 
         supp_list = request.POST.get('supplemental').split()
         if len(supp_list) > 0:
@@ -585,11 +588,10 @@ def download(request):
             temp_supp_list = [supp_list[0]]
             while i != 0 and i <= len(supp_list)-1:
                 temp_supp_list.append(supp_list[i])
-                if len(" ".join(temp_supp_list)) <=93:
-                    supp1 = " ".join(temp_supp_list)
+                if len("_".join(temp_supp_list)) <=93:
+                    supp1 = "_".join(temp_supp_list)
                     temp_supp_list[0] = supp1
                     temp_supp_list.pop(1)
-                    print(supp1)
                     i += 1
                 else:
                     i = 0
@@ -601,33 +603,38 @@ def download(request):
             i = 1
             supp_list = supp_list[len(supp1.split()):]
             temp_supp_list = [supp_list[0]]
-            while i != 0 and i <= len(supp_list) - 1:
-                temp_supp_list.append(supp_list[i])
-                if len(" ".join(temp_supp_list)) <=93:
-                    supp2 = " ".join(temp_supp_list)
-                    temp_supp_list[0] = supp2
-                    temp_supp_list.pop(1)
-                    print(supp2)
-                    i += 1
-                else:
-                    i = 0
+            if len(supp_list) - 1 > 0:
+                while i != 0 and i <= len(supp_list) - 1:
+                    temp_supp_list.append(supp_list[i])
+                    if len("_".join(temp_supp_list)) <=93:
+                        supp2 = "_".join(temp_supp_list)
+                        temp_supp_list[0] = supp2
+                        temp_supp_list.pop(1)
+                        i += 1
+                    else:
+                        i = 0
+            else:
+                supp2 = ""
         else: 
 
             supp2 = "" 
+            
         if len(supp2) > 0 and len(supp_list) > len(supp2.split()):
             i = 1
             supp_list = supp_list[len(supp2.split()):]
             temp_supp_list = [supp_list[0]]
-            while i != 0 and i <= len(supp_list) - 1:
-                temp_supp_list.append(supp_list[i])
-                if len(" ".join(temp_supp_list)) <=93:
-                    supp3 = " ".join(temp_supp_list)
-                    temp_supp_list[0] = supp3
-                    temp_supp_list.pop(1)
-                    print(supp3)
-                    i += 1
-                else:
-                    i = 0
+            if len(supp_list) - 1 > 0:
+                while i != 0 and i <= len(supp_list) - 1:
+                    temp_supp_list.append(supp_list[i])
+                    if len("_".join(temp_supp_list)) <=93:
+                        supp3 = "_".join(temp_supp_list)
+                        temp_supp_list[0] = supp3
+                        temp_supp_list.pop(1)
+                        i += 1
+                    else:
+                        i = 0
+            else:
+                supp3 = ""
         else: 
 
             supp3 = "" 
@@ -636,16 +643,18 @@ def download(request):
             i = 1
             supp_list = supp_list[len(supp3.split()):]
             temp_supp_list = [supp_list[0]]
-            while i != 0 and i <= len(supp_list) - 1:
-                temp_supp_list.append(supp_list[i])
-                if len(" ".join(temp_supp_list)) <=93:
-                    supp4 = " ".join(temp_supp_list)
-                    temp_supp_list[0] = supp4
-                    temp_supp_list.pop(1)
-                    print(supp4)
-                    i += 1
-                else:
-                    i = 0
+            if len(supp_list) - 1 > 0:
+                while i != 0 and i <= len(supp_list) - 1:
+                    temp_supp_list.append(supp_list[i])
+                    if len("_".join(temp_supp_list)) <=93:
+                        supp4 = "_".join(temp_supp_list)
+                        temp_supp_list[0] = supp4
+                        temp_supp_list.pop(1)
+                        i += 1
+                    else:
+                        i = 0
+            else:
+                supp4 = ""
         else: 
 
             supp4 = "" 
@@ -654,16 +663,18 @@ def download(request):
             i = 1
             supp_list = supp_list[len(supp4.split()):]
             temp_supp_list = [supp_list[0]]
-            while i != 0 and i <= len(supp_list) - 1:
-                temp_supp_list.append(supp_list[i])
-                if len(" ".join(temp_supp_list)) <=93:
-                    supp5 = " ".join(temp_supp_list)
-                    temp_supp_list[0] = supp5
-                    temp_supp_list.pop(1)
-                    print(supp5)
-                    i += 1
-                else:
-                    i = 0
+            if len(supp_list) - 1 > 0:
+                while i != 0 and i <= len(supp_list) - 1:
+                    temp_supp_list.append(supp_list[i])
+                    if len("_".join(temp_supp_list)) <=93:
+                        supp5 = "_".join(temp_supp_list)
+                        temp_supp_list[0] = supp5
+                        temp_supp_list.pop(1)
+                        i += 1
+                    else:
+                        i = 0
+            else:
+                supp5 = ""
         else: 
 
             supp5 = "" 
@@ -672,31 +683,26 @@ def download(request):
             i = 1
             supp_list = supp_list[len(supp5.split()):]
             temp_supp_list = [supp_list[0]]
-            while i != 0 and i <= len(supp_list) - 1:
-                temp_supp_list.append(supp_list[i])
-                if len(" ".join(temp_supp_list)) <=93:
-                    supp6 = " ".join(temp_supp_list)
-                    temp_supp_list[0] = supp6
-                    temp_supp_list.pop(1)
-                    print(supp6)
-                    i += 1
-                else:
-                    i = 0
+            if len(supp_list) - 1 > 0:
+                while i != 0 and i <= len(supp_list) - 1:
+                    temp_supp_list.append(supp_list[i])
+                    if len("_".join(temp_supp_list)) <=93:
+                        supp6 = "_".join(temp_supp_list)
+                        temp_supp_list[0] = supp6
+                        temp_supp_list.pop(1)
+                        i += 1
+                    else:
+                        i = 0
+            else:
+                supp6 = ""
         else: 
 
             supp6 = "" 
 
         supp = supp1 + "_"*(93-len(supp1)) + "\n" + supp2 + "_"*(93-len(supp2)) + "\n" + supp3 + "_"*(93-len(supp3)) + "\n" + supp4 + "_"*(93-len(supp4)) + "\n" + supp5 + "_"*(93-len(supp5)) + "\n" + supp6 + "_"*(93-len(supp6))
 
-        print(supp)
-        print(antidisc)
-        print(liability)
 
         all_remaining_list = []
-
-
-
-
 
         for i in range(1,7):
             if len(request.POST.get('allremaining' + str(i))) > 0:
@@ -704,6 +710,10 @@ def download(request):
             else:
                 all_remaining_list.append(request.POST.get('allremaining' + str(i)))
 
+        # Internal function to create three (3) values for certain form fields to account for strings which, based on length, will cause spillover and throw off
+        # spacing and formatting in .docx template.  Three values are generated corresponding to 1) a string size that will fit in the alloted space in the template, 
+        # 2) a string that would spillover the alloted space but whose font-size is reduced to make fit in the template, and 3) a string that would spillover the alloted
+        # space but receives an ellipses ("...") at the end of the string.  All three values are populated to the template, two of which will always be empty strings.
 
         def format_lengthy(element,len_dict):
             
@@ -714,7 +724,6 @@ def download(request):
             elif len(request.POST.get(element)) < len_dict['long']:
                 field1 = ""
                 field2 = request.POST.get(element)[:len_dict['long']] + "_"*(len_dict['long'] - len(request.POST.get(element)))
-                print(field2)
                 field3 = ""
             else:
                 field1 = ""
@@ -722,21 +731,10 @@ def download(request):
                 field3 = request.POST.get(element)[:len_dict['ellipse']] + "..." + "_"*(len_dict['ellipse'] - len(request.POST.get(element)))
             return [field1,field2,field3]
 
-
-
-        # if len(request.POST.get('sender')) < 29:
-        #     sender = request.POST.get('sender') + "_"*(28-len(request.POST.get('sender')))
-        #     sender_long = ""
-        #     sender_ellipse = ""
-        # elif len(request.POST.get('sender')) < 38:
-        #     sender = ""
-        #     sender_long = request.POST.get('sender')+ "_"*(37-len(request.POST.get('sender')))
-        #     sender_ellipse = ""
-        # else:
-        #     sender = ""
-        #     sender_long = ""
-        #     sender_ellipse = request.POST.get('sender')[:33] + "..." + "_"*(34-len(request.POST.get('sender')))
-
+        # Dictionary of values to populate .docx template.  Various values append underscore characters to the end of the string value in order to preserve
+        # the visual appearance of the federal IWO form.  These values must be calculated manually by counting the number of character spaces required in the .docx 
+        # template.  The template must use fixed-width fonts of size 10 for strings that fit the alloted space and 7.5 for those that would spill over.  The
+        # templates utilized in this system use fixed-width font Courier New.
 
         context = {
             "countycode":request.POST.get('countycode'),
@@ -751,7 +749,7 @@ def download(request):
             "obligeeaddress":obligeeaddress,
             "petitioner":request.POST.get('petitioner'),
             "respondent":request.POST.get('respondent'),
-            "date1": datetime.strftime(datetime.strptime(request.POST.get('date1'),"%Y-%m-%d"),"%m/%d/%Y") + "_"*(20-len(datetime.strftime(datetime.strptime(request.POST.get('date1'),"%Y-%m-%d"),"%m/%d/%Y"))),
+            "date1": datetime.strftime(datetime.strptime(request.POST.get('date1'),"%Y-%m-%d"),"%m/%d/%Y") + "_"*(12-len(datetime.strftime(datetime.strptime(request.POST.get('date1'),"%Y-%m-%d"),"%m/%d/%Y"))),
             "iwo": request.POST.get('iwo'),
             "amendiwo": request.POST.get('amendiwo'),
             "lump": request.POST.get('lump'),
@@ -918,7 +916,6 @@ def download(request):
             "child4_noformat":request.POST.get('child4_noformat1'),
             "child5_noformat":request.POST.get('child5_noformat1'),
             "child6_noformat":request.POST.get('child6_noformat1'),
-
         }
 
         filename = request.POST.get('casenumber').replace("-","_") + "_" + datetime.now().strftime("%m.%d.%Y_%I%M%S%p") + ".docx"
@@ -932,7 +929,6 @@ def download(request):
         response = StreamingHttpResponse(streaming_content=buffer,content_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document")
         response["Content-Disposition"] = 'attachment;filename=' + filename
         response['Content-Encoding'] = 'UTF-8'
-
 
     return response
 
