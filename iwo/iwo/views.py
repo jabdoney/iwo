@@ -423,283 +423,393 @@ def download(request):
             arrearsper = request.POST.get('arrearsper')
 
 
-        liability_list = request.POST.get('liability').split()
-        if len(liability_list) > 0:
-            i = 1
-            temp_liability_list = [liability_list[0]]
-            while i != 0 and i <= len(liability_list)-1:
-                temp_liability_list.append(liability_list[i])
-                if len("_".join(temp_liability_list)) <=93:
-                    liability1 = "_".join(temp_liability_list)
-                    temp_liability_list[0] = liability1
-                    temp_liability_list.pop(1)
-                    i += 1
-                else:
-                    i = 0
-        else: 
-            
-            liability1 = ""
+        liability = request.POST.get('liability')
 
-        if len(liability1) > 0 and len(liability_list) > len(liability1.split()):
-            print("liability1 = " + liability1)
-            i = 1
-            liability_list = liability_list[len(liability1.split()):]
-            temp_liability_list = [liability_list[0]]
-            if len(liability_list) - 1 > 0:
-                while i != 0 and i <= len(liability_list) - 1:
+        if len(liability.split()) == 1:
+            liability = liability + "_"*(93-len(liability)) + "\n" + "_"*93 + "\n" + "_"*93 + "\n" + "_"*93
+        else:
+            liability_list = liability.split()
+
+            if len(liability_list) > 0:
+                i = 1
+                temp_liability_list = [liability_list[0]]
+                while  i != 0 and i <= len(liability_list) - 1:
                     temp_liability_list.append(liability_list[i])
-                    if len("_".join(temp_liability_list)) <=93:
-                        liability2 = "_".join(temp_liability_list)
-                        temp_liability_list[0] = liability2
+                    if len("_".join(temp_liability_list)) <= 93:
+                        liability1 = "_".join(temp_liability_list)
+                        temp_liability_list[0] = liability1
                         temp_liability_list.pop(1)
+                        add_back = liability_list[i]
                         i += 1
+                    elif len(liability_list) == 1:
+                        liability1 = liability_list[0]
                     else:
                         i = 0
+                for item in liability1.split("_"):
+                    if item in liability_list:
+                        liability_list.remove(item)
+                if len(liability_list) > 0:
+                    liability_list.insert(0,add_back)
+            else:
+                liability1 = ""
+            
+            if len(liability_list) > 0:
+                i = 1
+                liability_list = liability_list[len(liability1.split()):]
+                temp_liability_list = [liability_list[0]]
+                if len(liability_list) - 1 > 0:
+                    while i != 0 and i <= len(liability_list) - 1:
+                        temp_liability_list.append(liability_list[i])
+                        if len("_".join(temp_liability_list)) <= 93:
+                            liability2 = "_".join(temp_liability_list)
+                            temp_liability_list[0] = liability2
+                            temp_liability_list.pop(1)
+                            add_back = liability_list[i]
+                            i += 1
+                        else:
+                            i = 0
+                elif len(liability_list) == 1:
+                    liability2 = liability_list[0]
+                else:
+                    liability2 = ""
+                
+                for item in liability2.split("_"):
+                    if item in liability_list:
+                        liability_list.remove(item)
+                if len(liability_list) > 0:
+                    liability_list.insert(0,add_back)
             else:
                 liability2 = ""
-        else: 
-
-            liability2 = "" 
-
-        if len(liability2) and len(liability_list) > len(liability2.split()):
-            i = 1
-            liability_list = liability_list[len(liability2.split()):]
-            temp_liability_list = [liability_list[0]]
-            if len(liability_list) - 1 > 0:
-                while i != 0 and i <= len(liability_list) -1:
-                    temp_liability_list.append(liability_list[i])
-                    if len("_".join(temp_liability_list)) <=93:
-                        liability3 = "_".join(temp_liability_list)
-                        temp_liability_list[0] = liability3
-                        temp_liability_list.pop(1)
-                        i += 1
-                    else:
-                        i = 0
+            
+            if len(liability_list) > 0:
+                i = 1
+                liability_list = liability_list[len(liability2.split()):]
+                temp_liability_list = [liability_list[0]]
+                if len(liability_list) - 1 > 0:
+                    while i != 0 and i <= len(liability_list) - 1:
+                        temp_liability_list.append(liability_list[i])
+                        if len("_".join(temp_liability_list)) <= 93:
+                            liability3 = "_".join(temp_liability_list)
+                            temp_liability_list[0] = liability3
+                            temp_liability_list.pop(1)
+                            add_back = liability_list[i]
+                            i += 1
+                        else:
+                            i = 0
+                elif len(liability_list) == 1:
+                    liability3 = liability_list[0]
+                else:
+                    liability3 = ""
+                
+                for item in liability3.split("_"):
+                    if item in liability_list:
+                        liability_list.remove(item)
+                if len(liability_list) > 0:
+                    liability_list.insert(0,add_back)
             else:
                 liability3 = ""
-        else: 
 
-            liability3 = ""    
-        
-        if len(liability3) and len(liability_list) > len(liability3.split()):
-            i = 1
-            liability_list = liability_list[len(liability2.split()):]
-            temp_liability_list = [liability_list[0]]
-            if len(liability_list) - 1 > 0:
-                while i != 0 and i <= len(liability_list) -1:
-                    temp_liability_list.append(liability_list[i])
-                    if len("_".join(temp_liability_list)) <=93:
-                        liability4 = "_".join(temp_liability_list)
-                        temp_liability_list[0] = liability4
-                        temp_liability_list.pop(1)
-                        i += 1
-                    else:
-                        i = 0
+            if len(liability_list) > 0:
+                i = 1
+                liability_list = liability_list[len(liability3.split()):]
+                temp_liability_list = [liability_list[0]]
+                if len(liability_list) - 1 > 0:
+                    while i != 0 and i <= len(liability_list) -1:
+                        temp_liability_list.append(liability_list[i])
+                        if len("_".join(temp_liability_list)) <=93:
+                            liability4 = "_".join(temp_liability_list)
+                            temp_liability_list[0] = liability4
+                            temp_liability_list.pop(1)
+                            add_back = liability_list[i]
+                            i += 1
+                        else:
+                            i = 0
+                elif len(liability_list) == 1:
+                    liability4 = liability_list[0]
+                else:
+                    liability4 = ""
             else:
                 liability4 = ""
-        else: 
 
-            liability4 = "" 
-            
-        liability = liability1 + "_"*(93-len(liability1)) + "\n" + liability2 + "_"*(93-len(liability2)) + "\n" + liability3 + "_"*(93-len(liability3)) + "\n" + liability4 + "_"*(93-len(liability4))
+            liability = liability1 + "_"*(93-len(liability1)) + "\n" + liability2 + "_"*(93-len(liability2)) + "\n" + liability3 + "_"*(93-len(liability3)) + "\n" + liability4 + "_"*(93-len(liability4))
 
-        antidisc_list = request.POST.get('antidiscrimination').split()
-        if len(antidisc_list) > 0:
-            i = 1
-            temp_antidisc_list = [antidisc_list[0]]
-            while i != 0 and i <= len(antidisc_list)-1:
-                temp_antidisc_list.append(antidisc_list[i])
-                if len("_".join(temp_antidisc_list)) <=93:
-                    antidisc1 = "_".join(temp_antidisc_list)
-                    temp_antidisc_list[0] = antidisc1
-                    temp_antidisc_list.pop(1)
-                    i += 1
-                else:
-                    i = 0
-        else: 
-            
-            antidisc1 = ""
 
-        if len(antidisc1) > 0 and len(antidisc_list) > len(antidisc1.split()):
-            i = 1
-            antidisc_list = antidisc_list[len(antidisc1.split()):]
-            temp_antidisc_list = [antidisc_list[0]]
-            if len(antidisc_list) - 1 > 0:
-                while i != 0 and i <= len(antidisc_list) - 1:
+        antidisc = request.POST.get('antidiscrimination')
+
+        if len(antidisc.split()) == 1:
+            antidisc = antidisc + "_"*(93-len(antidisc)) + "\n" + "_"*93 + "\n" + "_"*93 + "\n" + "_"*93
+        else:
+            antidisc_list = antidisc.split()
+
+            if len(antidisc_list) > 0:
+                i = 1
+                temp_antidisc_list = [antidisc_list[0]]
+                while  i != 0 and i <= len(antidisc_list) - 1:
                     temp_antidisc_list.append(antidisc_list[i])
-                    if len("_".join(temp_antidisc_list)) <=93:
-                        antidisc2 = "_".join(temp_antidisc_list)
-                        temp_antidisc_list[0] = antidisc2
+                    if len("_".join(temp_antidisc_list)) <= 93:
+                        antidisc1 = "_".join(temp_antidisc_list)
+                        temp_antidisc_list[0] = antidisc1
                         temp_antidisc_list.pop(1)
+                        add_back = antidisc_list[i]
                         i += 1
+                    elif len(antidisc_list) == 1:
+                        antidisc1 = antidisc_list[0]
                     else:
                         i = 0
+                for item in antidisc1.split("_"):
+                    if item in antidisc_list:
+                        antidisc_list.remove(item)
+                if len(antidisc_list) > 0:
+                    antidisc_list.insert(0,add_back)
+            else:
+                antidisc1 = "" 
+
+            if len(antidisc_list) > 0:
+                i = 1
+                antidisc_list = antidisc_list[len(antidisc1.split()):]
+                temp_antidisc_list = [antidisc_list[0]]
+                if len(antidisc_list) - 1 > 0:
+                    while i != 0 and i <= len(antidisc_list) - 1:
+                        temp_antidisc_list.append(antidisc_list[i])
+                        if len("_".join(temp_antidisc_list)) <= 93:
+                            antidisc2 = "_".join(temp_antidisc_list)
+                            temp_antidisc_list[0] = antidisc2
+                            temp_antidisc_list.pop(1)
+                            add_back = antidisc_list[i]
+                            i += 1
+                        else:
+                            i = 0
+                elif len(antidisc_list) == 1:
+                    antidisc2 = antidisc_list[0]
+                else:
+                    antidisc2 = ""
+                
+                for item in antidisc2.split("_"):
+                    if item in antidisc_list:
+                        antidisc_list.remove(item)
+                if len(antidisc_list) > 0:
+                    antidisc_list.insert(0,add_back)
             else:
                 antidisc2 = ""
-        else: 
-
-            antidisc2 = "" 
-
-        if len(antidisc2) and len(antidisc_list) > len(antidisc2.split()):
-            i = 1
-            antidisc_list = antidisc_list[len(antidisc2.split()):]
-            temp_antidisc_list = [antidisc_list[0]]
-            if len(antidisc_list) - 1 > 0:
-                while i != 0 and i <= len(antidisc_list) -1:
-                    temp_antidisc_list.append(antidisc_list[i])
-                    if len("_".join(temp_antidisc_list)) <=93:
-                        antidisc3 = "_".join(temp_antidisc_list)
-                        temp_antidisc_list[0] = antidisc3
-                        temp_antidisc_list.pop(1)
-                        i += 1
-                    else:
-                        i = 0
+            
+            if len(antidisc_list) > 0:
+                i = 1
+                antidisc_list = antidisc_list[len(antidisc2.split()):]
+                temp_antidisc_list = [antidisc_list[0]]
+                if len(antidisc_list) - 1 > 0:
+                    while i != 0 and i <= len(antidisc_list) - 1:
+                        temp_antidisc_list.append(antidisc_list[i])
+                        if len("_".join(temp_antidisc_list)) <= 93:
+                            antidisc3 = "_".join(temp_antidisc_list)
+                            temp_antidisc_list[0] = antidisc3
+                            temp_antidisc_list.pop(1)
+                            add_back = antidisc_list[i]
+                            i += 1
+                        else:
+                            i = 0
+                elif len(antidisc_list) == 1:
+                    antidisc3 = antidisc_list[0]
+                else:
+                    antidisc3 = ""
+                
+                for item in antidisc3.split("_"):
+                    if item in antidisc_list:
+                        antidisc_list.remove(item)
+                if len(antidisc_list) > 0:
+                    antidisc_list.insert(0,add_back)
             else:
                 antidisc3 = ""
-        else: 
 
-            antidisc3 = ""    
-        
-        if len(antidisc3) and len(antidisc_list) > len(antidisc3.split()):
-            i = 1
-            antidisc_list = antidisc_list[len(antidisc3.split()):]
-            temp_antidisc_list = [antidisc_list[0]]
-            if len(antidisc_list) - 1 > 0:
-                while i != 0 and i <= len(antidisc_list) -1:
-                    temp_antidisc_list.append(antidisc_list[i])
-                    if len("_".join(temp_antidisc_list)) <=93:
-                        antidisc4 = "_".join(temp_antidisc_list)
-                        temp_antidisc_list[0] = antidisc4
-                        temp_antidisc_list.pop(1)
-                        i += 1
-                    else:
-                        i = 0
+            if len(antidisc_list) > 0:
+                i = 1
+                antidisc_list = antidisc_list[len(antidisc3.split()):]
+                temp_antidisc_list = [antidisc_list[0]]
+                if len(antidisc_list) - 1 > 0:
+                    while i != 0 and i <= len(antidisc_list) -1:
+                        temp_antidisc_list.append(antidisc_list[i])
+                        if len("_".join(temp_antidisc_list)) <=93:
+                            antidisc4 = "_".join(temp_antidisc_list)
+                            temp_antidisc_list[0] = antidisc4
+                            temp_antidisc_list.pop(1)
+                            add_back = antidisc_list[i]
+                            i += 1
+                        else:
+                            i = 0
+                elif len(antidisc_list) == 1:
+                    antidisc4 = antidisc_list[0]
+                else:
+                    antidisc4 = ""
             else:
                 antidisc4 = ""
-        else: 
 
-            antidisc4 = "" 
-        
-        antidisc = antidisc1 + "_"*(93-len(antidisc1)) + "\n" + antidisc2 + "_"*(93-len(antidisc2)) + "\n" + antidisc3 + "_"*(93-len(antidisc3)) + "\n" + antidisc4 + "_"*(93-len(antidisc4))
+            antidisc = antidisc1 + "_"*(93-len(antidisc1)) + "\n" + antidisc2 + "_"*(93-len(antidisc2)) + "\n" + antidisc3 + "_"*(93-len(antidisc3)) + "\n" + antidisc4 + "_"*(93-len(antidisc4))
 
-        supp_list = request.POST.get('supplemental').split()
-        if len(supp_list) > 0:
-            i = 1
-            temp_supp_list = [supp_list[0]]
-            while i != 0 and i <= len(supp_list)-1:
-                temp_supp_list.append(supp_list[i])
-                if len("_".join(temp_supp_list)) <=93:
-                    supp1 = "_".join(temp_supp_list)
-                    temp_supp_list[0] = supp1
-                    temp_supp_list.pop(1)
-                    i += 1
-                else:
-                    i = 0
-        else: 
-            
-            supp1 = ""
 
-        if len(supp1) > 0 and len(supp_list) > len(supp1.split()):
-            i = 1
-            supp_list = supp_list[len(supp1.split()):]
-            temp_supp_list = [supp_list[0]]
-            if len(supp_list) - 1 > 0:
-                while i != 0 and i <= len(supp_list) - 1:
+        supp = request.POST.get('supplemental')
+
+        if len(supp.split()) == 1:
+            supp = supp + "_"*(93-len(supp)) + "\n" + "_"*93 + "\n" + "_"*93 + "\n" + "_"*93 + "\n" + "_"*93 + "\n" + "_"*93
+        else:
+            supp_list = supp.split()
+
+            if len(supp_list) > 0:
+                i = 1
+                temp_supp_list = [supp_list[0]]
+                while  i != 0 and i <= len(supp_list) - 1:
                     temp_supp_list.append(supp_list[i])
-                    if len("_".join(temp_supp_list)) <=93:
-                        supp2 = "_".join(temp_supp_list)
-                        temp_supp_list[0] = supp2
+                    if len("_".join(temp_supp_list)) <= 93:
+                        supp1 = "_".join(temp_supp_list)
+                        temp_supp_list[0] = supp1
                         temp_supp_list.pop(1)
+                        add_back = supp_list[i]
                         i += 1
+                    elif len(supp_list) == 1:
+                        supp1 = supp_list[0]
                     else:
                         i = 0
+                for item in supp1.split("_"):
+                    if item in supp_list:
+                        supp_list.remove(item)
+                if len(supp_list) > 0:
+                    supp_list.insert(0,add_back)
+            else:
+                supp1 = ""
+
+            if len(supp_list) > 0:
+                i = 1
+                supp_list = supp_list[len(supp1.split()):]
+                temp_supp_list = [supp_list[0]]
+                if len(supp_list) - 1 > 0:
+                    while i != 0 and i <= len(supp_list) - 1:
+                        temp_supp_list.append(supp_list[i])
+                        if len("_".join(temp_supp_list)) <= 93:
+                            supp2 = "_".join(temp_supp_list)
+                            temp_supp_list[0] = supp2
+                            temp_supp_list.pop(1)
+                            add_back = supp_list[i]
+                            i += 1
+                        else:
+                            i = 0
+                elif len(supp_list) == 1:
+                    supp2 = supp_list[0]
+                else:
+                    supp2 = ""
+                
+                for item in supp2.split("_"):
+                    if item in supp_list:
+                        supp_list.remove(item)
+                if len(supp_list) > 0:
+                    supp_list.insert(0,add_back)
             else:
                 supp2 = ""
-        else: 
-
-            supp2 = "" 
             
-        if len(supp2) > 0 and len(supp_list) > len(supp2.split()):
-            i = 1
-            supp_list = supp_list[len(supp2.split()):]
-            temp_supp_list = [supp_list[0]]
-            if len(supp_list) - 1 > 0:
-                while i != 0 and i <= len(supp_list) - 1:
-                    temp_supp_list.append(supp_list[i])
-                    if len("_".join(temp_supp_list)) <=93:
-                        supp3 = "_".join(temp_supp_list)
-                        temp_supp_list[0] = supp3
-                        temp_supp_list.pop(1)
-                        i += 1
-                    else:
-                        i = 0
+            if len(supp_list) > 0:
+                i = 1
+                supp_list = supp_list[len(supp2.split()):]
+                temp_supp_list = [supp_list[0]]
+                if len(supp_list) - 1 > 0:
+                    while i != 0 and i <= len(supp_list) - 1:
+                        temp_supp_list.append(supp_list[i])
+                        if len("_".join(temp_supp_list)) <= 93:
+                            supp3 = "_".join(temp_supp_list)
+                            temp_supp_list[0] = supp3
+                            temp_supp_list.pop(1)
+                            add_back = supp_list[i]
+                            i += 1
+                        else:
+                            i = 0
+                elif len(supp_list) == 1:
+                    supp3 = supp_list[0]
+                else:
+                    supp3 = ""
+                
+                for item in supp3.split("_"):
+                    if item in supp_list:
+                        supp_list.remove(item)
+                if len(supp_list) > 0:
+                    supp_list.insert(0,add_back)
             else:
                 supp3 = ""
-        else: 
 
-            supp3 = "" 
-
-        if len(supp3) > 0 and len(supp_list) > len(supp3.split()):
-            i = 1
-            supp_list = supp_list[len(supp3.split()):]
-            temp_supp_list = [supp_list[0]]
-            if len(supp_list) - 1 > 0:
-                while i != 0 and i <= len(supp_list) - 1:
-                    temp_supp_list.append(supp_list[i])
-                    if len("_".join(temp_supp_list)) <=93:
-                        supp4 = "_".join(temp_supp_list)
-                        temp_supp_list[0] = supp4
-                        temp_supp_list.pop(1)
-                        i += 1
-                    else:
-                        i = 0
+            if len(supp_list) > 0:
+                i = 1
+                supp_list = supp_list[len(supp3.split()):]
+                temp_supp_list = [supp_list[0]]
+                if len(supp_list) - 1 > 0:
+                    while i != 0 and i <= len(supp_list) - 1:
+                        temp_supp_list.append(supp_list[i])
+                        if len("_".join(temp_supp_list)) <= 93:
+                            supp4 = "_".join(temp_supp_list)
+                            temp_supp_list[0] = supp4
+                            temp_supp_list.pop(1)
+                            add_back = supp_list[i]
+                            i += 1
+                        else:
+                            i = 0
+                elif len(supp_list) == 1:
+                    supp4 = supp_list[0]
+                else:
+                    supp4 = ""
+                
+                for item in supp4.split("_"):
+                    if item in supp_list:
+                        supp_list.remove(item)
+                if len(supp_list) > 0:
+                    supp_list.insert(0,add_back)
             else:
                 supp4 = ""
-        else: 
-
-            supp4 = "" 
-
-        if len(supp4) > 0 and len(supp_list) > len(supp4.split()):
-            i = 1
-            supp_list = supp_list[len(supp4.split()):]
-            temp_supp_list = [supp_list[0]]
-            if len(supp_list) - 1 > 0:
-                while i != 0 and i <= len(supp_list) - 1:
-                    temp_supp_list.append(supp_list[i])
-                    if len("_".join(temp_supp_list)) <=93:
-                        supp5 = "_".join(temp_supp_list)
-                        temp_supp_list[0] = supp5
-                        temp_supp_list.pop(1)
-                        i += 1
-                    else:
-                        i = 0
+            
+            if len(supp_list) > 0:
+                i = 1
+                supp_list = supp_list[len(supp4.split()):]
+                temp_supp_list = [supp_list[0]]
+                if len(supp_list) - 1 > 0:
+                    while i != 0 and i <= len(supp_list) - 1:
+                        temp_supp_list.append(supp_list[i])
+                        if len("_".join(temp_supp_list)) <= 93:
+                            supp5 = "_".join(temp_supp_list)
+                            temp_supp_list[0] = supp5
+                            temp_supp_list.pop(1)
+                            add_back = supp_list[i]
+                            i += 1
+                        else:
+                            i = 0
+                elif len(supp_list) == 1:
+                    supp5 = supp_list[0]
+                else:
+                    supp5 = ""
+                
+                for item in supp5.split("_"):
+                    if item in supp_list:
+                        supp_list.remove(item)
+                if len(supp_list) > 0:
+                    supp_list.insert(0,add_back)
             else:
                 supp5 = ""
-        else: 
 
-            supp5 = "" 
-
-        if len(supp5) > 0 and len(supp_list) > len(supp5.split()):
-            i = 1
-            supp_list = supp_list[len(supp5.split()):]
-            temp_supp_list = [supp_list[0]]
-            if len(supp_list) - 1 > 0:
-                while i != 0 and i <= len(supp_list) - 1:
-                    temp_supp_list.append(supp_list[i])
-                    if len("_".join(temp_supp_list)) <=93:
-                        supp6 = "_".join(temp_supp_list)
-                        temp_supp_list[0] = supp6
-                        temp_supp_list.pop(1)
-                        i += 1
-                    else:
-                        i = 0
+            if len(supp_list) > 0:
+                i = 1
+                supp_list = supp_list[len(supp5.split()):]
+                temp_supp_list = [supp_list[0]]
+                if len(supp_list) - 1 > 0:
+                    while i != 0 and i <= len(supp_list) -1:
+                        temp_supp_list.append(supp_list[i])
+                        if len("_".join(temp_supp_list)) <=93:
+                            supp6 = "_".join(temp_supp_list)
+                            temp_supp_list[0] = supp6
+                            temp_supp_list.pop(1)
+                            add_back = supp_list[i]
+                            i += 1
+                        else:
+                            i = 0
+                elif len(supp_list) == 1:
+                    supp6 = supp_list[0]
+                else:
+                    supp6 = ""
             else:
                 supp6 = ""
-        else: 
 
-            supp6 = "" 
-
-        supp = supp1 + "_"*(93-len(supp1)) + "\n" + supp2 + "_"*(93-len(supp2)) + "\n" + supp3 + "_"*(93-len(supp3)) + "\n" + supp4 + "_"*(93-len(supp4)) + "\n" + supp5 + "_"*(93-len(supp5)) + "\n" + supp6 + "_"*(93-len(supp6))
+            supp = supp1 + "_"*(93-len(supp1)) + "\n" + supp2 + "_"*(93-len(supp2)) + "\n" + supp3 + "_"*(93-len(supp3)) + "\n" + supp4 + "_"*(93-len(supp4)) + "\n" + supp5 + "_"*(93-len(supp5)) + "\n" + supp6 + "_"*(93-len(supp6))
 
 
         all_remaining_list = []
