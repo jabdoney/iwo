@@ -148,7 +148,6 @@
 }
 .warning2{
     color:red;
-
     justify-content:center
 }
 .noauto{
@@ -1673,11 +1672,11 @@
             <button py-click="messaging()" id="make_document" name="make_document" type="submit" style="background-color:#339933" disabled hidden>Make Document</button>
         </div>
     </form>
-    <div  class="warning2" style="grid-column:2;grid-row:10; width:auto;margin:auto;color:black !important" id="message" name="message" hidden>
+    <div  class="warning2" style="grid-column:2;grid-row:10; width:auto;margin:auto;color:black; overflow-x:hidden !important" id="message" name="message" hidden>
         <h2>Your file is downloading.  Check your downloads folder.</h2>
     </div>
-    <div style="grid-column:2;grid-row:12; width:auto;margin:auto" id="buttons" name="buttons" hidden>
-        <div style="display:inline-flex; justify-content:center;padding:10px">
+    <div style="grid-column:2;grid-row:12; width:auto;margin:auto;overflow:hidden !important" id="buttons" name="buttons" hidden>
+        <div style="display:inline-flex;justify-content:center;padding:10px;overflow:hidden">
             <div>
                 <form method="POST" action="/bar-services/iwo/input/">
                 {% csrf_token %}
@@ -2717,7 +2716,9 @@
             'Texas': 'TX', 'Utah': 'UT', 'Virginia': 'VA', 'Virgin Islands': 'VI', 'Vermont': 'VT', 'Washington': 'WA', 'Wisconsin': 'WI',
             'West Virginia': 'WV', 'Wyoming': 'WY'}
         
-        no_auto_format_list = ['a','an','and','for','in','of','the','to','DBA','dba','USA']
+        no_auto_format_list = ['a','an','and','for','in','of','the','to','dba']
+
+        stay_upper_list = ['DBA','USA','PO','P.O.']
 
         # Function which autoformats addresses
 
@@ -2735,6 +2736,8 @@
                     new_address.append(states_dict_inverted[piece.title()])
                 elif piece.lower() in no_auto_format_list and piece != address[0]:
                     new_address.append(no_auto_format_list[no_auto_format_list.index(piece.lower())])
+                elif piece in stay_upper_list:
+                    new_address.append(stay_upper_list[stay_upper_list.index(piece)])
                 else:
                     new_address.append(piece.title())
             address = " ".join(new_address)

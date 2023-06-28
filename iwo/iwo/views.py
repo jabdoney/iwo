@@ -1038,6 +1038,11 @@ def download(request):
             "child6_noformat":request.POST.get('child6_noformat1'),
         }
 
+        for item in request.POST.dict().items():
+            print(item[0])
+            request.session[item[0]]=item[1]
+        request.session.modified = True
+
         filename = request.POST.get('casenumber').replace("-","_") + "_" + datetime.now().strftime("%m.%d.%Y_%I%M%S%p") + ".docx"
 
         doc.render(context)
