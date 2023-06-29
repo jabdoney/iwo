@@ -22,7 +22,7 @@ def home(request):
     request.session.flush()
     request.session.modified = True
 
-    return redirect("/bar-services/iwo/input/")
+    return redirect("/iwo/input/")
 
 def input(request):
 
@@ -200,11 +200,11 @@ def readword(request):
             request.session["caseid2"]=data_list[146]
             request.session["orderid2"]=data_list[147]
 
-            return redirect("/bar-services/iwo/input/")
+            return redirect("/iwo/input/")
     
         except:
 
-            return redirect("/bar-services/iwo/import-error/")
+            return redirect("/iwo/import-error/")
         
 def import_error(request):
     return render(request,'importerr.html')

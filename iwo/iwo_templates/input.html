@@ -185,7 +185,7 @@
         <div style="grid-column:1;grid-row:1;padding-left:10px">
             <h2>ICMS-Compatible Income Withholding Order for Support/Florida Addendum</h2> 
         </div>
-        <form method="POST" action="/bar-services/iwo/readword/" enctype="multipart/form-data">
+        <form method="POST" action="/iwo/readword/" enctype="multipart/form-data">
         {% csrf_token %}
             <div id=globals hidden>
                 <input type="text" id="global_obligoraddress" value="">
@@ -205,15 +205,15 @@
                         <button py-click="unshow_import()" type="submit" name="read_word" id="read_word" style="background-color:green" hidden><strong>Import</strong></button>
                     </div>
                     <div style="display:inline-flex;float:right;margin-top:5px;align-items:center">
-                        <a href="/bar-services/iwo/home/">
-                            <button type="button" an="/bar-services/iwo/home/" id="gohome" name="gohome" style="font-size:10px;width:90px;margin-right:5px;margin-bottom:5px"><strong>Home</strong></button>
+                        <a href="/iwo/home/">
+                            <button type="button" an="/iwo/home/" id="gohome" name="gohome" style="font-size:10px;width:90px;margin-right:5px;margin-bottom:5px"><strong>Home</strong></button>
                         </a>
-                        <a href="/bar-services/iwo/home/">
-                            <button type="button" an="/bar-services/iwo/home/" id="clear" name="clear" style="font-size:10px;width:95px;margin-right:5px;margin-bottom:5px"><strong>Clear Form</strong></button>
+                        <a href="/iwo/home/">
+                            <button type="button" an="/iwo/home/" id="clear" name="clear" style="font-size:10px;width:95px;margin-right:5px;margin-bottom:5px"><strong>Clear Form</strong></button>
                         </a>
                         <button py-click="show_noformat('yes')" type="button" id="disableformat" name="disableformat" style = "font-size:10px;margin-right:5px"><strong>Autoformat Options</strong></button>
                         <div style="font-size:10px;text-align:right;margin-right:10px;">
-                            <a href="/bar-services/iwo/help/">
+                            <a href="/iwo/help/">
                             <button type="button" id="help" name="help" style="font-size:10px;width:95px;padding-right:2px;padding-left:0px;margin-right:1px"><strong>Help/Information</strong></button>
                             </a>
                         </div>
@@ -222,7 +222,7 @@
             </div>
          </form>
     </div>
-    <form method="POST" action="/bar-services/iwo/download/">
+    <form method="POST" action="/iwo/download/">
     {% csrf_token %}
     <div class="form-container" id="casepartyinfo">
         <div style="grid-column22/row:23" hidden>
@@ -1678,13 +1678,13 @@
     <div style="grid-column:2;grid-row:12; width:auto;margin:auto;overflow:hidden !important" id="buttons" name="buttons" hidden>
         <div style="display:inline-flex;justify-content:center;padding:10px;overflow:hidden">
             <div>
-                <form method="POST" action="/bar-services/iwo/input/">
+                <form method="POST" action="/iwo/input/">
                 {% csrf_token %}
                     <button type="submit" style="padding:5px;margin-right:5px;font-weight:bold">Edit Document</button>
                 </form>
             </div>
             <div>
-                <form method="POST" action="/bar-services/iwo/home/">
+                <form method="POST" action="/iwo/home/">
                 {% csrf_token %}
                     <button type="submit" style="padding:5px;margin-left:5px;font-weight:bold">New Document</button>
                 </form>

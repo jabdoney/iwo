@@ -20,13 +20,13 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('bar-services/iwo/home/',home),
-    path('bar-services/iwo/download/',download),
-    path('bar-services/iwo/help/',help),
-    path('bar-services/iwo/import-error/',import_error),
-    path('bar-services/iwo/input/',input,name="input"),
-    path('bar-services/iwo/readword/',readword),
-    path('bar-services/iwo/admin/', admin.site.urls,name='root')
+    path('iwo/home/',home),
+    path('iwo/download/',download),
+    path('iwo/help/',help),
+    path('iwo/import-error/',import_error),
+    path('iwo/input/',input,name="input"),
+    path('iwo/readword/',readword),
+    path('iwo/admin/', admin.site.urls,name='root')
 ]
 
 if settings.DEBUG:
