@@ -2624,7 +2624,7 @@
                 Element('alimonyonly').element.hidden=True
                 Element('child1').element.setAttribute("style","background-color:white;margin-left:-13px;width:13em !important")
                 for i in range(1,5):
-                    Element('per' + str(i)).element.setAttribute("style","background-color:white;7em !important")
+                    Element('per' + str(i)).element.setAttribute("style","background-color:white;width:7em !important")
             else:
                 Element('child1').element.setAttribute("style","background-color:pink;margin-left:-13px;width:13em !important")
                 Element('child1').element.focus()
@@ -3027,7 +3027,7 @@
                 else:
                     dollar6 = 0
 
-                term_payment = Decimal(Element('permonth').element.value) - dollar5 - dollar6
+                term_payment = Decimal(Element('permonth').element.value) - dollar5 - dollar6 - Decimal(5.25)
                 term_payment = "{0:.2f}".format(term_payment)
                 if term_payment != "5.25":
                     Element('allremaining1').element.value = term_payment

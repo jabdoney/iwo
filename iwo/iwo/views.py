@@ -1039,7 +1039,6 @@ def download(request):
         }
 
         for item in request.POST.dict().items():
-            print(item[0])
             request.session[item[0]]=item[1]
         request.session.modified = True
 
