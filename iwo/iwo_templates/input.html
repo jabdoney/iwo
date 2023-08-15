@@ -3029,8 +3029,8 @@
 
                 term_payment = Decimal(Element('permonth').element.value) - dollar5 - dollar6 - Decimal(5.25)
                 term_payment = "{0:.2f}".format(term_payment)
-                if term_payment != "5.25":
-                    Element('allremaining1').element.value = term_payment
+                #if term_payment != "5.25":
+                    #Element('allremaining1').element.value = term_payment
 
                 Element('remittance').element.setAttribute("style","display:grid")
                 Element('orderinfo').element.setAttribute("style","display:none")

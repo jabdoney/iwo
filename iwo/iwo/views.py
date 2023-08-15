@@ -7,6 +7,7 @@ import io
 from docx import Document
 import os
 
+
 def format_dollars(amount):
     amount = amount.replace("$","").replace(",","")
     if len(amount) > 9:
