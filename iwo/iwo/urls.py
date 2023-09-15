@@ -15,9 +15,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from .views import home,input,download,readword,help,import_error
+from .views import home,input,download,readword,help,import_error,input_test
 from django.conf import settings
 from django.conf.urls.static import static
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 urlpatterns = [
     path('iwo/home/',home),
@@ -25,6 +26,7 @@ urlpatterns = [
     path('iwo/help/',help),
     path('iwo/import-error/',import_error),
     path('iwo/input/',input,name="input"),
+    path('iwo/input-test',input_test),
     path('iwo/readword/',readword),
     path('iwo/admin/', admin.site.urls,name='root')
 ]

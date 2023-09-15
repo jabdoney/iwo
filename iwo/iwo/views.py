@@ -25,10 +25,22 @@ def home(request):
 
     return redirect("/iwo/input/")
 
+def home_test(request):
+
+    request.session.flush()
+    request.session.modified = True
+
+    return redirect("/iwo/input_test/")
+
 def input(request):
 
     this_day = date.today().__str__()
     return render(request,"input.html",{'date1':this_day})
+
+def input_test(request):
+
+    this_day = date.today().__str__()
+    return render(request,"input_test.html",{'date1':this_day})
 
 def help(request):
     return render(request,'help.html')

@@ -1,9 +1,11 @@
+{%load static%}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'styles_test.css' %}">
     <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css">
     <script defer src="https://pyscript.net/latest/pyscript.js"></script> 
     <py-config>
@@ -11,223 +13,126 @@
             enabled = false
     </py-config>
     <title>Tenth Circuit ICMS-Compatible IWO/Florida Addendum</title>
-<style>
-.banner{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    grid-template-rows:1fr;
-    height:10vh;
-    position:absolute;
-    left:0px;
-    right:0px;
-    top:0px;
-    bottom:0px;
-}
-.banner > div{
-    background-color:rgb(0, 51, 153);
-    width:auto;
 
-}
-.main-container{
-    display:grid;
-    grid-template-columns:1fr;
-    background-color: #cccccc;
-    height:90vh;
-    position:absolute;
-    left:0px;
-    right:0px;
-    top:10vh;
-    bottom:0px;
-    column-gap:5px;
-}
-.sub-banner{
-    display:grid;
-    grid-template-columns:65% 35%;
-    grid-template-rows:1;
-    background-color:#bfbfbf;
-    justify-content:space-between;
-    align-items: center;
-    height:8.6vh;
-    padding-left:10px;
-}
-.form-container{
-    display:grid;
-    grid-template-columns:24% repeat(20,1fr) 16%;
-    grid-template-rows:repeat(25,30px);
-    background-color:#f2f2f2;
-    justify-content:left;
-    align-items: center;
-    height:79vh;
-    padding:10px;
-    font-size:12px;
-}
-.form-container > div select{
-    width:201px;
-    font-size:12px;
-}
-.form-container > div input[type="text"]{
-    width:195px;
-    border:1px solid;
-    margin-right:5px;
-    font-size:12px;
-}
-.form-container > div input[type="checkbox"]{
-    width:20px;
-    margin-right:-20px;
-    border:none;
-}
-.form-container > div button{
-    background-color:#bfbfbf;
-}
-.form-container-2{
-    display:grid;
-    grid-template-columns:20% 1fr 20%;
-    grid-template-rows:repeat(25,30px);
-    background-color:#f2f2f2;
-    justify-content:center;
-    align-items: center;
-    height:79vh;
-    padding:10px;
-    font-size:12px;
-}
-.form-container-2 > div input[type="text"]{
-    width:150px;
-    border:1px solid;
-    margin-right:5px;
-    font-size:12px;
-}
-.form-container-2 > div button{
-    background-color:#bfbfbf;
-    border:1px solid black;
-}
-.next_back:focus{
-    background-color:green;
-    border-radius:0
-}
-.form-container-2 table{
-    display:flex;
-    width:100%;
-    margin-top:0px;
-    margin-bottom:0px;
-    border-collapse:collapse;
-    justify-content:center;
-}
-.form-container-2 td{
-    border:1px solid black;
-    padding:3px;
-}
-.form-container-2 td:nth-child(even){
-    font-style:italic;
-}
-.allremaining {
-    text-align:right;
-}
-.form-container-2 th{
-    border:1px solid black;
-    padding:3px;
-}
-.form-container-2 th:nth-child(odd){
-    background-color:#bfbfbf;
-}
-.form-container-2 th:nth-child(even){
-    background-color:#999999;
-}
-.child-text > input[type="text"]{
-    width:175px;
-}
-.child-dob > input[type="text"]{
-    width:80px;
-}
-.form-container > div input[type="date"]{
-    width:201px;
-    font-size:12px;
-    border:1px solid;   
-}.warning{
-    color:red;
-    margin-left:-200px;
-}
-.warning2{
-    color:red;
-
-    justify-content:center
-}
-.noauto{
-    margin-left:-200px;
-}
-.footer{
-  display:grid;
-  grid-template-columns:30;
-  grid-template-rows:auto;
-  background-color:#00b3b3;
-  justify-content:center;
-  border:1px solid;
-  height:5vh;
-  margin-top:91.8vh;
-  position:fixed;
-  left:0px;
-  right:0px;
-  margin-top:0px;
-  bottom:0px;
-}
-</style>
 </head>
 <body>
-<div class="banner" id="banner" name="banner" style="background-color:rgb(0, 51, 153)">
-    <div>
-        <h3 style="margin-top:20px; padding-left:20px; margin-bottom:0px; color:white">Florida's Tenth Judicial Circuit</h3>
-        <h5 style="margin-top:0px; padding-left:20px; color:white"><i>Where Professionalism is a Priority</i></h5>
-    </div>
-    <div>
-        <h1 style="grid-column:1/span 4;grid-row:1;margin-top:20px; margin-bottom:0px; padding-right:20px; color:white; text-align:right">Bar Services</h1>
-    </div>
-</div>
-    <div id=globals hidden>
-        <input type="text" id="global_obligoraddress" value="">
-        <input type="text" id="global_obligeeaddress" value="">
-        <input type="text" id="global_per" value="">
-        <input type="text" id="global_lump" value="">
-        <input type="text" id="global_alimony" value="">
-        <input type="text" id="global_import" value="">
-        <input type="text" id="global_term" value="">
-        <input type="text" id="global_downloading" value="">
-    </div>
-<div class="main-container">
-    <div class="sub-banner">
-        <div style="grid-column:1;grid-row:1;padding-left:10px">
-            <h2>ICMS-Compatible Income Withholding Order for Support/Florida Addendum</h2> 
-        </div>
-        <form method="POST" action="/iwo/readword/" enctype="multipart/form-data">
-        {% csrf_token %}
+<header>
+<section class="top-header">
+    <div class="top-header-left" id="banner" name="banner">
 
-            <div style="grid-column:2;grid-row:1;margin-right:10px">
-                <div style="display:inline-block;float:right;">
+            <div><h1>Florida's Tenth Judicial Circuit</h1></div>
+            <div><h5><i>Where Professionalism is a Priority</i></h5></div>
 
-                    <div style="display:inline-flex;float:right;margin-top:5px;align-items:center">
-                        <a href="/iwo/home/">
-                            <button type="button" an="/iwo/home/" id="gohome" name="gohome" style="font-size:10px;width:90px;margin-right:5px;margin-bottom:5px"><strong>Home</strong></button>
-                        </a>
-                        
+    </div>
 
-                    </div>
-                </div>
+    <div class="top-header-right">
+
+            <h2>Bar Services</h2>
+
+    </div>
+</section>
+<section class="bottom-header">
+        <div class="bottom-header-left">
+            <h2><strong>ICMS-Compatible Income Withholding Order for Support/Florida Addendum</strong></h2> 
+
+            <form method="POST" action="/iwo/readword/" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div id=globals hidden>
+                <input type="text" id="global_obligoraddress" value="">
+                <input type="text" id="global_obligeeaddress" value="">
+                <input type="text" id="global_per" value="">
+                <input type="text" id="global_lump" value="">
+                <input type="text" id="global_alimony" value="">
+                <input type="text" id="global_import" value="">
+                <input type="text" id="global_term" value="">
+                <input type="text" id="global_downloading" value="">
             </div>
+        </div>
+        <div class="bottom-header-right">
+            <div class="nav">
+            <a href="/iwo/home/">
+                <button type="button" action="/iwo/home/" id="gohome" name="gohome"><strong>Home</strong></button>
+            </a>
+            <!--<a href="/iwo/home/">
+                <button type="button" action="/iwo/home/" id="gohome" name="gohome"><strong>Clear Form</strong></button>
+            </a>
+            <button py-click="show_noformat('yes')" type="button" id="disableformat" name="disableformat"><strong>Autoformat Options</strong></button>
+            <a href="/iwo/help/">
+            <button type="button" id="help" name="help"><strong>Help/Information</strong></button>
+            </a>
+            </div>
+
+            <label for="word-file"><strong>Import:</strong><input class="small-input" py-click="show_import()" type="file" name="word_file" id="word_file"><button py-click="unshow_import()" type="submit" name="read_word" id="read_word" style="background-color:green" hidden><strong>Import</strong></button></label>
+            <button py-click="unshow_import()" type="submit" name="read_word" id="read_word" style="background-color:green" hidden><strong>Import</strong></button>-->
+
+        </div>
          </form>
-    </div>
-        <div class="form-container-2">
-            <div  class="warning2" style="grid-column:2;grid-row:9; width:auto;text-align:center;margin:auto;color:black !important" id="message" name="message">
-                <h2>The selected file is not a valid file for import.<br>Please select an IWO/Florida Addendum in .docx format<br>previously generated with this application.</h2>
-            </div>
-            <div style="grid-column:2;grid-row:13; width:auto;margin:auto" id="buttons" name="buttons">
-                <div style="display:inline-flex; justify-content:center;padding:10px">
-                    <div>
-                        <form method="POST" action="/iwo/input/">
-                        {% csrf_token %}
-                            <button type="submit" style="padding:5px;margin-right:5px;font-weight:bold">OK</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+</section>
+</header>
+
+
+
+    <!--<div  class="warning2" id="message" name="message" hidden>
+        <article class="card" style="width:100%">
+        <div style="margin-bottom:2rem;">
+
+
+            <h4 style="font-size:1.3rem;text-align:center;">Your file is downloading.  Check your downloads folder.</h4>
         </div>
-    </div>
+        <div id="buttons" name="buttons" style="margin-left:-.5rem">
+            
+                <table class="button-table">
+                    <tr>
+                        <td style="text-align:center">
+                            <form method="POST" action="/iwo/input-test/">
+                            {% csrf_token %}
+                                <button class="next_back" type="submit" style="font-size:1rem">Edit Document</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form method="POST" action="/iwo/home/">
+                            {% csrf_token %}
+                                <button class="next_back" type="submit" style="font-size:1rem">New Document</button>
+                            </form>
+                        </td>
+                    </tr>
+                </table>
+            
+        </div>
+        </article>
+    </div>-->
+
+
+
+
+
+
+
+<div class="warning2">
+    <article class="card" style="width:100%">
+        <!--<div style="margin-bottom:2rem">
+            <h4>ICMS-Compatible Income Withholding Order for Support/Florida Addendum</h4> 
+        </div>-->
+
+                    <div style="margin-bottom:2rem">
+
+                            <h4 style="font-size:1.3rem;text-align:center;">The selected file is not a valid file for import. Please select an IWO/Florida Addendum in .docx format previously generated with this application.</h4>
+                    </div>
+
+        <div style="margin-top:2rem">
+                <table class="button-table">
+                    <tr>
+                        <td style="text-align:center">
+                            <form method="POST" action="/iwo/input/">
+                            {% csrf_token %}
+                                <button type="submit" class="next_back">OK</button>
+                            </form>
+                        </td>
+                    <tr>
+                </table>
+
+        </div>
+    </article>
+</div>
 </body>
 </html>
