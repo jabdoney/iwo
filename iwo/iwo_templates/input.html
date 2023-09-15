@@ -3253,7 +3253,6 @@ input[type=checkbox]:hover {
                 if len(county) == 0 and choice == 1:
                     Element('fixcountycode').element.hidden = False
                     Element('countycode').element.setAttribute("style","background-color:pink")
-                    Element('countycode').element.focus()
                     js.scroll(0,'countycode')
 
                     return
@@ -3265,7 +3264,6 @@ input[type=checkbox]:hover {
                     Element('fixyear').element.hidden = False
                     Element('caseyear').element.setAttribute("style","background-color:pink;")
                     Element('caseyear').element.value = ""
-                    Element('fixyear').element.focus()
                     js.scroll(0,'caseyear')
                     return
                 else:
@@ -3277,7 +3275,6 @@ input[type=checkbox]:hover {
                 if filenumber == '000000' and choice == 3:
                     Element('fixfilenumber').element.hidden = False
                     Element('fileno').element.setAttribute("style","background-color:pink;")
-                    Element('fileno').element.focus()
                     js.scroll(0,'fileno')
                     return
                 else:
@@ -3311,7 +3308,6 @@ input[type=checkbox]:hover {
                     Element('fixsuffix').element.hidden = False
                     Element('suffix').element.setAttribute("style","background-color:pink;")
                     Element('suffix').element.value = ""
-                    Element('suffix').element.focus()
                     js.scroll(0,'suffix')
 
                     return
@@ -3323,7 +3319,6 @@ input[type=checkbox]:hover {
                     Element('fixdivision').element.hidden = False
                     Element('division').element.setAttribute("style","background-color:pink;")
                     Element('division').element.value = ""
-                    Element('division').element.focus()
                     js.scroll(0,'division')
 
                     return
@@ -3342,7 +3337,6 @@ input[type=checkbox]:hover {
                     Element('fixpetitionerrespondent').element.hidden = False
                     Element('petitionerlabel').element.setAttribute("style","color:red;margin-left:-20px;")
                     Element('respondentlabel').element.setAttribute("style","color:red;margin-left:-20px")
-                    #Element('respondentlabel').element.focus()
                     js.scroll(0,'petitioner')
 
 
@@ -3523,7 +3517,6 @@ input[type=checkbox]:hover {
                         Element(name).element.setAttribute("style","background-color:pink;!important")
                         js.scroll(0,name)
                     Element(name).element.value = ""
-                    Element(name).element.focus()
                     return
 
                 if not "child" in name:
@@ -3531,7 +3524,6 @@ input[type=checkbox]:hover {
                         if Element(entername).element is not None:
                             Element(entername).element.hidden = False
                             Element(name).element.setAttribute("style","background-color:pink")
-                            Element(name).element.focus()
                             js.scroll(0,name)
                             if name == 'obligorname':
                                 Element('obligorname').element.setAttribute("style","background-color:pink")
@@ -3562,7 +3554,6 @@ input[type=checkbox]:hover {
                             Element(entername).element.hidden = True
                             Element(name).element.value = ""
                             Element(name).element.setAttribute("style","background-color:pink")
-                            Element(name).element.focus()
                             js.scroll(0,name)
                             return
                             if name == 'obligorname':
@@ -3598,7 +3589,6 @@ input[type=checkbox]:hover {
                         Element(formatname).element.hidden = False
                         Element(name).element.value = ""
                         Element(name).element.setAttribute("style","background-color:pink")
-                        Element(name).element.focus()
                         js.scroll(0,name)
                         return
                         if name == 'obligorname':
@@ -3630,7 +3620,6 @@ input[type=checkbox]:hover {
                     Element('fixdate0').element.hidden = False
                     Element('employeedob').element.value = ""
                     Element('employeedob').element.setAttribute("style","background-color:pink")
-                    Element('employeedob').element.focus()
                     js.scroll(0,'employeedob')
 
         # Function that alerts user to enter an appropriate date when input is not a date and autoformats dates to "mm/dd/yyyy" format.
@@ -3663,7 +3652,6 @@ input[type=checkbox]:hover {
                         Element(fixdate).element.hidden = False
                         Element(dateid).element.value = ""
                         Element(dateid).element.setAttribute("style","background-color:pink")
-                        Element(dateid).element.focus()
                         js.scroll(0,dateid)
                         break
         
@@ -3743,7 +3731,6 @@ input[type=checkbox]:hover {
                 formatelement.hidden = True
                 warnelement.hidden = False
                 dobelement.setAttribute("style","background-color:pink;!important")
-                dobelement.focus()
                 js.scroll(0,"enterchilddob" + str(num))
                 return
             elif dobelementtext != "" and childelement!= "":
@@ -3769,7 +3756,6 @@ input[type=checkbox]:hover {
                         Element("fixdollar" + str(i)).element.hidden = False
                         Element("dollar" + str(i)).element.setAttribute("style","background-color:pink;width:5em;text-align:right !important")
                         Element("dollar" +str(i)).element.value = ""
-                        Element("dollar" + str(i)).element.focus()
                         js.scroll(0,"dollar" + str(i))
                         return
                     else:
@@ -3837,7 +3823,6 @@ input[type=checkbox]:hover {
                     Element(fixdollar).element.hidden = False
                     Element(element).element.setAttribute("style","background-color:pink;width:5em !important")
                     Element(element).element.value = ""
-                    Element(element).element.focus()
                     js.scroll(0,fixdollar)
                     return
                 
@@ -3879,7 +3864,6 @@ input[type=checkbox]:hover {
                     Element(fixdollar).element.hidden = False
                     Element(element).element.setAttribute("style","background-color:pink")
                     Element(element).element.value = ""
-                    Element(element).element.focus()
                     js.scroll(0,fixdollar)
                     return
                 
@@ -3996,7 +3980,6 @@ input[type=checkbox]:hover {
                 Element('obligoraddress3').element.setAttribute("style","background-color:pink")
                 Element('obligorenteraddress').element.hidden = False
                 Element('enter_obligoraddress').element.hidden = True
-                Element('obligoraddress1').element.focus()
                 js.scroll(0,'obligoraddress1')
             if choice == "no":
                 Element('obligoraddress1').element.value = "address unknown"
@@ -4012,7 +3995,6 @@ input[type=checkbox]:hover {
                 Element('obligeeaddress3').element.setAttribute("style","background-color:pink")
                 Element('obligeeenteraddress').element.hidden = False
                 Element('enter_obligeeaddress').element.hidden = True
-                Element('obligeeaddress1').element.focus()
                 js.scroll(0,'obligeeaddress1')
             if choice == "no":
                 Element('obligeeaddress1').element.value = "address unknown"
@@ -4044,7 +4026,6 @@ input[type=checkbox]:hover {
                     Element('per' + str(i)).element.setAttribute("style","background-color:white;!important")
             else:
                 Element('child1').element.setAttribute("style","background-color:pink;!important")
-                Element('child1').element.focus()
                 js.scroll(0,'child1')
                 Element('alim_enterchild').element.hidden = False
                 Element('alimonyonly').element.hidden = True
@@ -4223,35 +4204,30 @@ input[type=checkbox]:hover {
             if Element('countycode').element.value == "":
                 Element('fixcountycode').element.hidden = False
                 Element('countycode').element.setAttribute("style","background-color:pink")
-                Element('countycode').element.focus()
                 js.scroll(0,'countycode')
                 return
 
             if Element('caseyear').element.value == "":
                 Element('fixyear').element.hidden = False
                 Element('caseyear').element.setAttribute("style","background-color:pink")
-                Element('caseyear').element.focus()
                 js.scroll(0,'caseyear')
                 return
 
             if Element('fileno').element.value == "":
                 Element('fixfilenumber').element.hidden = False
                 Element('fileno').element.setAttribute("style","background-color:pink")
-                Element('fileno').element.focus()
                 js.scroll(0,'fileno')
                 return
 
             if Element('suffix').element.value == "":
                 Element('fixsuffix').element.hidden = False
                 Element('suffix').element.setAttribute("style","background-color:pink")
-                Element('suffix').element.focus()
                 js.scroll(0,'suffix')
                 return
 
             if Element('division').element.value == "":
                 Element('fixdivision').element.hidden = False
                 Element('division').element.setAttribute("style","background-color:pink")
-                Element('division').element.focus()
                 js.scroll(0,'division')
                 return
 
@@ -4259,7 +4235,6 @@ input[type=checkbox]:hover {
 
             if Element('obligorname').element.value == "":
                 Element('entername').element.hidden = False
-                Element('obligorname').element.focus()
                 js.scroll(0,'obligorname')
                 Element('obligorname').element.setAttribute("style","background-color:pink")
                 return
@@ -4271,7 +4246,6 @@ input[type=checkbox]:hover {
             
             if Element('obligeename2').element.value == "":
                 Element('entername2').element.hidden = False
-                Element('obligeename2').element.focus()
                 js.scroll(0,'obligeename2')
                 Element('obligeename2').element.setAttribute("style","background-color:pink")
                 return
@@ -4337,8 +4311,6 @@ input[type=checkbox]:hover {
                     Element('casepartyinfo').element.setAttribute("style","display:none")
                     Element('caseid').element.value = Element('caseid').element.value.upper()
                     js.topscroll()
-                    #Element('employername').element.focus()
-
 
             elif Element('iwo').element.checked == 0 and Element('amendiwo').element.checked == 0 and Element('lump').element.checked == 0 and Element('termiwo').element.checked == 0:
                 Element('pleasecheck').element.hidden = False
@@ -4373,8 +4345,6 @@ input[type=checkbox]:hover {
                 Element('casepartyinfo').element.setAttribute("style","display:none")
                 Element('caseid').element.value = Element('caseid').element.value.upper()
                 js.topscroll()
-                #Element('employername').element.focus()
-
 
         def next2to3():
 
@@ -4384,23 +4354,19 @@ input[type=checkbox]:hover {
 
             if Element('employeename').element.value == "":
                 Element('entername').element.hidden = False
-                Element('employeename').element.focus()
                 Element('employeename').element.setAttribute("style","background-color:pink")
                 js.scroll(0,'employeename')
                 return
             
             if Element('obligeename').element.value == "":
                 Element('entername2').element.hidden = False
-                Element('obligeename').element.focus()
                 Element('obligeename').element.setAttribute("style","background-color:pink")
                 js.scroll(0,'obligeename')
                 return
 
             Element('entername').element.hidden = True
-            #Element('employeename').element.focus()
             Element('employeename').element.setAttribute("style","background-color:white")
             Element('entername2').element.hidden = True
-            #Element('obligeename').element.focus()
             Element('obligeename').element.setAttribute("style","background-color:white")
             num_children = 0
             for i in range(1,6):
@@ -4457,7 +4423,6 @@ input[type=checkbox]:hover {
                     for i in range(1,5):
                         Element('dollar' + str(i)).element.setAttribute("style","background-color:pink;width:5em;text-align:right !important")
                     Element('childnopayment').element.hidden = False
-                    Element('dollar1').element.focus()
                     js.scroll(0,'childnopayment')
 
                     return
@@ -4466,20 +4431,17 @@ input[type=checkbox]:hover {
                     num_blank = 0
                     if Element('dollar' + str(i)).element.value != "" and Element('per' + str(i)).element.value == "":
                         Element('per' + str(i)).element.setAttribute("style","background-color:pink;width:7em !important")
-                        Element('per' + str(i)).element.focus()
                         js.scroll(0,'per' + str(i))
                         num_blank = num_blank + 1
                     if num_blank > 0:
                         Element('amountnoper').element.hidden = False
                         Element('amountnoper').element.scrollIntoView()
-                        Element('per1').element.focus()
                         js.scroll(0,'per1')
                         return
                 
                 if Element('dollar2').element.value != "" and Element('yes12').element.checked == 0 and Element('no12').element.checked == 0:
                     Element('checkarrears12').element.hidden = False
                     Element('checkarrears12').element.scrollIntoView()
-                    Element('yes12').element.focus()
                     js.scroll(0,'yes12')
                     return
         
