@@ -82,3 +82,4 @@ DATE                TIME                CIRCUIT             COUNTY              
 09/13/2023          03:31:18 PM         Tenth               Hardee              25-2022-DR-008877-FCAX-MX
 09/13/2023          03:31:41 PM         Tenth               Hardee              25-2022-DR-008877-FCAX-MX
 09/14/2023          03:57:06 PM         Tenth               Highlands           28-2222-DR-000022-DRAX-MX
+09/22/2023          11:01:26 AM         Tenth               Polk                53-2023-DR-004881-0000-00
