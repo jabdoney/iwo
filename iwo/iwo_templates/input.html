@@ -2177,7 +2177,7 @@ input[type=checkbox]:hover {
 
                 <div class="card3">
                     <h2>Other</h2>          
-                    <p>$ <input class="amount-text" py-blur="" py-change="calc_dollars()" type="text" id="dollar7" {% if request.session.dollar7 %} value="{{request.session.dollar7}}" {% else %} value="5.25" {% endif %} name="dollar7"> Per <input class="per-text" py-blur = "" py-change="pop_pers('per7')" type="text" id="per7" name="per7" {% if request.session.per7 != 'payment' %} value="{{request.session.per7}}" {% else %} value="payment" {% endif %}></p>
+                    <p>$ <input class="amount-text" py-blur="" py-change="calc_dollars()" type="text" id="dollar7" name="dollar7" {% if request.session.dollar7 != "" %} value="{{request.session.dollar7}}" {% else %} value="0.00" {% endif %}> Per <input class="per-text" py-blur = "" py-change="pop_pers('per7')" type="text" id="per7" name="per7" {% if request.session.per7 != 'payment' %} value="{{request.session.per7}}" {% else %} value="payment" {% endif %}></p>
 
                     <p>For: <input py-change="" type="text" id="other" name="other" {% if request.session.other %} value="{{request.session.other}}" {% else %} value="clerk's fee" {% endif %}></p>
                 </div>
@@ -3043,13 +3043,13 @@ input[type=checkbox]:hover {
                     <td style="text-align:center">
                         <form method="POST" action="/iwo/input/">
                         {% csrf_token %}
-                            <button class="next_back" type="submit" style="font-size:1rem">Edit Document</button>
+                            <button class="next_back" type="submit" style="font-size:.9rem">Edit Information</button>
                         </form>
                     </td>
                     <td>
                         <form method="POST" action="/iwo/home/">
                         {% csrf_token %}
-                            <button class="next_back" type="submit" style="font-size:1rem">New Document</button>
+                            <button class="next_back" type="submit" style="font-size:.9rem">New Document</button>
                         </form>
                     </td>
                 </tr>
@@ -3780,7 +3780,7 @@ input[type=checkbox]:hover {
                     sum = Decimal(sum) + Decimal(amount)
             Element("totalwithhold").element.value = '{:.2f}'.format(float(sum),2)
             Element("totalwithhold").element.setAttribute("style","text-align:right;width:5em;text-align:right !important")
-            calc_per_payments()
+
             pop_pers("dummy")
             num_children_dollars = 0
             for i in range(1,5):
@@ -3798,9 +3798,42 @@ input[type=checkbox]:hover {
             if Element(per).element.value == "":
                 Element(per).element.focus()
             
-            percent_payment = "{0:.2f}".format((float(Element('totalwithhold').element.value) - 5.25) * float(.2))
+            
+
+
+            ###TESTING FUNCTION TO AUTO-CALCULATE CLERK'S FEE
+
+            running_total = Decimal(0.00)
+
+            for i in range(1,7):
+                if Element("dollar" + str(i)).element.value != "":
+                    running_total += Decimal(Element("dollar" + str(i)).element.value)
+
+
+
+            running_total = round(float(running_total),2)
+
+            clerks_fee = float(5.25)
+
+            if running_total > float(131.12):
+                clerks_fee = clerks_fee
+            elif running_total < float(25.13):
+                clerks_fee = float(1.00)
+            else:
+                clerks_fee = round(float(Decimal(running_total) * Decimal(.04)),2)
+
+            Element("dollar7").element.value = "{0:.2f}".format(clerks_fee)
+            
+
+
+
+            ####END TESTING
+            calc_per_payments()
+            percent_payment = "{0:.2f}".format((float(Element('totalwithhold').element.value) - clerks_fee) * float(.2))
             Element("arrearspayment").element.value = percent_payment
-        
+
+            Element("totalwithhold").element.value = "{0:.2f}".format(running_total + clerks_fee)
+            calc_per_payments()
         # Function specifically autopopulating a field.  (Note:  it is unknown why the "arrearspaymentper" field will not autopopulate using the "calc_arrears_dollars" function below. This function remedies the issue)
 
         def per8change():
@@ -3839,7 +3872,7 @@ input[type=checkbox]:hover {
                         Element(element).element.setAttribute("style","background-color:white;text-align:right;width:5em !important")
             
             if element == "arrears":
-                percent_payment = "{0:.2f}".format((float(Element('totalwithhold').element.value) - 5.25) * float(.2))
+                percent_payment = "{0:.2f}".format((float(Element('totalwithhold').element.value) - float(Element('dollar7').element.value)) * float(.2))
                 Element("arrearsper").element.value = Element("per8").element.value
                 Element("arrearsrate").element.value = percent_payment
                 Element("arrearspayment").element.value = percent_payment
@@ -3884,7 +3917,7 @@ input[type=checkbox]:hover {
         def calc_per_payments():
             Element('totalwithhold').element.value= "{0:.2f}".format(float(Element("totalwithhold").value))
             payment_plus = Decimal(Element('totalwithhold').element.value)
-            minus = Decimal('5.25')
+            minus = Decimal(Element('dollar7').element.value)
             payment_minus = payment_plus - minus
 
             if Element('per8').value == 'month':
@@ -4112,7 +4145,7 @@ input[type=checkbox]:hover {
         
         no_auto_format_list = ['a','an','and','for','in','of','the','to','dba']
 
-        stay_upper_list = ['DBA','USA','PO','P.O.']
+        stay_upper_list = ['DBA','D.B.A.','USA','U.S.A','PO','P.O.','LLC','L.L.C.','PA','P.A.']
 
         # Function which autoformats addresses
 
@@ -4130,8 +4163,8 @@ input[type=checkbox]:hover {
                     new_address.append(states_dict_inverted[piece.title()])
                 elif piece.lower() in no_auto_format_list and piece != address[0]:
                     new_address.append(no_auto_format_list[no_auto_format_list.index(piece.lower())])
-                elif piece in stay_upper_list:
-                    new_address.append(stay_upper_list[stay_upper_list.index(piece)])
+                elif piece.upper() in stay_upper_list:
+                    new_address.append(piece.upper())
                 else:
                     new_address.append(piece.title())
             address = " ".join(new_address)
