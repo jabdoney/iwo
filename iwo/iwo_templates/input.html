@@ -3803,37 +3803,18 @@ input[type=checkbox]:hover {
 
             ###TESTING FUNCTION TO AUTO-CALCULATE CLERK'S FEE
 
-            running_total = Decimal(0.00)
-
-            for i in range(1,7):
-                if Element("dollar" + str(i)).element.value != "":
-                    running_total += Decimal(Element("dollar" + str(i)).element.value)
-
-
-
-            running_total = round(float(running_total),2)
-
-            clerks_fee = float(5.25)
-
-            if running_total > float(131.12):
-                clerks_fee = clerks_fee
-            elif running_total < float(25.13):
-                clerks_fee = float(1.00)
-            else:
-                clerks_fee = round(float(Decimal(running_total) * Decimal(.04)),2)
-
-            Element("dollar7").element.value = "{0:.2f}".format(clerks_fee)
+            
             
 
 
 
             ####END TESTING
-            calc_per_payments()
-            percent_payment = "{0:.2f}".format((float(Element('totalwithhold').element.value) - clerks_fee) * float(.2))
-            Element("arrearspayment").element.value = percent_payment
+            ###calc_per_payments()
+            #percent_payment = "{0:.2f}".format((float(Element('totalwithhold').element.value) - clerks_fee) * float(.2))
+           # Element("arrearspayment").element.value = percent_payment
 
-            Element("totalwithhold").element.value = "{0:.2f}".format(running_total + clerks_fee)
-            calc_per_payments()
+            #Element("totalwithhold").element.value = "{0:.2f}".format(running_total + clerks_fee)
+            #calc_per_payments()
         # Function specifically autopopulating a field.  (Note:  it is unknown why the "arrearspaymentper" field will not autopopulate using the "calc_arrears_dollars" function below. This function remedies the issue)
 
         def per8change():
@@ -3996,7 +3977,35 @@ input[type=checkbox]:hover {
                             Element('per' + str(i)).element.value = per_list[0]
                             Element("per" + str(i)).element.setAttribute("style","background-color:white;width:7em !important")
                             Element('amountnoper').element.hidden = True
-            
+                        ####END TESTING
+            running_total = Decimal(0.00)
+
+            for i in range(1,7):
+                if Element("dollar" + str(i)).element.value != "":
+                    running_total += Decimal(Element("dollar" + str(i)).element.value)
+
+
+
+            running_total = round(float(running_total),2)
+
+            clerks_fee = float(5.25)
+
+            if running_total > float(131.12):
+                clerks_fee = clerks_fee
+            elif running_total < float(25.13):
+                clerks_fee = float(1.00)
+            else:
+                clerks_fee = round(float(Decimal(running_total) * Decimal(.04)),2)
+
+            Element("dollar7").element.value = "{0:.2f}".format(clerks_fee)
+            ###calc_per_payments()
+            percent_payment = "{0:.2f}".format((float(Element('totalwithhold').element.value) - clerks_fee) * float(.2))
+            Element("arrearspayment").element.value = percent_payment
+
+            Element("totalwithhold").element.value = "{0:.2f}".format(running_total + clerks_fee)
+            #calc_per_payments()
+        # Function specifically autopopulating a field.  (Note:  it is unknown why the "arrearspaymentper" field will not autopopulate using the "calc_arrears_dollars" function below. This function remedies the issue)
+
             calc_per_payments()        
  
         # Function asking user if obligor address known.  Requires entry of address if "yes" button clicked, or autopopulates "address unknown" if "no" clicked
