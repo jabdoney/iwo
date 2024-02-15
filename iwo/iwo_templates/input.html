@@ -3901,29 +3901,101 @@ input[type=checkbox]:hover {
             minus = Decimal(Element('dollar7').element.value)
             payment_minus = payment_plus - minus
 
-            if Element('per8').value == 'month':
-                Element('permonth').element.value = "{0:.2f}".format((payment_minus + minus))
-                Element('pertwoweeks').element.value="{0:.2f}".format((payment_minus * 12 / 26) + minus)
-                Element('persemimonth').element.value="{0:.2f}".format((payment_minus * 12 / 24) + minus)
-                Element('perweek').element.value="{0:.2f}".format((payment_minus * 12 / 52) + minus)
+            #Adding Clerk's payment logic to adjust for fees for small payments based on pay cycle
+            temp_payment_minus = Decimal(0.00)
+            week_payment = Decimal(0.00)
+            twoweeks_payment = Decimal(0.00)
+            semimonth_payment = Decimal(0.00)
+            month_payment = Decimal(0.00)
 
-            if Element('per8').value == 'week':
-                Element('permonth').element.value = "{0:.2f}".format((payment_minus * 52 / 12) + minus)
-                Element('pertwoweeks').element.value="{0:.2f}".format((payment_minus * 52 / 26) + minus)
-                Element('persemimonth').element.value="{0:.2f}".format((payment_minus * 52 / 24) + minus)
-                Element('perweek').element.value="{0:.2f}".format((payment_minus + minus))
+            if Element('per8').element.value == "week":
+                week_payment = payment_minus
+                twoweeks_payment = payment_minus * 52 / 26
+                semimonth_payment = payment_minus * 52 / 24
+                month_payment = payment_minus * 52 / 12
 
-            if Element('per8').value == 'semi-month':
-                Element('permonth').element.value = "{0:.2f}".format((payment_minus * 24 / 12) + minus)
-                Element('pertwoweeks').element.value="{0:.2f}".format((payment_minus * 24 / 26) + minus)
-                Element('persemimonth').element.value="{0:.2f}".format((payment_minus + minus))
-                Element('perweek').element.value="{0:.2f}".format((payment_minus * 24 / 52) + minus)
+            if Element('per8').element.value == "two weeks":
+                week_payment = payment_minus * 26 / 52
+                twoweeks_payment = payment_minus
+                semimonth_payment = payment_minus * 26 / 24
+                month_payment = payment_minus * 26 / 12
 
-            if Element('per8').value == 'two weeks':
-                Element('permonth').element.value = "{0:.2f}".format((payment_minus * 26 / 12) + minus)
-                Element('pertwoweeks').element.value="{0:.2f}".format((payment_minus + minus))
-                Element('persemimonth').element.value="{0:.2f}".format((payment_minus * 26 / 24) + minus)
-                Element('perweek').element.value="{0:.2f}".format((payment_minus * 26 / 52) + minus)
+            if Element('per8').element.value == "semi-month":
+                week_payment = payment_minus * 24 / 52
+                twoweeks_payment = payment_minus * 24 / 26
+                semimonth_payment = payment_minus
+                month_payment = payment_minus * 24 / 12
+            
+            if Element('per8').element.value == "month":
+                week_payment = payment_minus * 12 / 52
+                twoweeks_payment = payment_minus * 12 / 26
+                semimonth_payment = payment_minus * 12 / 24
+                month_payment = payment_minus
+
+            week_minus = Decimal(0.00)
+            twoweeks_minus = Decimal(0.00)
+            semimonth_minus = Decimal(0.00)
+            month_minus = Decimal(0.00)
+
+            if float(week_payment) > float(131.12):
+                week_minus = Decimal(5.25)
+            elif float(week_payment) < float(25.13):
+                week_minus = Decimal(1.00)
+            else:
+                week_minus = round(Decimal(week_payment) * Decimal(.04),2)
+            
+            if float(twoweeks_payment) > float(131.12):
+                twoweeks_minus = Decimal(5.25)
+            elif float(twoweeks_payment) < float(25.13):
+                twoweeks_minus = Decimal(1.00)
+            else:
+                twoweeks_minus = round(Decimal(twoweeks_payment) * Decimal(.04),2)
+
+            if float(semimonth_payment) > float(131.12):
+                semimonth_minus = Decimal(5.25)
+            elif float(semimonth_payment) < float(25.13):
+                semimonth_minus = Decimal(1.00)
+            else:
+                semimonth_minus = round(Decimal(semimonth_payment) * Decimal(.04),2)
+
+            if float(month_payment) > float(131.12):
+                month_minus = Decimal(5.25)
+            elif float(month_payment) < float(25.13):
+                month_minus = Decimal(1.00)
+            else:
+                month_minus = round(Decimal(month_payment) * Decimal(.04),2)
+
+            Element('permonth').element.value = "{0:.2f}".format(float(month_payment + month_minus))
+            Element('pertwoweeks').element.value="{0:.2f}".format(float(twoweeks_payment + twoweeks_minus))
+            Element('persemimonth').element.value="{0:.2f}".format(float(semimonth_payment + semimonth_minus))
+            Element('perweek').element.value="{0:.2f}".format(float(week_payment + week_minus))
+
+            ##End
+
+
+            #if Element('per8').value == 'month':
+             #   Element('permonth').element.value = "{0:.2f}".format((payment_minus + minus))
+              #  Element('pertwoweeks').element.value="{0:.2f}".format((payment_minus * 12 / 26) + minus)
+               # Element('persemimonth').element.value="{0:.2f}".format((payment_minus * 12 / 24) + minus)
+                #Element('perweek').element.value="{0:.2f}".format((payment_minus * 12 / 52) + minus)
+
+            #if Element('per8').value == 'week':
+             #   Element('permonth').element.value = "{0:.2f}".format((payment_minus * 52 / 12) + minus)
+              #  Element('pertwoweeks').element.value="{0:.2f}".format((payment_minus * 52 / 26) + minus)
+               # Element('persemimonth').element.value="{0:.2f}".format((payment_minus * 52 / 24) + minus)
+                #Element('perweek').element.value="{0:.2f}".format((payment_minus + minus))
+
+            #if Element('per8').value == 'semi-month':
+             #   Element('permonth').element.value = "{0:.2f}".format((payment_minus * 24 / 12) + minus)
+              #  Element('pertwoweeks').element.value="{0:.2f}".format((payment_minus * 24 / 26) + minus)
+               # Element('persemimonth').element.value="{0:.2f}".format((payment_minus + minus))
+                #Element('perweek').element.value="{0:.2f}".format((payment_minus * 24 / 52) + minus)
+
+            #if Element('per8').value == 'two weeks':
+             #   Element('permonth').element.value = "{0:.2f}".format((payment_minus * 26 / 12) + minus)
+              #  Element('pertwoweeks').element.value="{0:.2f}".format((payment_minus + minus))
+               # Element('persemimonth').element.value="{0:.2f}".format((payment_minus * 26 / 24) + minus)
+                #Element('perweek').element.value="{0:.2f}".format((payment_minus * 26 / 52) + minus)
 
         # Function to make uniform and auto-populate payment periods
 
